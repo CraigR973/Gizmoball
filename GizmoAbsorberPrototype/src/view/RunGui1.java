@@ -108,6 +108,10 @@ public class RunGui1 {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
+				if(e.getKeyCode() == KeyEvent.VK_SPACE){
+					System.out.println("Space released");
+					model.captureBall();
+				}
 			}
 
 			@Override
@@ -124,6 +128,8 @@ public class RunGui1 {
 				// TODO Auto-generated method stub
 				if(e.getKeyCode() == KeyEvent.VK_SPACE){
 					System.out.println("Space pressed on button");
+					frame.requestFocus();
+					frame.requestFocusInWindow();
 					model.releaseBall();
 				}
 				
@@ -133,7 +139,7 @@ public class RunGui1 {
 			public void keyReleased(KeyEvent e) {
 				if(e.getKeyCode() == KeyEvent.VK_SPACE){
 					System.out.println("Space released");
-					model.setKeyPressed();
+					model.captureBall();
 				}
 			}
 

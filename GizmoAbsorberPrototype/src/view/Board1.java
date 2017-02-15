@@ -43,12 +43,6 @@ public  class Board1 extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 		
-		//VerticalLine1 bot = gm.getLine();
-		// Draw all the vertical lines
-		//for (VerticalLine vl : gm.getLines()) {
-		//	g2.fillRect(bot.getX(), bot.getY(), bot.getWidth(), 1);
-		//}
-		
 		Ball1 b = gm.getBall();
 		if (b != null) {
 			g2.setColor(b.getColour());
@@ -67,32 +61,6 @@ public  class Board1 extends JPanel implements Observer {
 			int height = (int)abs.getHeight();
 			g2.fillRect(x, y, width, height);
 		}
-		
-//		Triangle tri = gm.getTriangle();
-//		if(tri != null){
-//			g2.setColor(tri.getColour());
-//			int x1 = (int)tri.getXpos1();
-//			int x2 = (int)tri.getXpos2();
-//			int x3 = (int)tri.getXpos3();
-//			int y1 = (int)tri.getYpos1();
-//			int y2 = (int)tri.getYpos2();
-//			int y3 = (int)tri.getYpos3();
-//			g2.drawPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
-//			g2.fillPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
-//		}
-//		
-//		Triangle tri1 = gm.getTriangle1();
-//		if(tri1 != null){
-//			g2.setColor(tri1.getColour());
-//			int x1 = (int)tri1.getXpos1();
-//			int x2 = (int)tri1.getXpos2();
-//			int x3 = (int)tri1.getXpos3();
-//			int y1 = (int)tri1.getYpos1();
-//			int y2 = (int)tri1.getYpos2();
-//			int y3 = (int)tri1.getYpos3();
-//			g2.drawPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
-//			g2.fillPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
-//		}
 	}
 
 	@Override

@@ -12,6 +12,8 @@ public class Ball1 {
 	private double xpos;
 	private double ypos;
 	private Color colour;
+	private double xVel;
+	private double yVel;
 
 	private boolean stopped;
 
@@ -19,9 +21,11 @@ public class Ball1 {
 	public Ball1(double x, double y, double xv, double yv) {
 		xpos = x; // Centre coordinates
 		ypos = y;
+		xVel = xv;
+		yVel = yv;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
-		radius = 10;
+		radius = 5;
 		stopped = false;
 	}
 
@@ -73,5 +77,16 @@ public class Ball1 {
 	public Color getColour() {
 		return colour;
 	}
+	
+	public double getYv(){
+		return yVel;
+	}
+	
+	public void setYv(double speed){
+		yVel = speed;
+	}
 
+	public double getXv(){
+		return xVel;
+	}
 }
