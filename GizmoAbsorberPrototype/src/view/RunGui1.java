@@ -7,11 +7,14 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import controller.GizKeyListener;
 import controller.RunListener1;
 import model.Model1;
 //import controller.RunListener;
@@ -41,6 +44,7 @@ public class RunGui1 {
 
 		// Board is passed the Model so it can act as Observer
 		board = new Board1(500, 500, model);
+		board.setBackground(Color.GRAY);
 
 		Container cp = frame.getContentPane();
 
@@ -86,10 +90,71 @@ public class RunGui1 {
 
 		cp.add(buttons, BorderLayout.LINE_START);
 		cp.add(board, BorderLayout.CENTER);
+		
+		frame.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode() == KeyEvent.VK_SPACE){
+					System.out.println("Space pressed");
+					model.releaseBall();
+				}
+				if(e.getKeyCode() == KeyEvent.VK_UP){
+					System.out.println("Up pressed");
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		button1.addKeyListener(new KeyListener(){
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getKeyCode() == KeyEvent.VK_SPACE){
+					System.out.println("Space pressed on button");
+					model.releaseBall();
+				}
+				
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				if(e.getKeyCode() == KeyEvent.VK_SPACE){
+					System.out.println("Space released");
+					model.setKeyPressed();
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		frame.requestFocus();
+		frame.requestFocusInWindow();
+		frame.setAlwaysOnTop(true);
 	}
-
+	
+	public void changeFocus(){
+		frame.requestFocus();
+		frame.requestFocusInWindow();
+	}
 }

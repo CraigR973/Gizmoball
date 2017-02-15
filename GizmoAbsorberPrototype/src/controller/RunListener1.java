@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.Timer;
 import model.Model1;
+import view.RunGui1;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -13,6 +14,7 @@ public class RunListener1 implements ActionListener {
 
 	private Timer timer;
 	private Model1 model;
+	private RunGui1 gui;
 
 	public RunListener1(Model1 m) {
 		model = m;

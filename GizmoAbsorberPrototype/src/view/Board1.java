@@ -14,11 +14,7 @@ import javax.swing.JPanel;
 import model.Absorber;
 import model.Ball1;
 import model.Model1;
-//import model.VerticalLine;
-import model.VerticalLine;
-import model.VerticalLine1;
-import physics.Geometry;
-import physics.LineSegment;
+import model.Triangle;
 
 
 public  class Board1 extends JPanel implements Observer {
@@ -71,6 +67,32 @@ public  class Board1 extends JPanel implements Observer {
 			int height = (int)abs.getHeight();
 			g2.fillRect(x, y, width, height);
 		}
+		
+//		Triangle tri = gm.getTriangle();
+//		if(tri != null){
+//			g2.setColor(tri.getColour());
+//			int x1 = (int)tri.getXpos1();
+//			int x2 = (int)tri.getXpos2();
+//			int x3 = (int)tri.getXpos3();
+//			int y1 = (int)tri.getYpos1();
+//			int y2 = (int)tri.getYpos2();
+//			int y3 = (int)tri.getYpos3();
+//			g2.drawPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
+//			g2.fillPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
+//		}
+//		
+//		Triangle tri1 = gm.getTriangle1();
+//		if(tri1 != null){
+//			g2.setColor(tri1.getColour());
+//			int x1 = (int)tri1.getXpos1();
+//			int x2 = (int)tri1.getXpos2();
+//			int x3 = (int)tri1.getXpos3();
+//			int y1 = (int)tri1.getYpos1();
+//			int y2 = (int)tri1.getYpos2();
+//			int y3 = (int)tri1.getYpos3();
+//			g2.drawPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
+//			g2.fillPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
+//		}
 	}
 
 	@Override

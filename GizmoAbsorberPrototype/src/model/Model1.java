@@ -9,23 +9,25 @@ import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
 
-
-public class Model1 extends Observable{
+public class Model1 extends Observable {
 	private Absorber absorber;
 	private Ball1 ball;
 	private Walls1 gws;
-	private boolean hitAbs = false;
-	
+	private Triangle tri;
+	private Triangle tri1;
+	private boolean keyPressed = false;
+
 	public Model1() {
 		gws = new Walls1(0, 0, 500, 500);
-		ball = new Ball1(40, 405, 300, 300);
-		absorber = new Absorber(500,25,0,475);
+		ball = new Ball1(50, 250, 300, 300);
+		absorber = new Absorber(500, 25, 0, 475);
+//		tri = new Triangle(450, 500, 500, 0, 50, 0);
+//		tri1 = new Triangle(50, 0, 0, 0, 50, 0);
 	}
-	
+
 	public void moveBall() {
 
 		double moveTime = 0.05; // 0.05 = 20 times per second as per Gizmoball
-
 		if (ball != null && !ball.stopped()) {
 
 			CollisionDetails1 cd = timeUntilCollision();
@@ -46,7 +48,7 @@ public class Model1 extends Observable{
 		}
 
 	}
-	
+
 	private Ball1 movelBallForTime(Ball1 ball, double time) {
 
 		double newX = 0.0;
@@ -59,9 +61,10 @@ public class Model1 extends Observable{
 		ball.setExactY(newY);
 		return ball;
 	}
-	
+
 	private CollisionDetails1 timeUntilCollision() {
-		// Find Time Until Collision and also, if there is a collision, the new speed vector.
+		// Find Time Until Collision and also, if there is a collision, the new
+		// speed vector.
 		// Create a physics.Circle from Ball
 		Circle ballCircle = ball.getCircle();
 		Vect ballVelocity = ball.getVelo();
@@ -78,41 +81,84 @@ public class Model1 extends Observable{
 			if (time < shortestTime) {
 				shortestTime = time;
 				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
-				System.out.println("APPROACHING WALL");
+				// System.out.println("APPROACHING WALL");
 			}
-			
+
 		}
 
 		// Time to collide with absorber
-			LineSegment ls = absorber.getAbsLineSeg();
-			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-				System.out.println("APPROACHING ABSORBER");
-			}
-			
-			//Detect collision with absorber and move ball
-			if(time<0.09){
+		LineSegment ls = absorber.getAbsLineSeg();
+		time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+		if (time < shortestTime) {
+			shortestTime = time;
+			// newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+			// System.out.println("APPROACHING ABSORBER");
+			if (time < 0.05) {
 				System.out.println("Collision");
-				Vect velo = new Vect(0,100);
-				newVelo = Geometry.reflectWall(ls, velo, 1.0);
-				ball.setExactX(480);
+				ball.setExactX(475);
 				ball.setExactY(465);
+				while (keyPressed == false) {
+					System.out.println("Ball stopped in absorber");
+					ball.stop();
+					System.out.println("Ball stopped: " + ball.stopped());
+					System.out.println("Current velo: " + ball.getVelo());
+					break;
+				}
+				System.out.println("Ball left absorber");
+				Vect velo = new Vect(0, 400);
+				newVelo = Geometry.reflectWall(ls, velo, 1.0);
+				ball.setVelo(velo);
 			}
+
+		}
+
+//		LineSegment tls = tri.getLineSeg();
+//		time = Geometry.timeUntilWallCollision(tls, ballCircle, ballVelocity);
+//		if (time < shortestTime) {
+//			shortestTime = time;
+//			newVelo = Geometry.reflectWall(tls, ball.getVelo(), 1.0);
+//			// System.out.println("APPROACHING TRIANGLE");
+//		}
+//
+//		LineSegment tls1 = tri1.getLineSeg();
+//		time = Geometry.timeUntilWallCollision(tls1, ballCircle, ballVelocity);
+//		if (time < shortestTime) {
+//			shortestTime = time;
+//			newVelo = Geometry.reflectWall(tls1, ball.getVelo(), 1.0);
+//			// System.out.println("APPROACHING TRIANGLE");
+//		}
 		return new CollisionDetails1(shortestTime, newVelo);
 	}
-	
-	public Absorber getAbsorber(){
+
+	public Absorber getAbsorber() {
 		return absorber;
 	}
-	
-	
-	public Ball1 getBall(){
+
+	public Ball1 getBall() {
 		return ball;
 	}
-	
-	public void setBallSpeed(int x, int y){
+
+	public void setBallSpeed(int x, int y) {
 		ball.setVelo(new Vect(x, y));
+	}
+
+	public Triangle getTriangle() {
+		return tri;
+	}
+
+	public Triangle getTriangle1() {
+		return tri1;
+	}
+
+	public void releaseBall() {
+		System.out.println("Release Ball called");
+		keyPressed = true;
+		ball.start();
+		moveBall();
+
+	}
+
+	public void setKeyPressed() {
+		keyPressed = false;
 	}
 }
