@@ -7,6 +7,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,11 +38,12 @@ public class RunGui1 {
 
 	public void createAndShowGUI() {
 
-		frame = new JFrame("Absorber Prototype <3");
+		frame = new JFrame("Flipper Prototype <3");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Board is passed the Model so it can act as Observer
 		board = new Board1(500, 500, model);
+		board.setBackground(Color.BLACK);
 
 		Container cp = frame.getContentPane();
 
@@ -84,8 +87,36 @@ public class RunGui1 {
 		loadButton.setFont(gf);
 		buttons.add(loadButton);
 
-		cp.add(buttons, BorderLayout.LINE_START);
+		cp.add(buttons, BorderLayout.SOUTH);
 		cp.add(board, BorderLayout.CENTER);
+		
+		button1.addKeyListener( new KeyListener() {
+
+			public void keyPressed(KeyEvent e) {
+				
+				if(e.getKeyCode() == KeyEvent.VK_LEFT){
+					System.out.println("Flipper moved");
+					model.rotateLeftFLip();
+				}
+			}
+
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			//new GizKeyListener());
+		});
+
+		frame.requestFocus();
+		frame.requestFocusInWindow();
+		
+		
+	
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);

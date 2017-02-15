@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import model.Absorber;
 import model.Ball1;
+import model.LeftFlipper;
 import model.Model1;
 //import model.VerticalLine;
 import model.VerticalLine;
@@ -28,6 +29,7 @@ public  class Board1 extends JPanel implements Observer {
 	protected int height;
 	protected Model1 gm;
 
+
 	public Board1(int w, int h, Model1 m) {
 		// Observe changes in Model
 		m.addObserver(this);
@@ -41,7 +43,8 @@ public  class Board1 extends JPanel implements Observer {
 	public Dimension getPreferredSize() {
 		return new Dimension(width, height);
 	}
-
+	
+	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
@@ -71,7 +74,20 @@ public  class Board1 extends JPanel implements Observer {
 			int height = (int)abs.getHeight();
 			g2.fillRect(x, y, width, height);
 		}
+		
+		LeftFlipper lFlip = gm.getLeftFlipper();
+		if(lFlip != null){
+			g2.setColor(lFlip.getColour());
+			int x = (int)lFlip.getXPos();
+			int y = (int)lFlip.getYPos();
+			int width = (int)lFlip.getWidth();
+			int height = (int)lFlip.getHeight();
+			g2.fillRect(x, y, width, height);
+		}
+		
+		
 	}
+	
 
 	@Override
 	public void update(Observable arg0, Object arg1) {

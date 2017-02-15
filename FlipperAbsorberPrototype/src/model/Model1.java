@@ -15,11 +15,13 @@ public class Model1 extends Observable{
 	private Ball1 ball;
 	private Walls1 gws;
 	private boolean hitAbs = false;
+	private LeftFlipper leftFlipper;
 	
 	public Model1() {
 		gws = new Walls1(0, 0, 500, 500);
 		ball = new Ball1(40, 405, 300, 300);
 		absorber = new Absorber(500,25,0,475);
+		leftFlipper = new LeftFlipper(20, 60, 250, 250, 270, 250);
 	}
 	
 	public void moveBall() {
@@ -60,6 +62,23 @@ public class Model1 extends Observable{
 		return ball;
 	}
 	
+	public void rotateLeftFLip() {
+		leftFlipper = rotateLeftFlipper(leftFlipper);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public LeftFlipper rotateLeftFlipper(LeftFlipper leftFlipper) {
+		double newX = 0.0;
+		double newY = 0.0;
+		newX = leftFlipper.getXPos2();
+		newY = leftFlipper.getYPos2();
+		leftFlipper.setXPos(newX);
+		leftFlipper.setYPos(newY);
+		return leftFlipper;
+		
+	}
+
 	private CollisionDetails1 timeUntilCollision() {
 		// Find Time Until Collision and also, if there is a collision, the new speed vector.
 		// Create a physics.Circle from Ball
@@ -110,6 +129,10 @@ public class Model1 extends Observable{
 	
 	public Ball1 getBall(){
 		return ball;
+	}
+	
+	public LeftFlipper getLeftFlipper(){
+		return leftFlipper;
 	}
 	
 	public void setBallSpeed(int x, int y){

@@ -1,7 +1,6 @@
 package model;
 
 import java.awt.Color;
-import model.Ball1;
 import physics.LineSegment;
 
 public class Absorber {
