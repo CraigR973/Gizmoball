@@ -12,14 +12,21 @@ public class Flipper {
 	private double xpos;
 	private double ypos;
 	private LineSegment ls;
+	private String flipperName;
 	
-	public Flipper(double w, double h, double x, double y){
+	public Flipper(String name, double x, double y){
+		double w = 20;
+		double h = 60;
 		colour = Color.ORANGE;
 		width = w;
 		height = h;
 		xpos = x;
 		ypos = y;
 		ls = new LineSegment(x, y+h-1, x + w, y+h-1);
+	}
+	
+	public void setName(String n){
+		flipperName = n;
 	}
 	
 	public Color getColour(){
@@ -46,6 +53,6 @@ public class Flipper {
 		return width;
 	}
 	public String getName(){
-		return "flipper";
+		return flipperName;
 	}
 }

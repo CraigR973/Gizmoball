@@ -23,11 +23,11 @@ public class Model1 extends Observable{
 	ArrayList<Flipper> flippers = new ArrayList<Flipper>();
 	
 	public Model1() {
-		gws = new Walls1(0, 0, 500, 500);
-		ball = new Ball1(50, 250, 300, 300);
-		absorber = new Absorber(500,25,0,475);
-		tri = new Triangle(450,500,500,0,50,0);
-		tri1 = new Triangle(50,0,0,0,50,0);
+//		gws = new Walls1(0, 0, 500, 500);
+//		ball = new Ball1(50, 250, 300, 300);
+//		absorber = new Absorber(500,25,0,475);
+//		tri = new Triangle(450,500,500,0,50,0);
+//		tri1 = new Triangle(50,0,0,0,50,0);
 	}
 	
 	public void moveBall() {

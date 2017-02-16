@@ -9,15 +9,22 @@ public class Absorber {
 	private double height;
 	private double xpos;
 	private double ypos;
+	private String absName;
 	private LineSegment ls;
 	
-	public Absorber(double w, double h, double x, double y){
+	public Absorber(String name, double x, double y){
+		double w = 500;
+		double h = 25;
 		colour = Color.MAGENTA;
 		width = w;
 		height = h;
 		xpos = x;
 		ypos = y;
 		ls = new LineSegment(x, y+h-1, x + w, y+h-1);
+	}
+	
+	public void setName(String n){
+		absName = n;
 	}
 	
 	public Color getColour(){
@@ -44,6 +51,6 @@ public class Absorber {
 		return width;
 	}
 	public String getName(){
-		return "abs1";
+		return absName;
 	}
 }
