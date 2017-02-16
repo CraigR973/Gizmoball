@@ -12,11 +12,12 @@ public class Ball1 {
 	private double xpos;
 	private double ypos;
 	private Color colour;
+	private String ballName;
 
 	private boolean stopped;
 
 	// x, y coordinates and x,y velocity
-	public Ball1(double x, double y, double xv, double yv) {
+	public Ball1(String name, double x, double y, double xv, double yv) {
 		xpos = x; // Centre coordinates
 		ypos = y;
 		colour = Color.BLUE;
@@ -25,6 +26,14 @@ public class Ball1 {
 		stopped = false;
 	}
 
+	public void setName(String n){
+		ballName = n;
+	}
+	
+	public String getName(){
+		return ballName;
+	}
+	
 	public Vect getVelo() {
 		return velocity;
 	}
