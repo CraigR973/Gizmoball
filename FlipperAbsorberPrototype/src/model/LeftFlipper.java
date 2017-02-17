@@ -21,14 +21,14 @@ public class LeftFlipper {
 	
 
 	
-	public LeftFlipper(double w, double h, double x, double y, Angle a){
+	public LeftFlipper(double w, double h, double x, double y, double a, double b){
 		colour = Color.RED;
 		
 		width = w;
 		height = h;
 		xpos = x;
 		ypos = y;
-		angle = a;
+		angle = new Angle(a,b);
 		ls = new LineSegment(x, y, x + w, y);
 	}
 	
@@ -47,6 +47,8 @@ public class LeftFlipper {
 		public void setAngle(Angle ang) {
 			angle = ang;
 		}
+		
+		
 	
 	
 	

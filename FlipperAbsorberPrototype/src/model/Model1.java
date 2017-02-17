@@ -21,7 +21,7 @@ public class Model1 extends Observable{
 		gws = new Walls1(0, 0, 500, 500);
 		ball = new Ball1(40, 405, 300, 300);
 		absorber = new Absorber(500,25,0,475);
-		leftFlipper = new LeftFlipper(20, 60, 250, 250, Angle.ZERO);
+		leftFlipper = new LeftFlipper(20, 60, 250, 250, 1.0, 0.0);
 	}
 	
 	public void moveBall() {
@@ -69,9 +69,11 @@ public class Model1 extends Observable{
 	}
 	
 	public LeftFlipper rotateLeftFlipper(LeftFlipper leftFlipper) {
-		Angle newA = Angle.ZERO;
+		double newA = 0.0;
+		double newB = 1.0;
 	
-		newA = Angle.DEG_270;
+		newA = 0.0;
+		newB = -1.0;
 		
 		
 		leftFlipper.setAngle(newA);
