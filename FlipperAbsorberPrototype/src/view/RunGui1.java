@@ -113,7 +113,7 @@ public class RunGui1 {
 		});
 
 		frame.requestFocus();
-		frame.requestFocusInWindow();
+		frame.requestFocusInWindow(); 
 		
 		
 	

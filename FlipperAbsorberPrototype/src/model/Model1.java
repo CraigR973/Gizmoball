@@ -21,7 +21,7 @@ public class Model1 extends Observable{
 		gws = new Walls1(0, 0, 500, 500);
 		ball = new Ball1(40, 405, 300, 300);
 		absorber = new Absorber(500,25,0,475);
-		leftFlipper = new LeftFlipper(20, 60, 250, 250, 270, 250);
+		leftFlipper = new LeftFlipper(20, 60, 250, 250, Angle.ZERO);
 	}
 	
 	public void moveBall() {
@@ -69,15 +69,16 @@ public class Model1 extends Observable{
 	}
 	
 	public LeftFlipper rotateLeftFlipper(LeftFlipper leftFlipper) {
-		double newX = 0.0;
-		double newY = 0.0;
-		newX = leftFlipper.getXPos2();
-		newY = leftFlipper.getYPos2();
-		leftFlipper.setXPos(newX);
-		leftFlipper.setYPos(newY);
+		Angle newA = Angle.ZERO;
+	
+		newA = Angle.DEG_270;
+		
+		
+		leftFlipper.setAngle(newA);
+		
 		return leftFlipper;
 		
-	}
+	} 
 
 	private CollisionDetails1 timeUntilCollision() {
 		// Find Time Until Collision and also, if there is a collision, the new speed vector.
