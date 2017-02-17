@@ -1,4 +1,4 @@
-package main;
+package model;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -44,5 +44,10 @@ public class fileReader {
 	public void print()
 	{
 		System.out.println(gizmos);
+	}
+	
+	public ArrayList<String> getGizmos()
+	{
+		return gizmos;
 	}
 }
