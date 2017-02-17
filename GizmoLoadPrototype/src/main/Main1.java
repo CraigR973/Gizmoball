@@ -3,6 +3,7 @@ package main;
 import javax.swing.UIManager;
 
 import model.Model1;
+import model.fileReader;
 //import model.VerticalLine1;
 import view.RunGui1;
 
@@ -20,9 +21,7 @@ public class Main1 {
 			System.out.println("Look and Feel error in Main");
 		}
 		
-		fileReader file = new fileReader();
-		file.readFile();
-		file.print();
+
 		Model1 model = new Model1();
 
 

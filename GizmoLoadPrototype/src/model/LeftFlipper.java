@@ -4,7 +4,7 @@ import java.awt.Color;
 
 import physics.LineSegment;
 
-public class Flipper {
+public class LeftFlipper {
 
 	private Color colour;
 	private double width;
@@ -12,9 +12,9 @@ public class Flipper {
 	private double xpos;
 	private double ypos;
 	private LineSegment ls;
-	private String flipperName;
+	private String LflipperName;
 	
-	public Flipper(String name, double x, double y){
+	public LeftFlipper(String name, double x, double y){
 		double w = 20;
 		double h = 60;
 		colour = Color.ORANGE;
@@ -26,7 +26,7 @@ public class Flipper {
 	}
 	
 	public void setName(String n){
-		flipperName = n;
+		LflipperName = n;
 	}
 	
 	public Color getColour(){
@@ -53,6 +53,6 @@ public class Flipper {
 		return width;
 	}
 	public String getName(){
-		return flipperName;
+		return LflipperName;
 	}
 }

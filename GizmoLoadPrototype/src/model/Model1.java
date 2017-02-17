@@ -11,18 +11,54 @@ import physics.Vect;
 
 
 public class Model1 extends Observable{
+	fileReader file = new fileReader();
 	private Absorber absorber;
 	private Ball1 ball;
 	private Walls1 gws;
 	private Triangle tri;
 	private Triangle tri1;
 	
-	ArrayList<Circle> circles = new ArrayList<Circle>();
+	ArrayList<Circle1> circles = new ArrayList<Circle1>();
 	ArrayList<Triangle> triangles = new ArrayList<Triangle>();
 	ArrayList<Square> squares = new ArrayList<Square>();
-	ArrayList<Flipper> flippers = new ArrayList<Flipper>();
+	ArrayList<LeftFlipper> leftFlippers = new ArrayList<LeftFlipper>();
+	ArrayList<RightFlipper> rightFlippers = new ArrayList<RightFlipper>();
 	
 	public Model1() {
+		
+		ArrayList<String> gizmos = new ArrayList<String>();
+		file.readFile();
+		gizmos = file.getGizmos();
+		System.out.println(gizmos);
+		for(int i = 0; i < gizmos.size(); i++)
+		{
+			String currentGizmo = gizmos.get(i);
+			String gizmoArray[] = new String[3];
+			gizmoArray = currentGizmo.split(" ");
+			if(gizmoArray[0] == "Square")
+			{
+				String name;
+				double value1;
+				double value2;
+				name = gizmoArray[1];
+				value1 = Double.parseDouble(gizmoArray[2]);
+				value2 = Double.parseDouble(gizmoArray[3]);
+				Square sq = new Square(name, value1, value2);
+				squares.add(sq);
+			}
+			else if(gizmoArray[0] == "Circle")
+			{
+				String name;
+				double value1;
+				double value2;
+				name = gizmoArray[1];
+				value1 = Double.parseDouble(gizmoArray[2]);
+				value2 = Double.parseDouble(gizmoArray[3]);
+				Circle1 c = new Circle1(name, value1, value2);
+				circles.add(c);
+			}
+		}
+		
 //		gws = new Walls1(0, 0, 500, 500);
 //		ball = new Ball1(50, 250, 300, 300);
 //		absorber = new Absorber(500,25,0,475);
