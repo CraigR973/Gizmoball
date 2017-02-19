@@ -22,7 +22,7 @@ public class Model1 extends Observable{
 	
 	public Model1() {
 		gws = new Walls1(0, 0, 500, 500);
-		ball = new Ball1(10, 250, 300, 300);
+		ball = new Ball1(450, 250, 300, 300);
 		//absorber = new Absorber(500,25,0,475);
 		tri = new Triangle(20,270,20,20);
 		tri1 = new Triangle(90,185,20,20);
@@ -193,6 +193,12 @@ public class Model1 extends Observable{
 			double dx = cir.getExactX() - ball.getExactX();
 			double dy = cir.getExactY() - ball.getExactY();
 			double distance =  Math.sqrt(dx * dx + dy * dy);
+			
+			time = Geometry.timeUntilCircleCollision(cir.getCircle1(), ballCircle, ballVelocity);
+			if(time < shortestTime){
+				shortestTime = time;
+				newVelo = Geometry.reflectCircle(cir.getCircleCentre(), ball.getCentreOfBall(), ball.getVelo(), 1.0);
+			}
 			
 //			if (distance < radius1 + radius2){
 //				cir.setLs(, y1, x2, y2);
