@@ -16,12 +16,14 @@ public class Model1 extends Observable{
 	private Walls1 gws;
 	private boolean hitAbs = false;
 	private LeftFlipper leftFlipper;
+	private VerticalLine1 line;
 	
 	public Model1() {
 		gws = new Walls1(0, 0, 500, 500);
 		ball = new Ball1(40, 405, 300, 300);
 		absorber = new Absorber(500,25,0,475);
 		leftFlipper = new LeftFlipper(20, 60, 250, 250, 270, 250);
+		line = new VerticalLine1(250, 250, 75);
 	}
 	
 	public void moveBall() {
@@ -63,19 +65,28 @@ public class Model1 extends Observable{
 	}
 	
 	public void rotateLeftFLip() {
-		leftFlipper = rotateLeftFlipper(leftFlipper);
+		line = rotateLeftFlipper(line);
 		this.setChanged();
 		this.notifyObservers();
 	}
 	
-	public LeftFlipper rotateLeftFlipper(LeftFlipper leftFlipper) {
-		double newX = 0.0;
-		double newY = 0.0;
-		newX = leftFlipper.getXPos2();
-		newY = leftFlipper.getYPos2();
-		leftFlipper.setXPos(newX);
-		leftFlipper.setYPos(newY);
-		return leftFlipper;
+	public VerticalLine1 rotateLeftFlipper(VerticalLine1 line) {
+		LineSegment newLineSeg = null;
+		int newX = 0;
+		int newY = 0;
+		int newWidth = 0;
+		int newHeight = 0;
+		int x1 = line.getX();
+		int y1 = line.getY();
+		int w1 = line.getWidth();
+		int h1 = line.getHeight();
+		newLineSeg = (x1, y1, x1 + w1, y1);
+		
+		line.setLineSeg(newLineSeg);
+		 
+		
+		
+		return line;
 		
 	}
 
@@ -133,6 +144,10 @@ public class Model1 extends Observable{
 	
 	public LeftFlipper getLeftFlipper(){
 		return leftFlipper;
+	}
+	
+	public VerticalLine1 getVerticalLine() {
+		return line;
 	}
 	
 	public void setBallSpeed(int x, int y){

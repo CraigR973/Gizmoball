@@ -75,7 +75,7 @@ public  class Board1 extends JPanel implements Observer {
 			g2.fillRect(x, y, width, height);
 		}
 		
-		LeftFlipper lFlip = gm.getLeftFlipper();
+	/*	LeftFlipper lFlip = gm.getLeftFlipper();
 		if(lFlip != null){
 			g2.setColor(lFlip.getColour());
 			int x = (int)lFlip.getXPos();
@@ -83,6 +83,15 @@ public  class Board1 extends JPanel implements Observer {
 			int width = (int)lFlip.getWidth();
 			int height = (int)lFlip.getHeight();
 			g2.fillRect(x, y, width, height);
+		} */
+		 
+		VerticalLine1 line = gm.getVerticalLine();
+		if(line != null){
+			g2.setColor(line.getColour());
+			int x = (int)line.getX();
+			int y = (int)line.getY();
+			int height = (int)line.getHeight();
+			g2.fillRect(x, y, 1, height);
 		}
 		
 		
