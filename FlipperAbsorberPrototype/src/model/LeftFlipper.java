@@ -1,11 +1,8 @@
 package model;
-
 import java.awt.Color;
-
 import physics.Angle;
 import physics.LineSegment;
 import physics.Vect;
-
 public class LeftFlipper {
 	
 	private Vect velocity;
@@ -14,13 +11,10 @@ public class LeftFlipper {
 	private double height;
 	private double xpos;
 	private double ypos;
-	private double xpos2;
-	private double ypos2;
 	private LineSegment ls;
+	private Angle angle;
 	
-
 	
-
 	
 	public LeftFlipper(double w, double h, double x, double y, double a, double b){
 		colour = Color.RED;
@@ -29,8 +23,7 @@ public class LeftFlipper {
 		height = h;
 		xpos = x;
 		ypos = y;
-		xpos2 = a;
-		ypos2 = b;
+		angle = new Angle(a,b);
 		ls = new LineSegment(x, y, x + w, y);
 	}
 	
@@ -41,6 +34,16 @@ public class LeftFlipper {
 		public void setVelo(Vect v) {
 			velocity = v;
 		}
+		
+		public Angle getAngle() {
+			return angle;
+		}
+		
+		public void setAngle(Angle ang) {
+			angle = ang;
+		}
+		
+		
 	
 	
 	
@@ -48,7 +51,6 @@ public class LeftFlipper {
 		return colour;
 	}
 	
-
 	
 	public LineSegment getLFlipLineSeg(){
 		return ls;
@@ -70,13 +72,6 @@ public class LeftFlipper {
 		ypos = y;
 	}
 	
-	public double getXPos2(){
-		return xpos2;
-	}
-	
-	public double getYPos2(){
-		return ypos2;
-	}
 	
 	public double getHeight(){
 		return height;

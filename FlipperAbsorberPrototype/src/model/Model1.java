@@ -1,37 +1,28 @@
 package model;
-
 import java.util.ArrayList;
 import java.util.Observable;
-
 import physics.Angle;
 import physics.Circle;
 import physics.Geometry;
 import physics.LineSegment;
 import physics.Vect;
-
-
 public class Model1 extends Observable{
 	private Absorber absorber;
 	private Ball1 ball;
 	private Walls1 gws;
 	private boolean hitAbs = false;
 	private LeftFlipper leftFlipper;
-	private VerticalLine1 line;
 	
 	public Model1() {
 		gws = new Walls1(0, 0, 500, 500);
 		ball = new Ball1(40, 405, 300, 300);
 		absorber = new Absorber(500,25,0,475);
-		leftFlipper = new LeftFlipper(20, 60, 250, 250, 270, 250);
-		line = new VerticalLine1(250, 250, 75);
+		leftFlipper = new LeftFlipper(20, 60, 250, 250, 1.0, 0.0);
 	}
 	
 	public void moveBall() {
-
 		double moveTime = 0.05; // 0.05 = 20 times per second as per Gizmoball
-
 		if (ball != null && !ball.stopped()) {
-
 			CollisionDetails1 cd = timeUntilCollision();
 			double tuc = cd.getTuc();
 			if (tuc > moveTime) {
@@ -43,16 +34,13 @@ public class Model1 extends Observable{
 				// Post collision velocity ...
 				ball.setVelo(cd.getVelo());
 			}
-
 			// Notify observers ... redraw updated view
 			this.setChanged();
 			this.notifyObservers();
 		}
-
 	}
 	
 	private Ball1 movelBallForTime(Ball1 ball, double time) {
-
 		double newX = 0.0;
 		double newY = 0.0;
 		double xVel = ball.getVelo().x();
@@ -65,42 +53,33 @@ public class Model1 extends Observable{
 	}
 	
 	public void rotateLeftFLip() {
-		line = rotateLeftFlipper(line);
+		leftFlipper = rotateLeftFlipper(leftFlipper);
 		this.setChanged();
 		this.notifyObservers();
 	}
 	
-	public VerticalLine1 rotateLeftFlipper(VerticalLine1 line) {
-		LineSegment newLineSeg = null;
-		int newX = 0;
-		int newY = 0;
-		int newWidth = 0;
-		int newHeight = 0;
-		int x1 = line.getX();
-		int y1 = line.getY();
-		int w1 = line.getWidth();
-		int h1 = line.getHeight();
-		newLineSeg = (x1, y1, x1 + w1, y1);
-		
-		line.setLineSeg(newLineSeg);
-		 
+	public LeftFlipper rotateLeftFlipper(LeftFlipper leftFlipper) {
+		double newA = 0.0;
+		double newB = 1.0;
+	
+		newA = 0.0;
+		newB = -1.0;
 		
 		
-		return line;
+		leftFlipper.setAngle(newA);
 		
-	}
-
+		return leftFlipper;
+		
+	} 
 	private CollisionDetails1 timeUntilCollision() {
 		// Find Time Until Collision and also, if there is a collision, the new speed vector.
 		// Create a physics.Circle from Ball
 		Circle ballCircle = ball.getCircle();
 		Vect ballVelocity = ball.getVelo();
 		Vect newVelo = new Vect(0, 0);
-
 		// Now find shortest time to hit a vertical line or a wall line
 		double shortestTime = Double.MAX_VALUE;
 		double time = 0.0;
-
 		// Time to collide with 4 walls
 		ArrayList<LineSegment> lss = gws.getLineSegments();
 		for (LineSegment line : lss) {
@@ -112,7 +91,6 @@ public class Model1 extends Observable{
 			}
 			
 		}
-
 		// Time to collide with absorber
 			LineSegment ls = absorber.getAbsLineSeg();
 			time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
@@ -144,10 +122,6 @@ public class Model1 extends Observable{
 	
 	public LeftFlipper getLeftFlipper(){
 		return leftFlipper;
-	}
-	
-	public VerticalLine1 getVerticalLine() {
-		return line;
 	}
 	
 	public void setBallSpeed(int x, int y){

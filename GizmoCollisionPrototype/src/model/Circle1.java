@@ -4,6 +4,7 @@ import java.awt.Color;
 
 import physics.Circle;
 import physics.LineSegment;
+import physics.Vect;
 
 
 public class Circle1 {
@@ -57,6 +58,11 @@ public class Circle1 {
 	
 	public void setLs(int x1, int y1, int x2, int y2){
 		radLs = new LineSegment(x1,y1,x2,y2);
+	}
+	
+	public Vect getCircleCentre(){
+		Vect cen = new Vect(getExactX(),getExactY());
+		return cen;
 	}
 
 }

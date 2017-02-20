@@ -73,5 +73,10 @@ public class Ball1 {
 	public Color getColour() {
 		return colour;
 	}
+	
+	public Vect getCentreOfBall(){
+		Vect cen = new Vect (getExactX(),getExactY());
+		return cen;
+	}
 
 }

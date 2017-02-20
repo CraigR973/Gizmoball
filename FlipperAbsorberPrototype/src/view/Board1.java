@@ -82,6 +82,7 @@ public  class Board1 extends JPanel implements Observer {
 			int y = (int)lFlip.getYPos();
 			int width = (int)lFlip.getWidth();
 			int height = (int)lFlip.getHeight();
+<<<<<<< HEAD
 			g2.fillRect(x, y, width, height);
 		} */
 		 
@@ -92,6 +93,9 @@ public  class Board1 extends JPanel implements Observer {
 			int y = (int)line.getY();
 			int height = (int)line.getHeight();
 			g2.fillRect(x, y, 1, height);
+=======
+			g2.fillRoundRect(x, y, width, height, width, height);
+>>>>>>> bacc5c0bae0ccefa8f550cd8facd21582659e646
 		}
 		
 		
