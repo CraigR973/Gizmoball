@@ -20,8 +20,8 @@ public class Square {
 		colour = Color.BLUE;
 		width = w;
 		height = h;
-		xpos = x;
-		ypos = y;
+		xpos = x * 20;
+		ypos = y * 20;
 		setName(name);
 	}
 	

@@ -14,10 +14,10 @@ public class Circle1 {
 	
 	// x, y coordinates and x,y velocity
 	public Circle1(String name, double x, double y) {
-		xpos = x; // Centre coordinates
-		ypos = y;
+		xpos = x*20; // Centre coordinates
+		ypos = y*20;
 		colour = Color.ORANGE;
-		radius = 20;
+		radius = 10;
 		radLs = new LineSegment(x+20,y+20,x-20,y-20);
 		setName(name);
 	}

@@ -1,16 +1,20 @@
 package model;
+
 import java.awt.Color;
+
 import physics.LineSegment;
-public class RightFlipper {
+
+public class Flipper {
+
 	private Color colour;
 	private double width;
 	private double height;
 	private double xpos;
 	private double ypos;
 	private LineSegment ls;
-	private String RflipperName;
+	private String flipperName;
 	
-	public RightFlipper(String name, double x, double y){
+	public Flipper(String name, double x, double y){
 		double w = 20;
 		double h = 60;
 		colour = Color.ORANGE;
@@ -22,7 +26,7 @@ public class RightFlipper {
 	}
 	
 	public void setName(String n){
-		RflipperName = n;
+		flipperName = n;
 	}
 	
 	public Color getColour(){
@@ -49,6 +53,6 @@ public class RightFlipper {
 		return width;
 	}
 	public String getName(){
-		return RflipperName;
+		return flipperName;
 	}
 }

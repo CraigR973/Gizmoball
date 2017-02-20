@@ -13,7 +13,9 @@ import javax.swing.JPanel;
 
 import model.Absorber;
 import model.Ball1;
+import model.Circle1;
 import model.Model1;
+import model.Square;
 import model.Triangle;
 
 
@@ -23,6 +25,7 @@ public  class Board1 extends JPanel implements Observer {
 	protected int width;
 	protected int height;
 	protected Model1 gm;
+	
 
 	public Board1(int w, int h, Model1 m) {
 		// Observe changes in Model
@@ -42,6 +45,56 @@ public  class Board1 extends JPanel implements Observer {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
+		String shape = "Square";
+		
+		if(shape.equals("Square"))
+		{for (Square sq : gm.getSquare()) {
+			g2.setColor(sq.getColour());
+			g2.fillRect((int)sq.getXPos(), (int)sq.getYPos(), (int)sq.getWidth(), (int)sq.getHeight());
+		}
+		
+		String shape1 = "Circle";
+		if(shape1.equals("Circle"))
+		{for (Circle1 c: gm.getCircle()) {
+			g2.setColor(c.getColour());
+			int width = (int) (2 * (int)c.getRadius());
+			g2.fillOval((int)c.getExactX(), (int)c.getExactY(), width, width);
+		}
+		
+		String shape2 = "Triangle";
+		if(shape2.equals("Triangle"))
+		{for (Triangle t: gm.getTriangle()) {
+			g2.setColor(t.getColour());
+			int x1 = (int)t.getXpos1();
+			int x2 = (int)t.getXpos2();
+			int x3 = (int)t.getXpos3();
+			int y1 = (int)t.getYpos1();
+			int y2 = (int)t.getYpos2();
+			int y3 = (int)t.getYpos3();
+			g2.drawPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
+			g2.fillPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
+		}
+		
+		String shape3 = "Absorber";
+		if(shape3.equals("Absorber"))
+		{for (Absorber a: gm.getAbsorber()) {
+			g2.setColor(a.getColour());
+			int x = (int)a.getXPos();
+			int y = (int)a.getYPos();
+			int width = (int)a.getWidth();
+			int height = (int)a.getHeight();
+			g2.fillRect(x, y, width, height);
+		}
+		
+//			int x = (int) (b.getExactX() - b.getRadius());
+//			int y = (int) (b.getExactY() - b.getRadius());
+//			int width = (int) (2 * b.getRadius());
+//			g2.fillOval(x, y, width, width);
+		}
+	}
+		}
+		}
+	}
 		
 		//VerticalLine1 bot = gm.getLine();
 		// Draw all the vertical lines
@@ -93,11 +146,14 @@ public  class Board1 extends JPanel implements Observer {
 //			g2.drawPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
 //			g2.fillPolygon(new int[] {x1, x2, x3}, new int[] {y1,y2,y3}, 3);
 //		}
-	}
+//	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 			repaint();
 		}
+	
+	public void addShape(String shape){
+	}
 	
 }

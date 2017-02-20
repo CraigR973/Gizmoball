@@ -1,11 +1,7 @@
 package model;
-
 import java.awt.Color;
-
 import physics.LineSegment;
-
 public class LeftFlipper {
-
 	private Color colour;
 	private double width;
 	private double height;

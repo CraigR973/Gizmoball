@@ -1,8 +1,6 @@
 package model;
-
 import java.awt.Color;
 import physics.LineSegment;
-
 public class Absorber {
 	private Color colour;
 	private double width;
@@ -18,8 +16,8 @@ public class Absorber {
 		colour = Color.MAGENTA;
 		width = w;
 		height = h;
-		xpos = x;
-		ypos = y;
+		xpos = x*20;
+		ypos = y*20;
 		ls = new LineSegment(x, y+h-1, x + w, y+h-1);
 	}
 	
