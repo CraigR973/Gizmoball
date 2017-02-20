@@ -17,7 +17,7 @@ public class Square {
 	public Square(String name, double x, double y){
 		double w = 20;
 		double h = 20;
-		colour = Color.BLUE;
+		colour = Color.RED;
 		width = w;
 		height = h;
 		xpos = x * 20;

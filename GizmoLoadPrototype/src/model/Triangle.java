@@ -21,15 +21,15 @@ public class Triangle {
 	public Triangle(String name, double x1, double y1) {
 		double w = 20;
 		double h = 20;
-		xpos1 = x1;
-		xpos2 = x1 + w;
+		xpos1 = x1*20;
+		xpos2 = (x1*20) + w;
 		xpos3 = xpos2;
-		ypos1 = y1;
-		ypos2 = y1;
+		ypos1 = y1*20;
+		ypos2 = y1*20;
 		ypos3 = ypos2 + h;
 		width = w;
 		height = h;
-		colour = Color.YELLOW;
+		colour = Color.BLUE;
 		ls1 = new LineSegment(x1, y1, xpos2, ypos2);
 		ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
 		ls3 = new LineSegment(x1, y1, xpos3, ypos3);

@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import model.Absorber;
 import model.Ball1;
 import model.Circle1;
+import model.LeftFlipper;
 import model.Model1;
+import model.RightFlipper;
 import model.Square;
 import model.Triangle;
 
@@ -86,12 +88,44 @@ public  class Board1 extends JPanel implements Observer {
 			g2.fillRect(x, y, width, height);
 		}
 		
-//			int x = (int) (b.getExactX() - b.getRadius());
-//			int y = (int) (b.getExactY() - b.getRadius());
-//			int width = (int) (2 * b.getRadius());
-//			g2.fillOval(x, y, width, width);
+		String shape4 = "LeftFlipper";
+		if(shape4.equals("LeftFlipper"))
+		{for (LeftFlipper lf: gm.getLFlipper()) {
+			g2.setColor(lf.getColour());
+			int x = (int)lf.getXPos();
+			int y = (int)lf.getYPos();
+			int width = (int)lf.getWidth();
+			int height = (int)lf.getHeight();
+			g2.fillRect(x, y, width, height);
+		}
+		
+		String shape5 = "RightFlipper";
+		if(shape5.equals("RightFlipper"))
+		{for (RightFlipper rf: gm.getRFlipper()) {
+			g2.setColor(rf.getColour());
+			int x = (int)rf.getXPos();
+			int y = (int)rf.getYPos();
+			int width = (int)rf.getWidth();
+			int height = (int)rf.getHeight();
+			g2.fillRect(x, y, width, height);
+		}
+		
+		String shape6 = "Ball";
+		if(shape6.equals("Ball"))
+		{for (Ball1 b: gm.getBall()) {
+			g2.setColor(b.getColour());
+			int x = (int) (b.getExactX() - b.getRadius());
+			int y = (int) (b.getExactY() - b.getRadius());
+			int width = (int) (2 * b.getRadius());
+			g2.fillOval(x, y, width, width);
+		}
+
+
 		}
 	}
+		}
+		}
+		}
 		}
 		}
 	}

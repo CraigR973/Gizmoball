@@ -12,11 +12,11 @@ public class Ball1 {
 	private boolean stopped;
 	// x, y coordinates and x,y velocity
 	public Ball1(String name, double x, double y, double xv, double yv) {
-		xpos = x; // Centre coordinates
-		ypos = y;
+		xpos = x*20; // Centre coordinates
+		ypos = y*20;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
-		radius = 10;
+		radius = 7;
 		stopped = false;
 	}
 	public void setName(String n){

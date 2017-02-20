@@ -16,7 +16,7 @@ public class Circle1 {
 	public Circle1(String name, double x, double y) {
 		xpos = x*20; // Centre coordinates
 		ypos = y*20;
-		colour = Color.ORANGE;
+		colour = Color.GREEN;
 		radius = 10;
 		radLs = new LineSegment(x+20,y+20,x-20,y-20);
 		setName(name);

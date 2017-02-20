@@ -41,6 +41,7 @@ public class Model1 extends Observable{
 				String name = st.nextToken();
 				double value1 = Double.parseDouble(st.nextToken());
 				double value2 = Double.parseDouble(st.nextToken());
+
 				if(cGizmo.equals("Triangle"))
 				{
 					
@@ -73,18 +74,13 @@ public class Model1 extends Observable{
 					Absorber a = new Absorber(name, value1, value2);
 					absorbers.add(a);
 				}
-//				else if(cGizmo.equals("Ball"))
-//				{
-//					double value3;
-//					double value4;
-//					name = st.nextToken();
-//					value1 = Double.parseDouble(st.nextToken());
-//					value2 = Double.parseDouble(st.nextToken());
-//					value3 = Double.parseDouble(st.nextToken());
-//					value4 = Double.parseDouble(st.nextToken());
-//					Ball1 b = new Ball1(name, value1, value2, value3, value4);
-//					balls.add(b);
-//				}
+				else if(cGizmo.equals("Ball"))
+				{
+					double value3 = Double.parseDouble(st.nextToken());
+					double value4 = Double.parseDouble(st.nextToken());
+					Ball1 b = new Ball1(name, value1, value2, value3, value4);
+					balls.add(b);
+				}
 			}
 		}
 		
@@ -207,5 +203,15 @@ public class Model1 extends Observable{
 		return absorbers;
 	}
 	
-
+	public ArrayList<LeftFlipper> getLFlipper() {
+		return leftFlippers;
+	}
+	
+	public ArrayList<RightFlipper> getRFlipper() {
+		return rightFlippers;
+	}
+	
+	public ArrayList<Ball1> getBall() {
+		return balls;
+	}
 }
