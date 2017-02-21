@@ -1,35 +1,39 @@
 package model;
+
 import java.awt.Color;
+
 import physics.LineSegment;
-public class Absorber {
+
+public class SquareGizmo {
+
 	private Color colour;
 	private double width;
 	private double height;
 	private double xpos;
 	private double ypos;
-	private String absName;
 	private LineSegment ls;
+	private String squareName;
 	
-	public Absorber(String name, double x, double y){
-		double w = 400;
-		double h = 25;
-		colour = Color.MAGENTA;
+	public SquareGizmo(String name, double x, double y){
+		double w = 20;
+		double h = 20;
+		colour = Color.RED;
 		width = w;
 		height = h;
-		xpos = x*20;
-		ypos = y*20;
-		ls = new LineSegment(x, y+h-1, x + w, y+h-1);
+		xpos = x * 20;
+		ypos = y * 20;
+		setName(name);
 	}
 	
 	public void setName(String n){
-		absName = n;
+		squareName = n;
 	}
 	
 	public Color getColour(){
 		return colour;
 	}
 	
-	public LineSegment getAbsLineSeg(){
+	public LineSegment getSquareLineSeg(){
 		return ls;
 	}
 	
@@ -48,7 +52,8 @@ public class Absorber {
 	public double getWidth(){
 		return width;
 	}
+	
 	public String getName(){
-		return absName;
+		return squareName;
 	}
 }

@@ -9,12 +9,12 @@ import model.Model;
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
  */
 
-public class RunListener1 implements ActionListener {
+public class RunListener implements ActionListener {
 
 	private Timer timer;
 	private Model model;
 
-	public RunListener1(Model m) {
+	public RunListener(Model m) {
 		model = m;
 		timer = new Timer(50, this);
 	}
@@ -22,9 +22,9 @@ public class RunListener1 implements ActionListener {
 	@Override
 	public final void actionPerformed(final ActionEvent e) {
 
-//		if (e.getSource() == timer) {
-//			model.moveBall();
-//		} else
+		if (e.getSource() == timer) {
+			model.moveBall();
+		} else
 			switch (e.getActionCommand()) {
 			case "Start":
 				timer.start();
@@ -32,9 +32,9 @@ public class RunListener1 implements ActionListener {
 			case "Stop":
 				timer.stop();
 				break;
-//			case "Tick":
-//				model.moveBall();
-//				break;
+			case "Tick":
+				model.moveBall();
+				break;
 			case "Quit":
 				System.exit(0);
 				break;
@@ -43,8 +43,11 @@ public class RunListener1 implements ActionListener {
 				break;
 			case "Load":
 				System.out.println("Load Button");
-				model.loadBoard();
 				break;
 			}
+	}
+	
+	public void spacePressed(){
+		model.releaseBall();
 	}
 }
