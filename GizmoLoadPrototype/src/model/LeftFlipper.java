@@ -31,6 +31,7 @@ public class LeftFlipper {
 		ypos = y*20;
 		angle = new Angle(a,b);
 		ls = new LineSegment(x, y, x + w, y);
+		setName(name);
 	}
 	
 		public void setName(String n){

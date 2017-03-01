@@ -36,7 +36,90 @@ public class Model1 extends Observable{
 //		ball = new Ball1(50, 250, 300, 300);
 //		absorber = new Absorber(500,25,0,475);
 //		tri = new Triangle(450,500,500,0,50,0);
-//		tri1 = new Triangle(50,0,0,0,50,0);
+		
+
+
+		Triangle t = new Triangle("T1", 19, 0);
+		Triangle t1 = new Triangle("T2", 1, 1);
+		
+		
+		Square sq = new Square("S02", 0, 2);
+		Square sq1 = new Square("S12" ,1 ,2);
+		Square sq2 = new Square("S22", 2 ,2);
+		Square sq3 = new Square("S32", 3, 2);
+		Square sq4 = new Square("S42", 4 ,2);
+		Square sq5 = new Square("S52", 5, 2);
+		Square sq6 = new Square("S62", 6, 2);
+		Square sq7 = new Square("S72", 7, 2);
+		Square sq8 = new Square("S82" ,8 ,2);
+		Square sq9 = new Square("S132" ,13 ,2);
+		Square sq10 = new Square("S142", 14 ,2);
+		Square sq11 = new Square("S152", 15, 2);
+		Square sq12 = new Square("S162", 16, 2);
+		Square sq13 = new Square("S172", 17, 2);
+		Square sq14 = new Square("S182", 18, 2);
+		
+		Circle1 c = new Circle1("C43" ,4 ,3);
+		Circle1 c1 = new Circle1("C54" ,5, 4);
+		Circle1 c2 = new Circle1("C65" ,6 ,5);
+		Circle1 c3 = new Circle1("C76" ,7 ,6);
+		Circle1 c4 = new Circle1("C99" ,9, 9);
+		Circle1 c5 = new Circle1("C109", 10 ,9);
+		Circle1 c6 = new Circle1("C1110", 11, 10);
+		Circle1 c7 = new Circle1("C129", 12, 9);
+		Circle1 c8 = new Circle1("C139", 13, 9);
+		Circle1 c9 = new Circle1("C156", 15, 6);
+		Circle1 c10 = new Circle1("C165" ,16, 5);
+		Circle1 c11 = new Circle1("C174", 17 ,4);
+		Circle1 c12 = new Circle1("C183" ,18, 3);
+		
+		LeftFlipper lf = new LeftFlipper("LF92", 9, 2);
+		LeftFlipper lf1 = new LeftFlipper("LF87" ,8 ,7);
+		
+		RightFlipper rf = new RightFlipper("RF112", 12.5 ,2);
+		RightFlipper rf1 = new RightFlipper("RF137", 14 ,7);
+		
+		Absorber a = new Absorber("A", 0, 19);
+
+		Ball1 b = new Ball1("ball1",1.0 ,11.0, 0.0 ,0.0);
+		
+		
+		triangles.add(t);
+		triangles.add(t1);
+		squares.add(sq);
+		squares.add(sq1);
+		squares.add(sq2);
+		squares.add(sq3);
+		squares.add(sq4);
+		squares.add(sq5);
+		squares.add(sq6);
+		squares.add(sq7);
+		squares.add(sq8);
+		squares.add(sq9);
+		squares.add(sq10);
+		squares.add(sq11);
+		squares.add(sq12);
+		squares.add(sq13);
+		squares.add(sq14);
+		circles.add(c);
+		circles.add(c1);
+		circles.add(c2);
+		circles.add(c3);
+		circles.add(c4);
+		circles.add(c5);
+		circles.add(c6);
+		circles.add(c7);
+		circles.add(c8);
+		circles.add(c9);
+		circles.add(c10);
+		circles.add(c11);
+		circles.add(c12);
+		leftFlippers.add(lf);
+		leftFlippers.add(lf1);
+		rightFlippers.add(rf);
+		rightFlippers.add(rf1);
+		absorbers.add(a);
+		balls.add(b);
 	}
 	
 	public void load()

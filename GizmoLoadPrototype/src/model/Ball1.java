@@ -23,6 +23,7 @@ public class Ball1 {
 		velocity = new Vect(xv, yv);
 		radius = 7;
 		stopped = false;
+		setName(name);
 	}
 	public void setName(String n){
 		ballName = n;

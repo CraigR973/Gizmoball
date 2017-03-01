@@ -28,202 +28,232 @@ public class saveFile {
 			}
 			fileWrite = new FileWriter(filename);
 			bufferWrite = new BufferedWriter(fileWrite);
-				for (Triangle t : m1.getTriangle())
+			System.out.println("Before loop");
+			ArrayList<Triangle> triangles = m1.getTriangle();
+			ArrayList<Square> squares = m1.getSquare();
+			ArrayList<Circle1> circles = m1.getCircle();
+			ArrayList<LeftFlipper> leftFlippers = m1.getLFlipper();
+			ArrayList<RightFlipper> rightFlippers = m1.getRFlipper();
+			ArrayList<Absorber> absorbers = m1.getAbsorber();
+			ArrayList<Ball1> balls = m1.getBall();
+				for (int i =0; i<triangles.size();i++)
 				{
+					System.out.println("Saving triangles");
 					String type = "Triangle";
-					String name = t.getName();
-					String x = Double.toString((t.getXpos1())/20);
-					String y = Double.toString((t.getYpos1())/20);
-					bufferWrite.write(type);
-					bufferWrite.write(name);
-					bufferWrite.write(x);
-					bufferWrite.write(y);
+					String name = triangles.get(i).getName();
+					int x1 = (int) (triangles.get(i).getXpos1()/20);
+					int y1 = (int) (triangles.get(i).getYpos1()/20);
+					String x = Integer.toString(x1);
+					String y = Integer.toString(y1);
+					bufferWrite.write(type +" ");
+					bufferWrite.write(name +" ");
+					bufferWrite.write(x +" ");
+					bufferWrite.write(y +" ");
 					bufferWrite.newLine();
-					for(int i = 0; i<= t.getConnectons().size(); i++)
-					{
-						String s = "Connect";
-						String connect = Integer.toString(t.getConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
-					for(int i = 0; i<= t.getKeyConnectons().size(); i++)
-					{
-						String s = "Key Connect";
-						String connect = Integer.toString(t.getKeyConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
+//					for(int i1 = 0; i1<= triangles.get(i).getConnectons().size(); i1++)
+//					{
+//						String s = "Connect";
+//						String connect = Integer.toString(triangles.get(i).getConnectons().get(i1));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
+//					for(int i2 = 0; i<= triangles.get(i).getKeyConnectons().size(); i2++)
+//					{
+//						String s = "Key Connect";
+//						String connect = Integer.toString(triangles.get(i).getKeyConnectons().get(i2));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
 				}
-				for (Square sq : m1.getSquare())
+				for (int i =0; i<squares.size();i++)
 				{
+					System.out.println("Saving squares");
 					String type = "Square";
-					String name = sq.getName();
-					String x = Double.toString((sq.getXPos())/20);
-					String y = Double.toString((sq.getYPos())/20);
-					bufferWrite.write(type);
-					bufferWrite.write(name);
-					bufferWrite.write(x);
-					bufferWrite.write(y);
+					String name = squares.get(i).getName();
+					int x1 = (int) (squares.get(i).getXPos()/20);
+					int y1 = (int) (squares.get(i).getYPos()/20);
+					String x = Integer.toString(x1);
+					String y = Integer.toString(y1);
+					bufferWrite.write(type +" ");
+					bufferWrite.write(name +" ");
+					bufferWrite.write(x +" ");
+					bufferWrite.write(y +" ");
 					bufferWrite.newLine();
-					for(int i = 0; i<= sq.getConnectons().size(); i++)
-					{
-						String s = "Connect";
-						String connect = Integer.toString(sq.getConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
-					for(int i = 0; i<= sq.getKeyConnectons().size(); i++)
-					{
-						String s = "Key Connect";
-						String connect = Integer.toString(sq.getKeyConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
+//					for(int i1 = 0; i<= squares.get(i).getConnectons().size(); i1++)
+//					{
+//						String s = "Connect";
+//						String connect = Integer.toString(squares.get(i).getConnectons().get(i1));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
+//					for(int i2 = 0; i<= squares.get(i).getKeyConnectons().size(); i2++)
+//					{
+//						String s = "Key Connect";
+//						String connect = Integer.toString(squares.get(i).getKeyConnectons().get(i2));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
 				}
-				for (Circle1 c : m1.getCircle())
+				for (int i =0; i<circles.size();i++)
 				{
+					System.out.println("Saving circles");
 					String type = "Circle";
-					String name = c.getName();
-					String x = Double.toString((c.getExactX())/20);
-					String y = Double.toString((c.getExactY())/20);
-					bufferWrite.write(type);
-					bufferWrite.write(name);
-					bufferWrite.write(x);
-					bufferWrite.write(y);
+					String name = circles.get(i).getName();
+					int x1 = (int) (circles.get(i).getExactX()/20);
+					int y1 = (int) (circles.get(i).getExactY()/20);
+					String x = Integer.toString(x1);
+					String y = Integer.toString(y1);
+					bufferWrite.write(type +" ");
+					bufferWrite.write(name +" ");
+					bufferWrite.write(x +" ");
+					bufferWrite.write(y +" ");
 					bufferWrite.newLine();
-					for(int i = 0; i<= c.getConnectons().size(); i++)
-					{
-						String s = "Connect";
-						String connect = Integer.toString(c.getConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
-					for(int i = 0; i<= c.getKeyConnectons().size(); i++)
-					{
-						String s = "Key Connect";
-						String connect = Integer.toString(c.getKeyConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
+//					for(int i1 = 0; i<= circles.get(i).getConnectons().size(); i1++)
+//					{
+//						String s = "Connect";
+//						String connect = Integer.toString(circles.get(i).getConnectons().get(i1));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
+//					for(int i2 = 0; i<= circles.get(i).getKeyConnectons().size(); i2++)
+//					{
+//						String s = "Key Connect";
+//						String connect = Integer.toString(circles.get(i).getKeyConnectons().get(i2));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
 				}
-				for (LeftFlipper lf : m1.getLFlipper())
+				for (int i =0; i<leftFlippers.size();i++)
 				{
+					System.out.println("Saving left flippers");
 					String type = "Left Flipper";
-					String name = lf.getName();
-					String x = Double.toString((lf.getXPos())/20);
-					String y = Double.toString((lf.getYPos())/20);
-					bufferWrite.write(type);
-					bufferWrite.write(name);
-					bufferWrite.write(x);
-					bufferWrite.write(y);
+					String name = leftFlippers.get(i).getName();
+					int x1 = (int) (leftFlippers.get(i).getXPos()/20);
+					int y1 = (int) (leftFlippers.get(i).getYPos()/20);
+					String x = Integer.toString(x1);
+					String y = Integer.toString(y1);
+					bufferWrite.write(type +" ");
+					bufferWrite.write(name +" ");
+					bufferWrite.write(x +" ");
+					bufferWrite.write(y +" ");
 					bufferWrite.newLine();
-					for(int i = 0; i<= lf.getConnectons().size(); i++)
-					{
-						String s = "Connect";
-						String connect = Integer.toString(lf.getConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
-					for(int i = 0; i<= lf.getKeyConnectons().size(); i++)
-					{
-						String s = "Key Connect";
-						String connect = Integer.toString(lf.getKeyConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
+//					for(int i1 = 0; i<= leftFlippers.get(i).getConnectons().size(); i1++)
+//					{
+//						String s = "Connect";
+//						String connect = Integer.toString(leftFlippers.get(i).getConnectons().get(i1));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
+//					for(int i2 = 0; i<= leftFlippers.get(i).getKeyConnectons().size(); i2++)
+//					{
+//						String s = "Key Connect";
+//						String connect = Integer.toString(leftFlippers.get(i).getKeyConnectons().get(i2));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
 				}
-				for (RightFlipper rf : m1.getRFlipper())
+				for (int i =0; i<rightFlippers.size();i++)
 				{
+					System.out.println("Saving right flippers");
 					String type = "Right Flipper";
-					String name = rf.getName();
-					String x = Double.toString((rf.getXPos())/20);
-					String y = Double.toString((rf.getYPos())/20);
-					bufferWrite.write(type);
-					bufferWrite.write(name);
-					bufferWrite.write(x);
-					bufferWrite.write(y);
+					String name = rightFlippers.get(i).getName();
+					int x1 = (int) (rightFlippers.get(i).getXPos()/20);
+					int y1 = (int) (rightFlippers.get(i).getYPos()/20);
+					String x = Integer.toString(x1);
+					String y = Integer.toString(y1);
+					bufferWrite.write(type +" ");
+					bufferWrite.write(name +" ");
+					bufferWrite.write(x +" ");
+					bufferWrite.write(y +" ");
 					bufferWrite.newLine();
-					for(int i = 0; i<= rf.getConnectons().size(); i++)
-					{
-						String s = "Connect";
-						String connect = Integer.toString(rf.getConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
-					for(int i = 0; i<= rf.getKeyConnectons().size(); i++)
-					{
-						String s = "Key Connect";
-						String connect = Integer.toString(rf.getKeyConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
+//					for(int i1 = 0; i<= rightFlippers.get(i).getConnectons().size(); i1++)
+//					{
+//						String s = "Connect";
+//						String connect = Integer.toString(rightFlippers.get(i).getConnectons().get(i1));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
+//					for(int i2 = 0; i<= rightFlippers.get(i).getKeyConnectons().size(); i2++)
+//					{
+//						String s = "Key Connect";
+//						String connect = Integer.toString(rightFlippers.get(i).getKeyConnectons().get(i2));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
 				}
-				for (Absorber a : m1.getAbsorber())
+				for (int i =0; i<absorbers.size();i++)
 				{
+					System.out.println("Saving absorber");
 					String type = "Absorber";
-					String name = a.getName();
-					String x = Double.toString((a.getXPos())/20);
-					String y = Double.toString((a.getYPos())/20);
-					bufferWrite.write(type);
-					bufferWrite.write(name);
-					bufferWrite.write(x);
-					bufferWrite.write(y);
+					String name = absorbers.get(i).getName();
+					int x1 = (int) (absorbers.get(i).getXPos()/20);
+					int y1 = (int) (absorbers.get(i).getYPos()/20);
+					String x = Integer.toString(x1);
+					String y = Integer.toString(y1);
+					bufferWrite.write(type +" ");
+					bufferWrite.write(name +" ");
+					bufferWrite.write(x +" ");
+					bufferWrite.write(y +" ");
 					bufferWrite.newLine();
-					for(int i = 0; i<= a.getConnectons().size(); i++)
-					{
-						String s = "Connect";
-						String connect = Integer.toString(a.getConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
-					for(int i = 0; i<= a.getKeyConnectons().size(); i++)
-					{
-						String s = "Key Connect";
-						String connect = Integer.toString(a.getKeyConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
+//					for(int i1 = 0; i<= absorbers.get(i).getConnectons().size(); i1++)
+//					{
+//						String s = "Connect";
+//						String connect = Integer.toString(absorbers.get(i).getConnectons().get(i1));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
+//					for(int i2 = 0; i<= absorbers.get(i).getKeyConnectons().size(); i2++)
+//					{
+//						String s = "Key Connect";
+//						String connect = Integer.toString(absorbers.get(i).getKeyConnectons().get(i2));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
 				}
-				for (Ball1 b : m1.getBall())
+				for (int i =0; i<balls.size();i++)
 				{
+					System.out.println("Saving ball");
 					String type = "Ball";
-					String name = b.getName();
-					String x = Double.toString((b.getExactX())/20);
-					String y = Double.toString((b.getExactY())/20);
-					bufferWrite.write(type);
-					bufferWrite.write(name);
-					bufferWrite.write(x);
-					bufferWrite.write(y);
+					String name = balls.get(i).getName();
+					int x1 = (int) (balls.get(i).getExactX()/20);
+					int y1 = (int) (balls.get(i).getExactY()/20);
+					String x = Integer.toString(x1);
+					String y = Integer.toString(y1);
+					bufferWrite.write(type +" ");
+					bufferWrite.write(name +" ");
+					bufferWrite.write(x +" ");
+					bufferWrite.write(y +" ");
 					bufferWrite.newLine();
-					for(int i = 0; i<= b.getConnectons().size(); i++)
-					{
-						String s = "Connect";
-						String connect = Integer.toString(b.getConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
-					for(int i = 0; i<= b.getKeyConnectons().size(); i++)
-					{
-						String s = "Key Connect";
-						String connect = Integer.toString(b.getKeyConnectons().get(i));
-						bufferWrite.write(s);
-						bufferWrite.write(name);
-						bufferWrite.write(connect);
-					}
+//					for(int i1 = 0; i<= balls.get(i).getConnectons().size(); i1++)
+//					{
+//						String s = "Connect";
+//						String connect = Integer.toString(balls.get(i).getConnectons().get(i1));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
+//					for(int i2 = 0; i<= balls.get(i).getKeyConnectons().size(); i2++)
+//					{
+//						String s = "Key Connect";
+//						String connect = Integer.toString(balls.get(i).getKeyConnectons().get(i2));
+//						bufferWrite.write(s);
+//						bufferWrite.write(name);
+//						bufferWrite.write(connect);
+//					}
 				}
+				bufferWrite.close();
 			}
 		catch(IOException e)
 		{

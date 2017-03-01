@@ -23,6 +23,7 @@ public class Absorber {
 		xpos = x*20;
 		ypos = y*20;
 		ls = new LineSegment(x, y+h-1, x + w, y+h-1);
+		setName(name);
 	}
 	
 	public void setName(String n){
