@@ -1,5 +1,8 @@
 package model;
 import java.awt.Color;
+import java.awt.List;
+import java.util.ArrayList;
+
 import physics.LineSegment;
 public class Triangle {
 	private double xpos1;
@@ -15,6 +18,8 @@ public class Triangle {
 	private double width;
 	private double height;
 	private String triangleName;
+	ArrayList<Integer> connections = new ArrayList<Integer>();
+	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
 	
 	// x1 = top left, x2 = bottom, x3 = top right, y1 = top left, y2 = bottom,
 	// y3 = top right
@@ -79,6 +84,16 @@ public class Triangle {
 	}
 	public LineSegment getLineSeg3() {
 		return ls3;
+	}
+	
+	public ArrayList<Integer> getConnectons()
+	{
+		return connections;
+	}
+	
+	public ArrayList<Integer> getKeyConnectons()
+	{
+		return keyConnections;
 	}
 	
 }

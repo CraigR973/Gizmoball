@@ -1,5 +1,7 @@
 package model;
 import java.awt.Color;
+import java.util.ArrayList;
+
 import physics.Angle;
 import physics.LineSegment;
 import physics.Vect;
@@ -14,7 +16,8 @@ public class RightFlipper {
 	private LineSegment ls;
 	private Angle angle;
 	String flipperName;
-	
+	ArrayList<Integer> connections = new ArrayList<Integer>();
+	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
 	
 	public RightFlipper(String name, double x, double y){
 		colour = Color.ORANGE;
@@ -87,5 +90,15 @@ public class RightFlipper {
 	
 	public double getWidth(){
 		return width;
+	}
+	
+	public ArrayList<Integer> getConnectons()
+	{
+		return connections;
+	}
+	
+	public ArrayList<Integer> getKeyConnectons()
+	{
+		return keyConnections;
 	}
 }

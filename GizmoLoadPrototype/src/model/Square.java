@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import physics.LineSegment;
 
@@ -13,6 +14,8 @@ public class Square {
 	private double ypos;
 	private LineSegment ls;
 	private String squareName;
+	ArrayList<Integer> connections = new ArrayList<Integer>();
+	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
 	
 	public Square(String name, double x, double y){
 		double w = 20;
@@ -55,5 +58,15 @@ public class Square {
 	
 	public String getName(){
 		return squareName;
+	}
+	
+	public ArrayList<Integer> getConnectons()
+	{
+		return connections;
+	}
+	
+	public ArrayList<Integer> getKeyConnectons()
+	{
+		return keyConnections;
 	}
 }

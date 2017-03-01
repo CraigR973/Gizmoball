@@ -12,6 +12,7 @@ import java.util.StringTokenizer;
 
 public class Model1 extends Observable{
 	fileReader file = new fileReader();
+	saveFile savefile = new saveFile();
 	private Absorber absorber;
 	private Ball1 ball;
 	private Triangle tri;
@@ -29,66 +30,101 @@ public class Model1 extends Observable{
 	
 	public Model1() {
 		
-		ArrayList<String> gizmos = new ArrayList<String>();
-		file.readFile();
-		gizmos = file.getGizmos();
-		for(int i = 0; i < gizmos.size(); i++)
-		{
-			StringTokenizer st = new StringTokenizer(gizmos.get(i));  
-			if(st.hasMoreTokens()){
-				//System.out.println(st.nextToken());
-				String cGizmo = st.nextToken();
-				String name = st.nextToken();
-				double value1 = Double.parseDouble(st.nextToken());
-				double value2 = Double.parseDouble(st.nextToken());
-
-				if(cGizmo.equals("Triangle"))
-				{
-					
-					Triangle t = new Triangle(name, value1, value2);
-					triangles.add(t);
-				}
-				else if(cGizmo.equals("Square"))
-				{
-					Square sq = new Square(name, value1, value2);
-					squares.add(sq);
-					
-				}
-				else if(cGizmo.equals("Circle"))
-				{
-					Circle1 c = new Circle1(name, value1, value2);
-					circles.add(c);
-				}
-				else if(cGizmo.equals("LeftFlipper"))
-				{
-					LeftFlipper lf = new LeftFlipper(name, value1, value2);
-					leftFlippers.add(lf);
-				}
-				else if(cGizmo.equals("RightFlipper"))
-				{
-					RightFlipper rf = new RightFlipper(name, value1, value2);
-					rightFlippers.add(rf);
-				}
-				else if(cGizmo.equals("Absorber"))
-				{
-					Absorber a = new Absorber(name, value1, value2);
-					absorbers.add(a);
-				}
-				else if(cGizmo.equals("Ball"))
-				{
-					double value3 = Double.parseDouble(st.nextToken());
-					double value4 = Double.parseDouble(st.nextToken());
-					Ball1 b = new Ball1(name, value1, value2, value3, value4);
-					balls.add(b);
-				}
-			}
-		}
+		
 		
 //		gws = new Walls1(0, 0, 500, 500);
 //		ball = new Ball1(50, 250, 300, 300);
 //		absorber = new Absorber(500,25,0,475);
 //		tri = new Triangle(450,500,500,0,50,0);
 //		tri1 = new Triangle(50,0,0,0,50,0);
+	}
+	
+	public void load()
+	{
+	ArrayList<String> gizmos = new ArrayList<String>();
+	file.readFile();
+	gizmos = file.getGizmos();
+	for(int i = 0; i < gizmos.size(); i++)
+	{
+		StringTokenizer st = new StringTokenizer(gizmos.get(i));  
+		if(st.hasMoreTokens()){
+			//System.out.println(st.nextToken());
+			String cGizmo = st.nextToken();
+			String name = st.nextToken();
+			String value1 = st.nextToken();
+			String value2 = st.nextToken();
+
+			if(cGizmo.equals("Triangle"))
+			{
+				double value1d = Double.parseDouble(value1);
+				double value2d = Double.parseDouble(value2);
+				Triangle t = new Triangle(name, value1d, value2d);
+				triangles.add(t);
+				if(st.hasMoreTokens()){
+					
+				}
+			}
+			else if(cGizmo.equals("Square"))
+			{
+				double value1d = Double.parseDouble(value1);
+				double value2d = Double.parseDouble(value2);
+				Square sq = new Square(name, value1d, value2d);
+				squares.add(sq);
+				
+			}
+			else if(cGizmo.equals("Circle"))
+			{
+				double value1d = Double.parseDouble(value1);
+				double value2d = Double.parseDouble(value2);
+				Circle1 c = new Circle1(name, value1d, value2d);
+				circles.add(c);
+			}
+			else if(cGizmo.equals("LeftFlipper"))
+			{
+				double value1d = Double.parseDouble(value1);
+				double value2d = Double.parseDouble(value2);
+				LeftFlipper lf = new LeftFlipper(name, value1d, value2d);
+				leftFlippers.add(lf);
+			}
+			else if(cGizmo.equals("RightFlipper"))
+			{
+				double value1d = Double.parseDouble(value1);
+				double value2d = Double.parseDouble(value2);
+				RightFlipper rf = new RightFlipper(name, value1d, value2d);
+				rightFlippers.add(rf);
+			}
+			else if(cGizmo.equals("Absorber"))
+			{
+				double value1d = Double.parseDouble(value1);
+				double value2d = Double.parseDouble(value2);
+				Absorber a = new Absorber(name, value1d, value2d);
+				absorbers.add(a);
+			}
+			else if(cGizmo.equals("Ball"))
+			{
+				double value1d = Double.parseDouble(value1);
+				double value2d = Double.parseDouble(value2);
+				double value3 = Double.parseDouble(st.nextToken());
+				double value4 = Double.parseDouble(st.nextToken());
+				Ball1 b = new Ball1(name, value1d, value2d, value3, value4);
+				balls.add(b);
+			}
+			else if(cGizmo.equals("Connect"))
+			{
+				
+			}
+			else if(cGizmo.equals("Key Connect"))
+			{
+				
+			}
+			else if(cGizmo.equals("Rotate"))
+			{
+				
+			}
+		}
+		this.setChanged();
+		this.notifyObservers();
+	}
 	}
 	
 //	public void moveBall() {
@@ -185,6 +221,10 @@ public class Model1 extends Observable{
 //			}
 //		return new CollisionDetails1(shortestTime, newVelo);
 //	}
+	
+	public void save(){
+		savefile.save();
+	}
 
 	
 	public ArrayList<Square> getSquare() {

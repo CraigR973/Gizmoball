@@ -1,5 +1,7 @@
 package model;
 import java.awt.Color;
+import java.util.ArrayList;
+
 import physics.Circle;
 import physics.LineSegment;
 public class Circle1 {
@@ -11,6 +13,8 @@ public class Circle1 {
 	private LineSegment radLs;
 	private String circleName;
 //	private boolean stopped;
+	ArrayList<Integer> connections = new ArrayList<Integer>();
+	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
 	
 	// x, y coordinates and x,y velocity
 	public Circle1(String name, double x, double y) {
@@ -61,5 +65,15 @@ public class Circle1 {
 	
 	public void setLs(int x1, int y1, int x2, int y2){
 		radLs = new LineSegment(x1,y1,x2,y2);
+	}
+	
+	public ArrayList<Integer> getConnectons()
+	{
+		return connections;
+	}
+	
+	public ArrayList<Integer> getKeyConnectons()
+	{
+		return keyConnections;
 	}
 }
