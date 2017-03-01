@@ -4,6 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -28,6 +33,10 @@ public  class Board1 extends JPanel implements Observer {
 	protected int width;
 	protected int height;
 	protected Model1 gm;
+	private int angle;
+	int offset = 5;
+	private AffineTransform transform;
+	
 
 
 	public Board1(int w, int h, Model1 m) {
@@ -36,19 +45,40 @@ public  class Board1 extends JPanel implements Observer {
 		width = w;
 		height = h;
 		gm = m;
+		transform = new AffineTransform();
+		
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
+	
+	
 
 	// Fix onscreen size
 	public Dimension getPreferredSize() {
 		return new Dimension(width, height);
 	}
 	
+/*	public void createTransformedShape() {
+		Rectangle2D myRect = new Rectangle2D.Double(100, 100, 200, 200);
+		AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 4, 150, 150);
+		Shape rotatedRect = at.createTransformedShape(myRect);
+	} */
+	
+	
+	
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		Rectangle rect = new Rectangle(100, 100, 100, 100);
+		
+
 
 		Graphics2D g2 = (Graphics2D) g;
+		
+/*transform.setToTranslation((rect.getWidth() - width) / 2, (lFlip.getHeight() - height) / 2);
+		
+		transform.rotate(Math.toRadians(angle), width / 2, height / 2); */
+		
+		
 		
 		//VerticalLine1 bot = gm.getLine();
 		// Draw all the vertical lines
@@ -75,32 +105,67 @@ public  class Board1 extends JPanel implements Observer {
 			g2.fillRect(x, y, width, height);
 		}
 		
-	/*	LeftFlipper lFlip = gm.getLeftFlipper();
+		LeftFlipper lFlip = gm.getLeftFlipper();
 		if(lFlip != null){
 			g2.setColor(lFlip.getColour());
 			int x = (int)lFlip.getXPos();
 			int y = (int)lFlip.getYPos();
 			int width = (int)lFlip.getWidth();
 			int height = (int)lFlip.getHeight();
-<<<<<<< HEAD
-			g2.fillRect(x, y, width, height);
-		} */
+		//	AffineTransform oldTransform = g2.getTransform();
+		//	g2.setTransform(AffineTransform.getRotateInstance(Math.PI/180));
+	//transform.setToTranslation((lFlip.getWidth() - width) / 2, (lFlip.getHeight() - height) / 2);
+			
+	//		transform.rotate(Math.toRadians(angle), width / 2, height / 2);
+
+			//g2.fillRoundRect(x, y, width, height, width, height);
+	//		g2.draw(lFlip, transform, this); 
+	//		g2.fillRoundRect(x, y, width, height, width, height);
+			g2.draw(createRotated());
+		//	g2.setTransform(oldTransform); 
+			
+		}
+			
+			
+	/*	transform.setToTranslation((lFlip.getWidth() - width) / 2, (lFlip.getHeight() - height) / 2);
+			
+			transform.rotate(Math.toRadians(angle), width / 2, height / 2);
+
+			//g2.fillRoundRect(x, y, width, height, width, height);
+			g2.drawImage(lFlip, transform, this); 
 		 
-		VerticalLine1 line = gm.getVerticalLine();
+		 
+/*		VerticalLine1 line = gm.getVerticalLine1();
 		if(line != null){
 			g2.setColor(line.getColour());
 			int x = (int)line.getX();
 			int y = (int)line.getY();
 			int height = (int)line.getHeight();
 			g2.fillRect(x, y, 1, height);
-=======
-			g2.fillRoundRect(x, y, width, height, width, height);
->>>>>>> bacc5c0bae0ccefa8f550cd8facd21582659e646
-		}
+
+			g2.fillRoundRect(x, y, width, height, width, height); 
+
+		}  */
 		
 		
 	}
 	
+	public Shape createRotated() {
+		RoundRectangle2D lFlipr = new RoundRectangle2D.Float(20, 100, 50, 100, 100, 100);
+		AffineTransform at = AffineTransform.getRotateInstance(Math.PI / 4, 150, 150);
+		Shape rotatedFlipper = at.createTransformedShape(lFlipr);
+		
+		return rotatedFlipper;
+	} 
+	
+	public void rotate() {
+		angle -= offset;
+		if (angle <= 0) {
+			angle = 270;
+		}
+		repaint();
+	}
+	 
 
 	@Override
 	public void update(Observable arg0, Object arg1) {

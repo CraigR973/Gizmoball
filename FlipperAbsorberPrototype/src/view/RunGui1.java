@@ -28,6 +28,7 @@ public class RunGui1 {
 	private JFrame frame;
 	private ActionListener listener;
 	private Board1 board;
+	private double rotation;
 
 	public RunGui1(Model1 m) {
 		model = m;
@@ -96,7 +97,7 @@ public class RunGui1 {
 				
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
 					System.out.println("Flipper moved");
-					model.rotateLeftFLip();
+					rotation = (rotation + Math.toRadians(10) );
 				}
 			}
 

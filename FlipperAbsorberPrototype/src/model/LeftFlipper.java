@@ -39,8 +39,8 @@ public class LeftFlipper {
 			return angle;
 		}
 		
-		public void setAngle(Angle ang) {
-			angle = ang;
+		public void setAngle(double a, double b) {
+			angle = new Angle(a,b);
 		}
 		
 		

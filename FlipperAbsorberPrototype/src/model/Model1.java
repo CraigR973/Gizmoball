@@ -1,4 +1,5 @@
 package model;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Observable;
 import physics.Angle;
@@ -12,12 +13,15 @@ public class Model1 extends Observable{
 	private Walls1 gws;
 	private boolean hitAbs = false;
 	private LeftFlipper leftFlipper;
+	private AffineTransform rotate;
+	int offset = 5;
 	
 	public Model1() {
 		gws = new Walls1(0, 0, 500, 500);
 		ball = new Ball1(40, 405, 300, 300);
 		absorber = new Absorber(500,25,0,475);
 		leftFlipper = new LeftFlipper(20, 60, 250, 250, 1.0, 0.0);
+		rotate = new AffineTransform();
 	}
 	
 	public void moveBall() {
@@ -52,7 +56,23 @@ public class Model1 extends Observable{
 		return ball;
 	}
 	
-	public void rotateLeftFLip() {
+	public void rotateLeft() {
+		leftFlipper = rotate(leftFlipper);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public LeftFlipper rotate(LeftFlipper leftFlipper) {
+		double newA = 0.0;
+		double newB = 0.0;
+		newA = 0.0;
+		newB = -1.0;
+		leftFlipper.setAngle(newA,newB);
+		return leftFlipper;
+		
+	} 
+	
+/*	public void rotateLeftFLip() {
 		leftFlipper = rotateLeftFlipper(leftFlipper);
 		this.setChanged();
 		this.notifyObservers();
@@ -66,11 +86,13 @@ public class Model1 extends Observable{
 		newB = -1.0;
 		
 		
-		leftFlipper.setAngle(newA);
+	//	leftFlipper.setAngle(newA);
 		
 		return leftFlipper;
 		
-	} 
+	} */
+	
+	
 	private CollisionDetails1 timeUntilCollision() {
 		// Find Time Until Collision and also, if there is a collision, the new speed vector.
 		// Create a physics.Circle from Ball
