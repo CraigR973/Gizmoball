@@ -6,19 +6,23 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.event.MouseInputListener;
 
 import controller.AddAbsorberListener;
+import controller.AddGizmoListener;
 import controller.GizmoBallListener;
-
+import controller.MagicKeyListener;
 import controller.RunListener1;
 import model.Model1;
 //import controller.RunListener;
@@ -36,31 +40,61 @@ public class BuildGui1 {
 	private JMenuBar buildBar;
 	private GizmoBallGui view;
 	private JTextArea messageBoard;
+	private JMenuBar menuBar;
 
 
 	public BuildGui1(Model1 m) {
 		model = m;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
-		listener = new RunListener1(m);
+		// listener = new RunListener1(m);
 	}
 	
 	public void createButtons() {
 		
 		
-		JButton absorberB = new JButton("Add Absorber");
+		JButton absorberButton = new JButton("Add Absorber");
 	
 		MouseInputListener al =  new AddAbsorberListener(model, view, messageBoard);
-		absorberB.addActionListener(new ActionListener() {
+		absorberButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				messageBoard.setText("Click and drag to add absorber");
 				buildListener.setMouseListener(al);
 			}
 		});
 		
+		JButton gizmoButton = new JButton("Add Gizmo");
+		
+		MouseInputListener gl =  new AddGizmoListener(model, view, messageBoard);
+		gizmoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				messageBoard.setText("Click a box on the board you want to add a gizmo");
+				buildListener.setMouseListener(gl);
+			}
+		});
+		
 	}
 	
-	public void createMenuBar() {
+	public void createMenuBar(JFrame frame) {
+		
+		final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+		
+		JMenuBar menubar = new JMenuBar();
+		
+		frame.setJMenuBar(menubar);
+		
+		JMenu menu;
+		JMenuItem item;
+		
+		menu = new JMenu("File");
+		menubar.add(menu);
+		
+		
+		
+		
+		
+		
+		
 		
 	}
 	
@@ -72,6 +106,7 @@ public class BuildGui1 {
 
 		frame = new JFrame("Gizmoball");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createMenuBar(frame);
 
 		// Board is passed the Model so it can act as Observer
 		board = new Board1(400, 400, model);

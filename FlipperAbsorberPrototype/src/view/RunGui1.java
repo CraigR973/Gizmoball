@@ -6,12 +6,20 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.event.MouseInputListener;
 
+import controller.AddAbsorberListener;
 import controller.RunListener1;
 import model.Model1;
 //import controller.RunListener;
@@ -23,13 +31,58 @@ public class RunGui1 {
 	private JFrame frame;
 	private ActionListener listener;
 	private Board1 board;
+	
+	private JTextArea messageBoard;
+	private GizmoBallGui view;
 
 	public RunGui1(Model1 m) {
 		model = m;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
-		listener = new RunListener1(m);
+		listener = new RunListener1(m, null);
 	}
+	
+public JPanel createButtons(RunListener1 runListener) {
+		
+		
+		JButton absorberButton = new JButton("Add Absorber");
+	
+	
+		MouseInputListener al =  new AddAbsorberListener(model, view, messageBoard);
+		absorberButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				messageBoard.setText("Click and drag to add absorber");
+				listener.setMouseListener(al);
+			}
+		});
+		return board;
+		
+	}
+
+public JMenuBar createMenuBar(RunListener1 runListener) {
+	
+	final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+	
+	JMenuBar menubar = new JMenuBar();
+	
+	runListener.setJMenuBar(menubar);
+	
+	JMenu menu;
+	JMenuItem item;
+	
+	menu = new JMenu("File");
+	menubar.add(menu);
+	return menubar;
+	
+	
+	
+	
+	
+	
+	
+	
+}
+	
 
 	public void createAndShowGUI() {
 
@@ -89,5 +142,7 @@ public class RunGui1 {
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
+
+	
 
 }

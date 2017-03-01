@@ -2,8 +2,11 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JMenuBar;
 import javax.swing.Timer;
 import model.Model1;
+import view.GizmoBallView;
 
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
@@ -14,7 +17,7 @@ public class RunListener1 implements ActionListener {
 	private Timer timer;
 	private Model1 model;
 
-	public RunListener1(Model1 m) {
+	public RunListener1(Model1 m, GizmoBallView view) {
 		model = m;
 		timer = new Timer(50, this);
 	}
@@ -45,5 +48,10 @@ public class RunListener1 implements ActionListener {
 				System.out.println("Load Button");
 				break;
 			}
+	}
+
+	public void setJMenuBar(JMenuBar menubar) {
+		// TODO Auto-generated method stub
+		
 	}
 }

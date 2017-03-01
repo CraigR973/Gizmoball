@@ -4,6 +4,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import controller.BuildListener;
+import controller.RunListener1;
 import model.Model1;
 
 public class GizmoBallView {
@@ -17,6 +18,10 @@ public class GizmoBallView {
 	JMenuBar runBar;
 	JMenuBar bar;
 	Model1 model;
+	private BuildGui1 buildMode;
+	private BuildListener buildListener;
+	private RunGui1 runMode;
+	private RunListener1 runListener;
 	
 	public void createBuildGui() {
 		buildMode = new BuildGui1(model);
@@ -28,17 +33,17 @@ public class GizmoBallView {
 	public void createRunGui() {
 		runMode = new RunGui1(model);
 		runListener = new RunListener1(model, this);
-		runButtons = runMode.createButtons(runListener1);
-		runBar = runMode.createMenuBar(runListener1);
+		runButtons = runMode.createButtons(runListener);
+		runBar = runMode.createMenuBar(runListener);
 	}
 	
 	public void buildMode(){
-		buttons= buildButtons;
+		buttons = buildButtons;
 		bar = buildBar;
 	}
 	
 	public void runMode(){
-		buttons= runButtons;
+		buttons = runButtons;
 		bar = runBar;
 	}
 	

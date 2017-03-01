@@ -21,7 +21,7 @@ public  class BuildListener implements GizmoBallListener {
 	public BuildListener(Model1 m, GizmoBallGui v) {
 		model = m;
 		view = v;
-		mouseListener = new AddGizmoListener(model, view.getMessageBoard());
+		mouseListener = new AddGizmoListener(model, view.getMessageBoard(), null);
 		keyboardListener = new DoNothingKeyListener(m);
 	}
 	
