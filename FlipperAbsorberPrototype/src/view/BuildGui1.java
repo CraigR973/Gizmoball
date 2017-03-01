@@ -6,21 +6,23 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.event.MouseInputListener;
+
+import controller.AddAbsorberListener;
+import controller.GizmoBallListener;
 
 import controller.RunListener1;
 import model.Model1;
 //import controller.RunListener;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
 
 public class BuildGui1 {
 
@@ -28,13 +30,42 @@ public class BuildGui1 {
 	private JFrame frame;
 	private ActionListener listener;
 	private Board1 board;
-	private double rotation;
+	//New stuff added
+	private GizmoBallListener buildListener;
+	private JPanel buildButtons;
+	private JMenuBar buildBar;
+	private GizmoBallGui view;
+	private JTextArea messageBoard;
+
 
 	public BuildGui1(Model1 m) {
 		model = m;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
 		listener = new RunListener1(m);
+	}
+	
+	public void createButtons() {
+		
+		
+		JButton absorberB = new JButton("Add Absorber");
+	
+		MouseInputListener al =  new AddAbsorberListener(model, view, messageBoard);
+		absorberB.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				messageBoard.setText("Click and drag to add absorber");
+				buildListener.setMouseListener(al);
+			}
+		});
+		
+	}
+	
+	public void createMenuBar() {
+		
+	}
+	
+	public void createMessageField() {
+		
 	}
 
 	public void createAndShowGUI() {
@@ -43,8 +74,8 @@ public class BuildGui1 {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Board is passed the Model so it can act as Observer
-		board = new Board1(500, 500, model);
-		board.setBackground(Color.BLACK);
+		board = new Board1(400, 400, model);
+		board.setBackground(Color.GRAY);
 
 		Container cp = frame.getContentPane();
 
@@ -88,36 +119,8 @@ public class BuildGui1 {
 		loadButton.setFont(gf);
 		buttons.add(loadButton);
 
-		cp.add(buttons, BorderLayout.SOUTH);
+		cp.add(buttons, BorderLayout.LINE_START);
 		cp.add(board, BorderLayout.CENTER);
-		
-		button1.addKeyListener( new KeyListener() {
-
-			public void keyPressed(KeyEvent e) {
-				
-				if(e.getKeyCode() == KeyEvent.VK_LEFT){
-					System.out.println("Flipper moved");
-					rotation = (rotation + Math.toRadians(10) );
-				}
-			}
-
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			//new GizKeyListener());
-		});
-
-		frame.requestFocus();
-		frame.requestFocusInWindow(); 
-		
-		
-	
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);

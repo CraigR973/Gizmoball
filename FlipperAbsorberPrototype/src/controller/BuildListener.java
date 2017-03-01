@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.event.MouseInputListener;
 
 import model.Model1;
+import view.GizmoBallGui;
 
 public  class BuildListener implements GizmoBallListener {
 	
@@ -85,31 +86,31 @@ public  class BuildListener implements GizmoBallListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		keyboardListener.keyReleased(e);
 		
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		keyboardListener.keyTyped(e);
 		
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseClicked(MouseEvent arg0) {
+		mouseListener.mouseClicked(arg0);
 		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseEntered(MouseEvent arg0) {
+		mouseListener.mouseEntered(arg0);
 		
 	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseExited(MouseEvent arg0) {
+		mouseListener.mouseExited(arg0);
 		
 	}
 
@@ -126,14 +127,14 @@ public  class BuildListener implements GizmoBallListener {
 	}
 
 	@Override
-	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseDragged(MouseEvent arg0) {
+		mouseListener.mouseDragged(arg0);
 		
 	}
 
 	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
+	public void mouseMoved(MouseEvent arg0) {
+		mouseListener.mouseMoved(arg0);
 		
 	}
 
