@@ -6,7 +6,7 @@ import java.awt.event.WindowListener;
 
 import javax.swing.event.MouseInputListener;
 
-public interface GBallListener extends ActionListener, WindowListener, KeyListener, MouseInputListener {
+public interface GizmoBallListener extends ActionListener, WindowListener, KeyListener, MouseInputListener {
 
 	public void setMouseListener(MouseInputListener ml);
 
