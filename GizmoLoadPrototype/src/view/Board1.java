@@ -96,7 +96,7 @@ public  class Board1 extends JPanel implements Observer {
 			int y = (int)lf.getYPos();
 			int width = (int)lf.getWidth();
 			int height = (int)lf.getHeight();
-			g2.fillRect(x, y, width, height);
+			g2.fillRoundRect(x, y, width, height, 15, 15);
 		}
 		
 		String shape5 = "RightFlipper";
@@ -107,7 +107,7 @@ public  class Board1 extends JPanel implements Observer {
 			int y = (int)rf.getYPos();
 			int width = (int)rf.getWidth();
 			int height = (int)rf.getHeight();
-			g2.fillRect(x, y, width, height);
+			g2.fillRoundRect(x, y, width, height, 15, 15);
 		}
 		
 		String shape6 = "Ball";

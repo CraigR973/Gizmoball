@@ -1,5 +1,7 @@
 package model;
 import java.awt.Color;
+import java.util.ArrayList;
+
 import physics.LineSegment;
 public class Absorber {
 	private Color colour;
@@ -9,9 +11,11 @@ public class Absorber {
 	private double ypos;
 	private String absName;
 	private LineSegment ls;
+	ArrayList<Integer> connections = new ArrayList<Integer>();
+	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
 	
 	public Absorber(String name, double x, double y){
-		double w = 400;
+		double w = 500;
 		double h = 25;
 		colour = Color.MAGENTA;
 		width = w;
@@ -19,6 +23,7 @@ public class Absorber {
 		xpos = x*20;
 		ypos = y*20;
 		ls = new LineSegment(x, y+h-1, x + w, y+h-1);
+		setName(name);
 	}
 	
 	public void setName(String n){
@@ -50,5 +55,15 @@ public class Absorber {
 	}
 	public String getName(){
 		return absName;
+	}
+	
+	public ArrayList<Integer> getConnectons()
+	{
+		return connections;
+	}
+	
+	public ArrayList<Integer> getKeyConnectons()
+	{
+		return keyConnections;
 	}
 }

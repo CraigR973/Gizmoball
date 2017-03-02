@@ -1,5 +1,7 @@
 package model;
 import java.awt.Color;
+import java.util.ArrayList;
+
 import physics.Circle;
 import physics.Vect;
 public class Ball1 {
@@ -10,6 +12,9 @@ public class Ball1 {
 	private Color colour;
 	private String ballName;
 	private boolean stopped;
+	ArrayList<Integer> connections = new ArrayList<Integer>();
+	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
+	
 	// x, y coordinates and x,y velocity
 	public Ball1(String name, double x, double y, double xv, double yv) {
 		xpos = x*20; // Centre coordinates
@@ -18,6 +23,7 @@ public class Ball1 {
 		velocity = new Vect(xv, yv);
 		radius = 7;
 		stopped = false;
+		setName(name);
 	}
 	public void setName(String n){
 		ballName = n;
@@ -63,5 +69,15 @@ public class Ball1 {
 	}
 	public Color getColour() {
 		return colour;
+	}
+	
+	public ArrayList<Integer> getConnectons()
+	{
+		return connections;
+	}
+	
+	public ArrayList<Integer> getKeyConnectons()
+	{
+		return keyConnections;
 	}
 }
