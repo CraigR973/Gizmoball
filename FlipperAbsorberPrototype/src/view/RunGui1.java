@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 import javax.swing.event.MouseInputListener;
 
 import controller.AddAbsorberListener;
@@ -35,14 +37,15 @@ public class RunGui1 {
 	private JTextArea messageBoard;
 	private GizmoBallGui view;
 
-	public RunGui1(Model1 m) {
+	public RunGui1(Model1 m, GizmoBallGui v) {
 		model = m;
+		view = v;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
-		listener = new RunListener1(m, null);
+		listener = new RunListener1(m, v);
 	}
 	
-public JPanel createButtons(RunListener1 runListener) {
+/* public JPanel createButtons(RunListener1 runListener) {
 		
 		
 		JButton absorberButton = new JButton("Add Absorber");
@@ -57,21 +60,26 @@ public JPanel createButtons(RunListener1 runListener) {
 		});
 		return board;
 		
-	}
+	} */
 
-public JMenuBar createMenuBar(RunListener1 runListener) {
+public JMenuBar createMenuBar(JFrame frame) {
 	
 	final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 	
 	JMenuBar menubar = new JMenuBar();
 	
-	runListener.setJMenuBar(menubar);
+	frame.setJMenuBar(menubar);
 	
 	JMenu menu;
 	JMenuItem item;
 	
 	menu = new JMenu("File");
 	menubar.add(menu);
+	
+	item = new JMenuItem("Save");
+	
+	item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
+	menu.add(item);
 	return menubar;
 	
 	
@@ -88,6 +96,7 @@ public JMenuBar createMenuBar(RunListener1 runListener) {
 
 		frame = new JFrame("Gizmoball");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		createMenuBar(frame);
 
 		// Board is passed the Model so it can act as Observer
 		board = new Board1(400, 400, model);
@@ -135,7 +144,7 @@ public JMenuBar createMenuBar(RunListener1 runListener) {
 		loadButton.setFont(gf);
 		buttons.add(loadButton);
 
-		cp.add(buttons, BorderLayout.LINE_START);
+		cp.add(buttons, BorderLayout.SOUTH);
 		cp.add(board, BorderLayout.CENTER);
 
 		frame.pack();

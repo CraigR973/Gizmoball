@@ -153,6 +153,11 @@ public class BuildGui1 {
 		loadButton.addActionListener(listener);
 		loadButton.setFont(gf);
 		buttons.add(loadButton);
+		
+		JButton runModeButton = new JButton("Run Mode");
+		runModeButton.addActionListener(listener);
+		runModeButton.setFont(gf);
+		buttons.add(runModeButton);
 
 		cp.add(buttons, BorderLayout.LINE_START);
 		cp.add(board, BorderLayout.CENTER);

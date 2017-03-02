@@ -16,5 +16,7 @@ public interface GizmoBallGui {
 	public void RunGui1();
 
 	public Object getMessageBoard();
+	
+	public void BuildGui1();
 
 }
