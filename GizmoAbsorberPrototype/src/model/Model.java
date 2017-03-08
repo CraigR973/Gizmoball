@@ -2,10 +2,6 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Observable;
-
-import physics.Circle;
-import physics.Geometry;
-import physics.LineSegment;
 import physics.Vect;
 
 public class Model extends Observable {
@@ -13,128 +9,47 @@ public class Model extends Observable {
 	private Ball ball;
 	private Walls gws;
 	private boolean keyPressed = false;
-	private Vect physics;
-	private double friction;
-	private double grav;
-	
+	PhysicsLoop physicsLoop;
+	private ArrayList<CircleGizmo> circs = new ArrayList<CircleGizmo>();
+	private ArrayList<TriangleGizmo> tris = new ArrayList<TriangleGizmo>();
+	private ArrayList<SquareGizmo> squares = new ArrayList<SquareGizmo>();
+
+	private TriangleGizmo tri;
+	private TriangleGizmo tri1;
+	private SquareGizmo sq;
+	private SquareGizmo sq1;
+	private CircleGizmo cir;
+	private CircleGizmo cir1;
+	int counter = 0;
+
 	public Model() {
+
+		tri = new TriangleGizmo(380, 0, 20, 20);
+		tri1 = new TriangleGizmo(120, 140, 20, 20);
+		sq = new SquareGizmo(20, 20, 280, 270);
+		sq1 = new SquareGizmo(20, 20, 180, 170);
+		cir = new CircleGizmo(200, 10);
+		cir1 = new CircleGizmo(90, 40);
+		circs.add(cir);
+		circs.add(cir1);
+		tris.add(tri);
+		tris.add(tri1);
+		squares.add(sq);
+		squares.add(sq1);
 		gws = new Walls(0, 0, 400, 400);
 		ball = new Ball(0, 385, 0, 0);
 		absorber = new Absorber(400, 25, 0, 375);
-		friction = 2.5;
-		grav = 69;
+		physicsLoop = new PhysicsLoop(ball, gws, absorber, keyPressed, squares, circs, tris);
+
 	}
 
-	public void moveBall() {
-
-		//Ball moves 50 times per second
-		double moveTime = 0.02; // 0.02 = 50 times per second as per Gizmoball
+	public void start() {
 		if (ball != null && !ball.stopped()) {
-			double xVel = ball.getVelo().x();
-			double yVel = ball.getVelo().y();
-			
-			if(xVel > 0){
-				xVel -= friction;
-			}else if(xVel < 0){
-				xVel += friction;
-			}
-			yVel += grav;
-			
-			physics = new Vect(xVel,yVel);
-			
-			ball.setVelo(physics);
-			
-			CollisionDetails cd = timeUntilCollision();
-			double tuc = cd.getTuc();
-			if (tuc > moveTime) {
-				// No collision ...
-				ball = movelBallForTime(ball, moveTime);
-			} else {
-				// We've got a collision in tuc
-				ball = movelBallForTime(ball, tuc);
-				// Post collision velocity ...
-				ball.setVelo(cd.getVelo());
-			}
-			
-			if(ball.getExactX() > 400 || ball.getExactY() > 380){
-				ball.setExactX(385);
-				ball.setExactY(385);
-			}
-			
-			// Notify observers ... redraw updated view
+			System.out.println(ball.getVelo());
+			physicsLoop.moveBall();
 			this.setChanged();
 			this.notifyObservers();
 		}
-
-	}
-
-	private Ball movelBallForTime(Ball ball, double time) {
-
-		double newX = 0.0;
-		double newY = 0.0;
-		double xVel = ball.getVelo().x();
-		double yVel = ball.getVelo().y();
-		newX = ball.getExactX() + (xVel * time);
-		newY = ball.getExactY() + (yVel * time);
-		ball.setExactX(newX);
-		ball.setExactY(newY);
-		return ball;
-	}
-
-	private CollisionDetails timeUntilCollision() {
-		// Find Time Until Collision and also, if there is a collision, the new
-		// speed vector.
-		// Create a physics.Circle from Ball
-		Circle ballCircle = ball.getCircle();
-		Vect ballVelocity = ball.getVelo();
-		Vect newVelo = new Vect(0, 0);
-
-		// Now find shortest time to hit a vertical line or a wall line
-		double shortestTime = Double.MAX_VALUE;
-		double time = 0.0;
-
-		// Time to collide with 4 walls
-		ArrayList<LineSegment> lss = gws.getLineSegments();
-		for (LineSegment line : lss) {
-			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
-			if (time < shortestTime) {
-				shortestTime = time;
-				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
-				// System.out.println("APPROACHING WALL");
-			}
-
-		}
-
-		// Time to collide with absorber
-		LineSegment ls = absorber.getAbsLineSeg();
-		time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-		if (time < shortestTime) {
-			shortestTime = time;
-			// newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-			// System.out.println("APPROACHING ABSORBER");
-			if (time < 0.02) {
-				System.out.println("Collision");
-				ball.setExactX(385);
-				ball.setExactY(385);
-				while (keyPressed == false) {
-					ball.setVelo(new Vect(0,0));
-					System.out.println("Ball stopped in absorber");
-					ball.stop();
-					System.out.println("Ball stopped: " + ball.stopped());
-					System.out.println("Current velo: " + ball.getVelo());
-					System.out.println("X: " + ball.getExactX() + " Y: " + ball.getExactY());
-					break;
-				}
-				System.out.println("Ball left absorber");
-				Vect velo = new Vect(0,1650);//(50 * L * 20));
-				newVelo = Geometry.reflectWall(ls, velo, 1.0);
-				ball.setVelo(velo);
-				System.out.println(ball.getVelo().x());
-				System.out.println(ball.getVelo().y());
-			}
-
-		}
-		return new CollisionDetails(shortestTime, newVelo);
 	}
 
 	public Absorber getAbsorber() {
@@ -157,5 +72,32 @@ public class Model extends Observable {
 
 	public void captureBall() {
 		keyPressed = false;
+	}
+	public ArrayList<CircleGizmo> getCircles() {
+		return circs;
+	}
+
+	public ArrayList<TriangleGizmo> getTriangles() {
+		return tris;
+	}
+
+	public ArrayList<SquareGizmo> getSquares() {
+		return squares;
+	}
+	
+	public void addSquare(SquareGizmo sq){
+		squares.add(sq);
+	}
+	
+	public void addCircle(CircleGizmo c){
+		circs.add(c);
+	}
+	
+	public void addTriangle(TriangleGizmo t){
+		tris.add(t);
+	}
+	
+	public void addAbsorber(Absorber a){
+		absorber = a;
 	}
 }

@@ -2,6 +2,9 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.JFileChooser;
 import javax.swing.Timer;
 import model.Model;
 import view.RunGui;
@@ -25,7 +28,7 @@ public class RunListener implements ActionListener {
 	public final void actionPerformed(final ActionEvent e) {
 
 		if (e.getSource() == timer) {
-			model.moveBall();
+			model.start();
 		} else
 			switch (e.getActionCommand()) {
 			case "Start":
@@ -35,7 +38,7 @@ public class RunListener implements ActionListener {
 				timer.stop();
 				break;
 			case "Tick":
-				model.moveBall();
+				model.start();
 				break;
 			case "Quit":
 				System.exit(0);
@@ -45,6 +48,13 @@ public class RunListener implements ActionListener {
 				break;
 			case "Load":
 				System.out.println("Load Button");
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(null);
+				if (result == JFileChooser.APPROVE_OPTION) {
+				    File selectedFile = fileChooser.getSelectedFile();
+				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+				}
 				break;
 			}
 	}

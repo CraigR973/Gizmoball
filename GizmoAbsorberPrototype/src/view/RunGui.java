@@ -30,7 +30,8 @@ public class RunGui {
 	public RunGui(Model m) {
 		model = m;
 
-		// RunListener catches all GUI events. In reality might have many listeners.
+		// RunListener catches all GUI events. In reality might have many
+		// listeners.
 		listener = new RunListener(m);
 		keyListener = new GizKeyListener();
 	}
@@ -74,34 +75,34 @@ public class RunGui {
 		button3.addActionListener(listener);
 		button3.setMaximumSize(new Dimension(100, 100));
 		buttons.add(button3);
-		
+
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(listener);
 		saveButton.setFont(gf);
 		saveButton.setBackground(Color.decode("#D4FAFF"));
 		buttons.add(saveButton);
-		
+
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(listener);
 		loadButton.setFont(gf);
 		buttons.add(loadButton);
 
 		JLabel info = new JLabel("Press the Start button then press the space key to release the ball in the absorber");
-		
+
 		cp.add(buttons, BorderLayout.SOUTH);
 		cp.add(info, BorderLayout.NORTH);
 		cp.add(board, BorderLayout.CENTER);
-		
-		frame.addKeyListener(new KeyListener(){
+
+		frame.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getKeyCode() == KeyEvent.VK_SPACE){
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					System.out.println("Space pressed");
 					model.releaseBall();
 				}
-				if(e.getKeyCode() == KeyEvent.VK_LEFT){
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					System.out.println("Up pressed");
 				}
 			}
@@ -109,7 +110,7 @@ public class RunGui {
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getKeyCode() == KeyEvent.VK_SPACE){
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					System.out.println("Space released");
 					model.captureBall();
 				}
@@ -118,50 +119,51 @@ public class RunGui {
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
-		
-		button1.addKeyListener(new KeyListener(){
+
+		board.addKeyListener(new KeyListener() {
 
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getKeyCode() == KeyEvent.VK_SPACE){
-					System.out.println("Space pressed on button");
-					frame.requestFocus();
-					frame.requestFocusInWindow();
-					model.releaseBall();
-				}
-				
+				System.out.println("Key press detected on board");
+				model.releaseBall();
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if(e.getKeyCode() == KeyEvent.VK_SPACE){
-					System.out.println("Space released");
-					model.captureBall();
-				}
+				// TODO Auto-generated method stub
+				model.captureBall();
 			}
 
 			@Override
-			public void keyTyped(KeyEvent arg0) {
+			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
 		});
+
+		button1.setFocusable(false);
+		button2.setFocusable(false);
+		button3.setFocusable(false);
+		button4.setFocusable(false);
+		saveButton.setFocusable(false);
+		loadButton.setFocusable(false);
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		board.requestFocus();
+	}
+
+	public void changeFocus() {
 		frame.requestFocus();
 		frame.requestFocusInWindow();
-		frame.setAlwaysOnTop(true);
 	}
 	
-	public void changeFocus(){
-		frame.requestFocus();
-		frame.requestFocusInWindow();
+	public JFrame getFrame(){
+		return frame;
 	}
 }

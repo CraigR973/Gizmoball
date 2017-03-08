@@ -12,8 +12,6 @@ public class Ball {
 	private double xpos;
 	private double ypos;
 	private Color colour;
-	private double xVel;
-	private double yVel;
 
 	private boolean stopped;
 
@@ -21,8 +19,6 @@ public class Ball {
 	public Ball(double x, double y, double xv, double yv) {
 		xpos = x; // Centre coordinates
 		ypos = y;
-		xVel = xv;
-		yVel = yv;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
 		radius = 5;
@@ -78,15 +74,9 @@ public class Ball {
 		return colour;
 	}
 	
-	public double getYv(){
-		return yVel;
-	}
-	
-	public void setYv(double speed){
-		yVel = speed;
+	public Vect getCentreOfBall(){
+		Vect cen = new Vect (getExactX(),getExactY());
+		return cen;
 	}
 
-	public double getXv(){
-		return xVel;
-	}
 }

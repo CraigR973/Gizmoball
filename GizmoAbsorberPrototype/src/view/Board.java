@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -18,7 +14,9 @@ import javax.swing.JPanel;
 import model.Absorber;
 import model.Ball;
 import model.Model;
+import model.SquareGizmo;
 import model.TriangleGizmo;
+import model.CircleGizmo;
 
 public class Board extends JPanel implements Observer {
 
@@ -26,7 +24,6 @@ public class Board extends JPanel implements Observer {
 	protected int width;
 	protected int height;
 	protected Model gm;
-	private RoundRectangle2D rr = new RoundRectangle2D.Float(100, 100, 240, 160, 10, 10);
 
 	public Board(int w, int h, Model m) {
 		// Observe changes in Model
@@ -65,10 +62,49 @@ public class Board extends JPanel implements Observer {
 			int height = (int) abs.getHeight();
 			g2.fillRect(x, y, width, height);
 		}
+
+		for (int i = 0; i < gm.getTriangles().size(); i++) {
+			TriangleGizmo tri1 = gm.getTriangles().get(i);
+			if (tri1 != null) {
+				g2.setColor(tri1.getColour());
+				int x1 = (int) tri1.getXpos1();
+				int x2 = (int) tri1.getXpos2();
+				int x3 = (int) tri1.getXpos3();
+				int y1 = (int) tri1.getYpos1();
+				int y2 = (int) tri1.getYpos2();
+				int y3 = (int) tri1.getYpos3();
+				g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+				g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+			}
+		}
+		
+		for (int i = 0; i < gm.getSquares().size(); i++) {
+			SquareGizmo sq = gm.getSquares().get(i);
+			if (sq != null) {
+				g2.setColor(sq.getColour());
+				int x = (int) sq.getXPos();
+				int y = (int) sq.getYPos();
+				int width = (int) sq.getWidth();
+				int height = (int) sq.getHeight();
+				g2.fillRect(x, y, width, height);
+			}
+		}
+
+		for (int i = 0; i < gm.getCircles().size(); i++) {
+			CircleGizmo cir = gm.getCircles().get(i);
+			if (cir != null) {
+				g2.setColor(cir.getColour());
+				int x = (int) (cir.getExactX() - cir.getRadius());
+				int y = (int) (cir.getExactY() - cir.getRadius());
+				int width = (int) (2 * cir.getRadius());
+				g2.fillOval(x, y, width, width);
+			}
+		}
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		repaint();
 	}
+
 }
