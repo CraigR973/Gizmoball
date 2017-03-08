@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Observable;
+import java.util.StringTokenizer;
+import java.util.Timer;
+
 import physics.Vect;
 
 public class Model extends Observable {
@@ -13,39 +16,46 @@ public class Model extends Observable {
 	private ArrayList<CircleGizmo> circs = new ArrayList<CircleGizmo>();
 	private ArrayList<TriangleGizmo> tris = new ArrayList<TriangleGizmo>();
 	private ArrayList<SquareGizmo> squares = new ArrayList<SquareGizmo>();
-
-	private TriangleGizmo tri;
-	private TriangleGizmo tri1;
-	private SquareGizmo sq;
-	private SquareGizmo sq1;
-	private CircleGizmo cir;
-	private CircleGizmo cir1;
+	private ArrayList<LeftFlipper> leftFlippers = new ArrayList<LeftFlipper>();
+	private ArrayList<RightFlipper> rightFlippers = new ArrayList<RightFlipper>();
+	private ArrayList<Absorber> abs = new ArrayList<Absorber>();
+	private ArrayList<Ball> balls = new ArrayList<Ball>();
+	private LoadReader file = new LoadReader();
+	
+//	private TriangleGizmo tri;
+//	private TriangleGizmo tri1;
+//	private SquareGizmo sq;
+//	private SquareGizmo sq1;
+//	private CircleGizmo cir;
+//	private CircleGizmo cir1;
 	int counter = 0;
 
 	public Model() {
 
-		tri = new TriangleGizmo(380, 0, 20, 20);
-		tri1 = new TriangleGizmo(120, 140, 20, 20);
-		sq = new SquareGizmo(20, 20, 280, 270);
-		sq1 = new SquareGizmo(20, 20, 180, 170);
-		cir = new CircleGizmo(200, 10);
-		cir1 = new CircleGizmo(90, 40);
-		circs.add(cir);
-		circs.add(cir1);
-		tris.add(tri);
-		tris.add(tri1);
-		squares.add(sq);
-		squares.add(sq1);
+//		tri = new TriangleGizmo(380, 0, 20, 20);
+//		tri1 = new TriangleGizmo(120, 140, 20, 20);
+//		sq = new SquareGizmo(20, 20, 280, 270);
+//		sq1 = new SquareGizmo(20, 20, 180, 170);
+//		cir = new CircleGizmo(200, 10);
+//		cir1 = new CircleGizmo(90, 40);
+//		circs.add(cir);
+//		circs.add(cir1);
+//		tris.add(tri);
+//		tris.add(tri1);
+//		squares.add(sq);
+//		squares.add(sq1);
 		gws = new Walls(0, 0, 400, 400);
-		ball = new Ball(0, 385, 0, 0);
-		absorber = new Absorber(400, 25, 0, 375);
-		physicsLoop = new PhysicsLoop(ball, gws, absorber, keyPressed, squares, circs, tris);
-
+//		ball = new Ball(0, 385, 0, 0);
+//		absorber = new Absorber(400, 25, 0, 375);
+		physicsLoop = new PhysicsLoop(balls, gws, abs, keyPressed, squares, circs, tris);
+		
 	}
 
 	public void start() {
-		if (ball != null && !ball.stopped()) {
-			System.out.println(ball.getVelo());
+		System.out.println(balls);
+		System.out.println(abs);
+		if (balls.get(0) != null && !balls.get(0).stopped()) {
+			//System.out.println(balls.get(0).getVelo());
 			physicsLoop.moveBall();
 			this.setChanged();
 			this.notifyObservers();
@@ -61,13 +71,17 @@ public class Model extends Observable {
 	}
 
 	public void setBallSpeed(int x, int y) {
+		if(!balls.isEmpty()){
 		ball.setVelo(new Vect(x, y));
+		}
 	}
 
 	public void releaseBall() {
+		for(int i = 0; i < balls.size(); i++){
 		System.out.println("Release Ball called");
 		keyPressed = true;
-		ball.start();
+		balls.get(i).start();
+		}
 	}
 
 	public void captureBall() {
@@ -85,6 +99,14 @@ public class Model extends Observable {
 		return squares;
 	}
 	
+	public ArrayList<Absorber> getAbs(){
+		return abs;
+	}
+	
+	public ArrayList<Ball> getBalls(){
+		return balls;
+	}
+	
 	public void addSquare(SquareGizmo sq){
 		squares.add(sq);
 	}
@@ -100,4 +122,62 @@ public class Model extends Observable {
 	public void addAbsorber(Absorber a){
 		absorber = a;
 	}
+	
+
+	public void loadBoard() {
+		System.out.println("Starting load method");
+		ArrayList<String> gizmos = new ArrayList<String>();
+		file.readFile();
+		gizmos = file.getGizmos();
+		for (int i = 0; i < gizmos.size(); i++) {
+			StringTokenizer st = new StringTokenizer(gizmos.get(i));
+			if (st.hasMoreTokens()) {
+				// System.out.println(st.nextToken());
+				String cGizmo = st.nextToken();
+				String name = st.nextToken();
+				double value1 = Double.parseDouble(st.nextToken());
+				double value2 = Double.parseDouble(st.nextToken());
+
+				if (cGizmo.equals("Triangle")) {
+					System.out.println("Loading triangle");
+					TriangleGizmo t = new TriangleGizmo(name, value1, value2);
+					tris.add(t);
+				} else if (cGizmo.equals("Square")) {
+					SquareGizmo sq = new SquareGizmo(name, value1, value2);
+					squares.add(sq);
+
+				} else if (cGizmo.equals("Circle")) {
+					CircleGizmo c = new CircleGizmo(name, value1, value2);
+					circs.add(c);
+				} else if (cGizmo.equals("LeftFlipper")) {
+					LeftFlipper lf = new LeftFlipper(name, value1, value2);
+					leftFlippers.add(lf);
+				} else if (cGizmo.equals("RightFlipper")) {
+					RightFlipper rf = new RightFlipper(name, value1, value2);
+					rightFlippers.add(rf);
+				} else if (cGizmo.equals("Absorber")) {
+					Absorber a = new Absorber(name, value1, value2);
+					abs.add(a);
+					System.out.println(abs);
+				} else if (cGizmo.equals("Ball")) {
+					double value3 = Double.parseDouble(st.nextToken());
+					double value4 = Double.parseDouble(st.nextToken());
+					Ball b = new Ball(name, value1, value2, value3, value4);
+					balls.add(b);
+				}
+			}
+		}
+	}
+	
+	public void load(){
+		loadBoard();
+		//System.out.println("starting ball");
+		Vect v = new Vect(500,500);
+		balls.get(0).setVelo(v);
+		
+		//System.out.println(abs);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
 }

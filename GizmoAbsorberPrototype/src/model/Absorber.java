@@ -1,33 +1,27 @@
 package model;
-import java.awt.Color;
-import java.util.ArrayList;
 
+import java.awt.Color;
 import physics.LineSegment;
+
 public class Absorber {
 	private Color colour;
 	private double width;
 	private double height;
 	private double xpos;
 	private double ypos;
-	private String absName;
 	private LineSegment ls;
-	ArrayList<Integer> connections = new ArrayList<Integer>();
-	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
+	private String absName;
+	
 	
 	public Absorber(String name, double x, double y){
-		double w = 500;
-		double h = 25;
+		double w = 400;
+		double h = 20;
 		colour = Color.MAGENTA;
 		width = w;
 		height = h;
 		xpos = x*20;
 		ypos = y*20;
-		ls = new LineSegment(x, y+h-1, x + w, y+h-1);
-		setName(name);
-	}
-	
-	public void setName(String n){
-		absName = n;
+		ls = new LineSegment(xpos, ypos+h-1, xpos + w, ypos+h-1);
 	}
 	
 	public Color getColour(){
@@ -39,10 +33,12 @@ public class Absorber {
 	}
 	
 	public double getXPos(){
+		System.out.println(xpos);
 		return xpos;
 	}
 	
 	public double getYPos(){
+		System.out.println(ypos);
 		return ypos;
 	}
 	
@@ -55,15 +51,5 @@ public class Absorber {
 	}
 	public String getName(){
 		return absName;
-	}
-	
-	public ArrayList<Integer> getConnectons()
-	{
-		return connections;
-	}
-	
-	public ArrayList<Integer> getKeyConnectons()
-	{
-		return keyConnections;
 	}
 }

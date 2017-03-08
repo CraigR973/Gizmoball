@@ -33,6 +33,7 @@ public class RunListener implements ActionListener {
 			switch (e.getActionCommand()) {
 			case "Start":
 				timer.start();
+				System.out.println(timer);
 				break;
 			case "Stop":
 				timer.stop();
@@ -48,13 +49,14 @@ public class RunListener implements ActionListener {
 				break;
 			case "Load":
 				System.out.println("Load Button");
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(null);
-				if (result == JFileChooser.APPROVE_OPTION) {
-				    File selectedFile = fileChooser.getSelectedFile();
-				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-				}
+//				JFileChooser fileChooser = new JFileChooser();
+//				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+//				int result = fileChooser.showOpenDialog(null);
+//				if (result == JFileChooser.APPROVE_OPTION) {
+//				    File selectedFile = fileChooser.getSelectedFile();
+//				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+//				}
+				model.load();
 				break;
 			}
 	}

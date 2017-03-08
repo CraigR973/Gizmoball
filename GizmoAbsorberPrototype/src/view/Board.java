@@ -44,7 +44,8 @@ public class Board extends JPanel implements Observer {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		Ball b = gm.getBall();
+		for (int i = 0; i < gm.getBalls().size(); i++){
+		Ball b = gm.getBalls().get(i);
 		if (b != null) {
 			g2.setColor(b.getColour());
 			int x = (int) (b.getExactX() - b.getRadius());
@@ -52,8 +53,10 @@ public class Board extends JPanel implements Observer {
 			int width = (int) (2 * b.getRadius());
 			g2.fillOval(x, y, width, width);
 		}
+		}
 
-		Absorber abs = gm.getAbsorber();
+		for (int i = 0; i < gm.getAbs().size(); i++){
+		Absorber abs = gm.getAbs().get(i);
 		if (abs != null) {
 			g2.setColor(abs.getColour());
 			int x = (int) abs.getXPos();
@@ -61,6 +64,7 @@ public class Board extends JPanel implements Observer {
 			int width = (int) abs.getWidth();
 			int height = (int) abs.getHeight();
 			g2.fillRect(x, y, width, height);
+		}
 		}
 
 		for (int i = 0; i < gm.getTriangles().size(); i++) {

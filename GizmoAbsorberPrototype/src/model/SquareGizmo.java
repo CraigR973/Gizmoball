@@ -13,25 +13,40 @@ public class SquareGizmo {
 	private double height;
 	private double xpos;
 	private double ypos;
+	private LineSegment ls;
+	private String squareName;
 	private LineSegment ls1;
 	private LineSegment ls2;
 	private LineSegment ls3;
 	private LineSegment ls4;
 	
-	public SquareGizmo(double w, double h, double x, double y){
-		colour = Color.GREEN;
+
+	
+	public SquareGizmo(String name, double x, double y){
+		double w = 20;
+		double h = 20;
+		colour = Color.RED;
 		width = w;
 		height = h;
-		xpos = x;
-		ypos = y;
+		xpos = x * 20;
+		ypos = y * 20;
+		setName(name);
 		ls1 = new LineSegment(x, y + h, x + w, y + h);
 		ls2 = new LineSegment(x, y, x, y + h);
 		ls3 = new LineSegment(x, y, x + w, y);
 		ls4 = new LineSegment(x + w, y, x + w, y + h);
 	}
 	
+	public void setName(String n){
+		squareName = n;
+	}
+	
 	public Color getColour(){
 		return colour;
+	}
+	
+	public LineSegment getSquareLineSeg(){
+		return ls;
 	}
 	
 	public double getXPos(){
@@ -49,8 +64,9 @@ public class SquareGizmo {
 	public double getWidth(){
 		return width;
 	}
+	
 	public String getName(){
-		return "sq";
+		return squareName;
 	}
 	
 	public LineSegment getLineSegs(int i){

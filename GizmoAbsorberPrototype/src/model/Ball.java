@@ -6,22 +6,21 @@ import physics.Circle;
 import physics.Vect;
 
 public class Ball {
-
 	private Vect velocity;
 	private double radius;
 	private double xpos;
 	private double ypos;
 	private Color colour;
-
+	private String ballName;
 	private boolean stopped;
 
 	// x, y coordinates and x,y velocity
-	public Ball(double x, double y, double xv, double yv) {
-		xpos = x; // Centre coordinates
-		ypos = y;
+	public Ball(String name, double x, double y, double xv, double yv) {
+		xpos = x*20; // Centre coordinates
+		ypos = y*20;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
-		radius = 5;
+		radius = 7;
 		stopped = false;
 	}
 
@@ -77,6 +76,10 @@ public class Ball {
 	public Vect getCentreOfBall(){
 		Vect cen = new Vect (getExactX(),getExactY());
 		return cen;
+	}
+	
+	public String getName(){
+		return ballName;
 	}
 
 }

@@ -9,8 +9,8 @@ import physics.LineSegment;
 import physics.Vect;
 
 public class PhysicsLoop {
-	private Absorber absorber;
-	private Ball ball;
+	private ArrayList<Absorber> abs;
+	private ArrayList<Ball> ball;
 	private Walls gws;
 	private boolean keyPressed = false;
 	private ArrayList<CircleGizmo> circs = new ArrayList<CircleGizmo>();
@@ -20,10 +20,10 @@ public class PhysicsLoop {
 	private double friction;
 	private double grav;
 
-	public PhysicsLoop(Ball b, Walls walls, Absorber abs, boolean keyPress, ArrayList<SquareGizmo> sqs,
-			ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles) {
+	public PhysicsLoop(ArrayList<Ball> b, Walls walls, ArrayList<Absorber> absorber, boolean keyPress,
+			ArrayList<SquareGizmo> sqs, ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles) {
 		ball = b;
-		absorber = abs;
+		abs = absorber;
 		keyPressed = keyPress;
 		squares = sqs;
 		circs = cirs;
@@ -34,60 +34,68 @@ public class PhysicsLoop {
 	}
 
 	public void moveBall() {
-		double moveTime = 0.02; // 0.02 = 50 times per second as per Gizmoball
-		double xVel = ball.getVelo().x();
-		double yVel = ball.getVelo().y();
+		System.out.println("Move ball pls");
+		if (!ball.isEmpty()) {
+			for(int n = 0; n < ball.size(); n++){
+			double moveTime = 0.02; // 0.02 = 50 times per second as per
+									// Gizmoball
+			double xVel = ball.get(n).getVelo().x();
+			double yVel = ball.get(n).getVelo().y();
 
-		System.out.println("garav?: " + grav);
-		System.out.println("Fritciot: " + friction);
+			Ball ba = ball.get(n);
 
-		if (xVel > 0) {
-			// friction = ball.getVelo().x() * (1 - 0.025 * 0.02 -
-			// (ball.getVelo().x() / 20) * Math.abs(ball.getVelo().x()) * 0.02);
-			xVel -= friction;
-		} else if (xVel < 0) {
-			// friction = ball.getVelo().x() * (1 - 0.025 * 0.02 -
-			// (ball.getVelo().x() / 20) * Math.abs(ball.getVelo().x()) * 0.02);
-			xVel += friction;
-		}
-		// friction = ball.getVelo().y() * (1 - 0.025 * 0.02 -
-		// (ball.getVelo().y() / 20) * Math.abs(ball.getVelo().y()) * 0.02);
-		yVel += grav + friction;
+			
 
-		// if (xVel > 0) {
-		// xVel -= friction;
-		// } else if (xVel < 0) {
-		// xVel += friction;
-		// }
-		// yVel += grav + friction;
+			if (xVel > 0) {
+				// friction = ball.getVelo().x() * (1 - 0.025 * 0.02 -
+				// (ball.getVelo().x() / 20) * Math.abs(ball.getVelo().x()) *
+				// 0.02);
+				xVel -= friction;
+			} else if (xVel < 0) {
+				// friction = ball.getVelo().x() * (1 - 0.025 * 0.02 -
+				// (ball.getVelo().x() / 20) * Math.abs(ball.getVelo().x()) *
+				// 0.02);
+				xVel += friction;
+			}
+			// friction = ball.getVelo().y() * (1 - 0.025 * 0.02 -
+			// (ball.getVelo().y() / 20) * Math.abs(ball.getVelo().y()) * 0.02);
+			yVel += grav + friction;
 
-		physics = new Vect(xVel, yVel);
-		ball.setVelo(physics);
+			// if (xVel > 0) {
+			// xVel -= friction;
+			// } else if (xVel < 0) {
+			// xVel += friction;
+			// }
+			// yVel += grav + friction;
 
-		CollisionDetails cd = timeUntilCollision();
-		double tuc = cd.getTuc();
-		if (tuc > moveTime) {
-			// No collision ...
-			ball = movelBallForTime(ball, moveTime);
-		} else {
-			// We've got a collision in tuc
-			ball = movelBallForTime(ball, tuc);
-			// Post collision velocity ...
-			ball.setVelo(cd.getVelo());
-		}
+			physics = new Vect(xVel, yVel);
+			ba.setVelo(physics);
 
-		if (ball.getExactX() > 400 || ball.getExactY() > 380) {
-			ball.setExactX(385);
-			ball.setExactY(385);
-		}
+			CollisionDetails cd = timeUntilCollision(n);
+			double tuc = cd.getTuc();
+			if (tuc > moveTime) {
+				// No collision ...
+				ba = movelBallForTime(ball.get(n), moveTime);
+			} else {
+				// We've got a collision in tuc
+				ba = movelBallForTime(ball.get(n), tuc);
+				// Post collision velocity ...
+				ba.setVelo(cd.getVelo());
+			}
+
+			if (ba.getExactX() > 400 || ball.get(n).getExactY() > 380) {
+				ba.setExactX(385);
+				ba.setExactY(385);
+			}
+		}}
 	}
 
-	public CollisionDetails timeUntilCollision() {
+	public CollisionDetails timeUntilCollision(int n) {
 		// Find Time Until Collision and also, if there is a collision, the new
 		// speed vector.
 		// Create a physics.Circle from Ball
-		Circle ballCircle = ball.getCircle();
-		Vect ballVelocity = ball.getVelo();
+		Circle ballCircle = ball.get(n).getCircle();
+		Vect ballVelocity = ball.get(n).getVelo();
 		Vect newVelo = new Vect(0, 0);
 
 		// Now find shortest time to hit a vertical line or a wall line
@@ -100,39 +108,43 @@ public class PhysicsLoop {
 			time = Geometry.timeUntilWallCollision(line, ballCircle, ballVelocity);
 			if (time < shortestTime) {
 				shortestTime = time;
-				newVelo = Geometry.reflectWall(line, ball.getVelo(), 1.0);
+				newVelo = Geometry.reflectWall(line, ball.get(n).getVelo(), 1.0);
 			}
 
 		}
 
 		// Time to collide with absorber
-		LineSegment ls = absorber.getAbsLineSeg();
-		time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
-		if (time < shortestTime) {
-			shortestTime = time;
-			// newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-			// System.out.println("APPROACHING ABSORBER");
-			if (time < 0.02) {
-				System.out.println("Collision");
-				ball.setExactX(385);
-				ball.setExactY(385);
-				while (keyPressed == false) {
-					ball.setVelo(new Vect(0, 0));
-					System.out.println("Ball stopped in absorber");
-					ball.stop();
-					System.out.println("Ball stopped: " + ball.stopped());
-					System.out.println("Current velo: " + ball.getVelo());
-					System.out.println("X: " + ball.getExactX() + " Y: " + ball.getExactY());
-					break;
-				}
-				System.out.println("Ball left absorber");
-				Vect velo = new Vect(0, 1000);
-				newVelo = Geometry.reflectWall(ls, velo, 1.0);
-				ball.setVelo(velo);
-				System.out.println(ball.getVelo().x());
-				System.out.println(ball.getVelo().y());
-			}
+		if (!abs.isEmpty()) {
+			for (int i = 0; i < abs.size(); i++) {
+				LineSegment ls = abs.get(i).getAbsLineSeg();
+				time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
+				if (time < shortestTime) {
+					shortestTime = time;
+					// newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
+					// System.out.println("APPROACHING ABSORBER");
+					if (time < 0.02) {
+						System.out.println("Collision");
+						ball.get(n).setExactX(395);
+						ball.get(n).setExactY(385);
+						while (keyPressed == false) {
+							ball.get(n).setVelo(new Vect(0, 0));
+							System.out.println("Ball stopped in absorber");
+							ball.get(n).stop();
+							System.out.println("Ball stopped: " + ball.get(n).stopped());
+							System.out.println("Current velo: " + ball.get(n).getVelo());
+							System.out.println("X: " + ball.get(n).getExactX() + " Y: " + ball.get(n).getExactY());
+							break;
+						}
+						System.out.println("Ball left absorber");
+						Vect velo = new Vect(0, 1000);
+						newVelo = Geometry.reflectWall(ls, velo, 1.0);
+						ball.get(n).setVelo(velo);
+						System.out.println(ball.get(n).getVelo().x());
+						System.out.println(ball.get(n).getVelo().y());
+					}
 
+				}
+			}
 		}
 
 		// Time to collide with squares
@@ -142,14 +154,14 @@ public class PhysicsLoop {
 					time = Geometry.timeUntilWallCollision(squares.get(i).getLineSegs(j), ballCircle, ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
-						newVelo = Geometry.reflectWall(squares.get(i).getLineSegs(j), ball.getVelo(), 1.0);
+						newVelo = Geometry.reflectWall(squares.get(i).getLineSegs(j), ball.get(n).getVelo(), 1.0);
 					}
 
 					time = Geometry.timeUntilCircleCollision(squares.get(i).getCorners(j), ballCircle, ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
-						newVelo = Geometry.reflectCircle(squares.get(i).getCornerCentres(j), ball.getCentreOfBall(),
-								ball.getVelo(), 1.0);
+						newVelo = Geometry.reflectCircle(squares.get(i).getCornerCentres(j),
+								ball.get(n).getCentreOfBall(), ball.get(n).getVelo(), 1.0);
 					}
 				}
 			}
@@ -163,26 +175,26 @@ public class PhysicsLoop {
 					time = Geometry.timeUntilWallCollision(tris.get(i).getLinSegs(j), ballCircle, ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
-						newVelo = Geometry.reflectWall(tris.get(i).getLinSegs(j), ball.getVelo(), 1.0);
+						newVelo = Geometry.reflectWall(tris.get(i).getLinSegs(j), ball.get(n).getVelo(), 1.0);
 
 						if (time < 0.02) {
 							tris.get(i).setColour(Color.BLUE);
 							double xVel = 0;
 							double yVel = 0;
 
-							if (ball.getVelo().x() > 0) {
-								xVel = ball.getVelo().x() + 100;
+							if (ball.get(n).getVelo().x() > 0) {
+								xVel = ball.get(n).getVelo().x() + 100;
 							} else {
-								xVel = ball.getVelo().x() - 100;
+								xVel = ball.get(n).getVelo().x() - 100;
 							}
-							if (ball.getVelo().y() > 0) {
-								yVel = ball.getVelo().y() + 100;
+							if (ball.get(n).getVelo().y() > 0) {
+								yVel = ball.get(n).getVelo().y() + 100;
 							} else {
-								yVel = ball.getVelo().y() - 100;
+								yVel = ball.get(n).getVelo().y() - 100;
 							}
 
 							Vect nVel = new Vect(xVel, yVel);
-							ball.setVelo(nVel);
+							ball.get(n).setVelo(nVel);
 						}
 					}
 
@@ -190,8 +202,8 @@ public class PhysicsLoop {
 					time = Geometry.timeUntilCircleCollision(tris.get(i).getCorners(j), ballCircle, ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
-						newVelo = Geometry.reflectCircle(tris.get(i).getCornerCentres(j), ball.getCentreOfBall(),
-								ball.getVelo(), 1.0);
+						newVelo = Geometry.reflectCircle(tris.get(i).getCornerCentres(j), ball.get(n).getCentreOfBall(),
+								ball.get(n).getVelo(), 1.0);
 					}
 				}
 			}
@@ -203,15 +215,15 @@ public class PhysicsLoop {
 				time = Geometry.timeUntilCircleCollision(circs.get(i).getCircle(), ballCircle, ballVelocity);
 				if (time < shortestTime) {
 					shortestTime = time;
-					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.getCentreOfBall(),
-							ball.getVelo(), 1.0);
+					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.get(n).getCentreOfBall(),
+							ball.get(n).getVelo(), 1.0);
 				}
 
 				time = Geometry.timeUntilCircleCollision(circs.get(i).getCircle(), ballCircle, ballVelocity);
 				if (time < shortestTime) {
 					shortestTime = time;
-					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.getCentreOfBall(),
-							ball.getVelo(), 1.0);
+					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.get(n).getCentreOfBall(),
+							ball.get(n).getVelo(), 1.0);
 				}
 			}
 		}
