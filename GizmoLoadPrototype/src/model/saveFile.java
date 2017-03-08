@@ -14,7 +14,7 @@ public class saveFile {
 	public void SaveFile(){
 		
 }
-	public void save(){
+	public void save(ArrayList<Triangle> triangles1, ArrayList<Square> squares1, ArrayList<Circle1> circles1, ArrayList<LeftFlipper> leftFlippers1, ArrayList<RightFlipper> rightFlippers1, ArrayList<Absorber> absorbers1, ArrayList<Ball1> balls1){
 
 		BufferedWriter bufferWrite = null;
 		FileWriter fileWrite = null;
@@ -29,16 +29,15 @@ public class saveFile {
 			fileWrite = new FileWriter(filename);
 			bufferWrite = new BufferedWriter(fileWrite);
 			System.out.println("Before loop");
-			ArrayList<Triangle> triangles = m1.getTriangle();
-			ArrayList<Square> squares = m1.getSquare();
-			ArrayList<Circle1> circles = m1.getCircle();
-			ArrayList<LeftFlipper> leftFlippers = m1.getLFlipper();
-			ArrayList<RightFlipper> rightFlippers = m1.getRFlipper();
-			ArrayList<Absorber> absorbers = m1.getAbsorber();
+			ArrayList<Triangle> triangles = triangles1;
+			ArrayList<Square> squares = squares1;
+			ArrayList<Circle1> circles = circles1;
+			ArrayList<LeftFlipper> leftFlippers = leftFlippers1;
+			ArrayList<RightFlipper> rightFlippers = rightFlippers1;
+			ArrayList<Absorber> absorbers = absorbers1;
 			ArrayList<Ball1> balls = m1.getBall();
 				for (int i =0; i<triangles.size();i++)
 				{
-					System.out.println("Saving triangles");
 					String type = "Triangle";
 					String name = triangles.get(i).getName();
 					int x1 = (int) (triangles.get(i).getXpos1()/20);
@@ -69,7 +68,6 @@ public class saveFile {
 				}
 				for (int i =0; i<squares.size();i++)
 				{
-					System.out.println("Saving squares");
 					String type = "Square";
 					String name = squares.get(i).getName();
 					int x1 = (int) (squares.get(i).getXPos()/20);
@@ -100,7 +98,6 @@ public class saveFile {
 				}
 				for (int i =0; i<circles.size();i++)
 				{
-					System.out.println("Saving circles");
 					String type = "Circle";
 					String name = circles.get(i).getName();
 					int x1 = (int) (circles.get(i).getExactX()/20);
@@ -131,7 +128,6 @@ public class saveFile {
 				}
 				for (int i =0; i<leftFlippers.size();i++)
 				{
-					System.out.println("Saving left flippers");
 					String type = "Left Flipper";
 					String name = leftFlippers.get(i).getName();
 					int x1 = (int) (leftFlippers.get(i).getXPos()/20);
@@ -162,7 +158,6 @@ public class saveFile {
 				}
 				for (int i =0; i<rightFlippers.size();i++)
 				{
-					System.out.println("Saving right flippers");
 					String type = "Right Flipper";
 					String name = rightFlippers.get(i).getName();
 					int x1 = (int) (rightFlippers.get(i).getXPos()/20);
@@ -193,7 +188,6 @@ public class saveFile {
 				}
 				for (int i =0; i<absorbers.size();i++)
 				{
-					System.out.println("Saving absorber");
 					String type = "Absorber";
 					String name = absorbers.get(i).getName();
 					int x1 = (int) (absorbers.get(i).getXPos()/20);
@@ -224,7 +218,6 @@ public class saveFile {
 				}
 				for (int i =0; i<balls.size();i++)
 				{
-					System.out.println("Saving ball");
 					String type = "Ball";
 					String name = balls.get(i).getName();
 					int x1 = (int) (balls.get(i).getExactX()/20);
