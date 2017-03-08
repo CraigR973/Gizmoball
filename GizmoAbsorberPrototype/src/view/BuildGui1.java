@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,79 +17,90 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
 import javax.swing.event.MouseInputListener;
 
 import controller.AddAbsorberListener;
+import controller.AddGizmoListener;
+import controller.GizmoBallListener;
+import controller.MagicKeyListener;
 import controller.RunListener1;
 import model.Model1;
 //import controller.RunListener;
 
 
-public class RunGui1 {
+public class BuildGui1 {
 
 	private Model1 model;
 	private JFrame frame;
 	private ActionListener listener;
 	private Board1 board;
-	
-	private JTextArea messageBoard;
+	//New stuff added
+	private GizmoBallListener buildListener;
+	private JPanel buildButtons;
+	private JMenuBar buildBar;
 	private GizmoBallGui view;
+	private JTextArea messageBoard;
+	private JMenuBar menuBar;
 
-	public RunGui1(Model1 m, GizmoBallGui v) {
+
+	public BuildGui1(Model1 m) {
 		model = m;
-		view = v;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
-		listener = new RunListener1(m, v);
+		// listener = new RunListener1(m);
 	}
 	
-/* public JPanel createButtons(RunListener1 runListener) {
+	public void createButtons() {
 		
 		
 		JButton absorberButton = new JButton("Add Absorber");
-	
 	
 		MouseInputListener al =  new AddAbsorberListener(model, view, messageBoard);
 		absorberButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				messageBoard.setText("Click and drag to add absorber");
-				listener.setMouseListener(al);
+				buildListener.setMouseListener(al);
 			}
 		});
-		return board;
 		
-	} */
-
-public JMenuBar createMenuBar(JFrame frame) {
+		JButton gizmoButton = new JButton("Add Gizmo");
+		
+		MouseInputListener gl =  new AddGizmoListener(model, view, messageBoard);
+		gizmoButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				messageBoard.setText("Click a box on the board you want to add a gizmo");
+				buildListener.setMouseListener(gl);
+			}
+		});
+		
+	}
 	
-	final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+	public void createMenuBar(JFrame frame) {
+		
+		final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
+		
+		JMenuBar menubar = new JMenuBar();
+		
+		frame.setJMenuBar(menubar);
+		
+		JMenu menu;
+		JMenuItem item;
+		
+		menu = new JMenu("File");
+		menubar.add(menu);
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 	
-	JMenuBar menubar = new JMenuBar();
-	
-	frame.setJMenuBar(menubar);
-	
-	JMenu menu;
-	JMenuItem item;
-	
-	menu = new JMenu("File");
-	menubar.add(menu);
-	
-	item = new JMenuItem("Save");
-	
-	item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
-	menu.add(item);
-	return menubar;
-	
-	
-	
-	
-	
-	
-	
-	
-}
-	
+	public void createMessageField() {
+		
+	}
 
 	public void createAndShowGUI() {
 
@@ -143,15 +153,18 @@ public JMenuBar createMenuBar(JFrame frame) {
 		loadButton.addActionListener(listener);
 		loadButton.setFont(gf);
 		buttons.add(loadButton);
+		
+		JButton runModeButton = new JButton("Run Mode");
+		runModeButton.addActionListener(listener);
+		runModeButton.setFont(gf);
+		buttons.add(runModeButton);
 
-		cp.add(buttons, BorderLayout.SOUTH);
+		cp.add(buttons, BorderLayout.LINE_START);
 		cp.add(board, BorderLayout.CENTER);
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
-
-	
 
 }

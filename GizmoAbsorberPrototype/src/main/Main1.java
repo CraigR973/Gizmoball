@@ -3,6 +3,8 @@ package main;
 import javax.swing.UIManager;
 
 import model.Model1;
+import view.BuildGui1;
+import view.GizmoBallView;
 //import model.VerticalLine1;
 import view.RunGui1;
 
@@ -21,6 +23,7 @@ public class Main1 {
 		}
 
 		Model1 model = new Model1();
+		GizmoBallView view = new GizmoBallView();
 
 		model.setBallSpeed(200, 200);
 
@@ -32,7 +35,7 @@ public class Main1 {
 		
 		
 
-		RunGui1 gui = new RunGui1(model);
+		RunGui1 gui = new RunGui1(model, null);
 		gui.createAndShowGUI();
 	}
 }

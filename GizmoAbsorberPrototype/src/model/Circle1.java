@@ -3,72 +3,68 @@ import java.awt.Color;
 import java.util.ArrayList;
 
 import physics.Circle;
-import physics.Vect;
-public class Ball1 {
-	private Vect velocity;
+import physics.LineSegment;
+public class Circle1 {
+//	private Vect velocity;
 	private double radius;
 	private double xpos;
 	private double ypos;
 	private Color colour;
-	private String ballName;
-	private boolean stopped;
+	private LineSegment radLs;
+	private String circleName;
+//	private boolean stopped;
 	ArrayList<Integer> connections = new ArrayList<Integer>();
 	ArrayList<Integer> keyConnections = new ArrayList<Integer>();
 	
 	// x, y coordinates and x,y velocity
-	public Ball1(String name, double x, double y, double xv, double yv) {
+	public Circle1(String name, double x, double y) {
 		xpos = x*20; // Centre coordinates
 		ypos = y*20;
-		colour = Color.BLUE;
-		velocity = new Vect(xv, yv);
-		radius = 7;
-		stopped = false;
+		colour = Color.GREEN;
+		radius = 10;
+		radLs = new LineSegment(x+20,y+20,x-20,y-20);
 		setName(name);
 	}
+	
 	public void setName(String n){
-		ballName = n;
+		circleName = n;
 	}
 	
-	public String getName(){
-		return ballName;
+	public String getName()
+	{
+		return circleName;
 	}
 	
-	public Vect getVelo() {
-		return velocity;
-	}
-	public void setVelo(Vect v) {
-		velocity = v;
-	}
 	public double getRadius() {
 		return radius;
 	}
-	public Circle getCircle() {
+	
+	public Circle getCircle1() {
 		return new Circle(xpos, ypos, radius);
 	}
+	
 	// Ball specific methods that deal with double precision.
 	public double getExactX() {
 		return xpos;
 	}
+	
 	public double getExactY() {
 		return ypos;
 	}
-	public void setExactX(double x) {
-		xpos = x;
-	}
-	public void setExactY(double y) {
-		ypos = y;
-	}
-	public void stop() {
-		stopped = true;
-	}
-	public void start() {
-		stopped = false;
-	}
-	public boolean stopped() {
-		return stopped;
-	}
+	
+//	public void setExactX(double x) {
+//		xpos = x;
+//	}
+//
+//	public void setExactY(double y) {
+//		ypos = y;
+//	}
 	public Color getColour() {
 		return colour;
+	}
+	
+	public void setLs(int x1, int y1, int x2, int y2){
+		radLs = new LineSegment(x1,y1,x2,y2);
 	}
 	
 	public ArrayList<Integer> getConnectons()
