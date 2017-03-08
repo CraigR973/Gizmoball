@@ -1,13 +1,17 @@
 package main;
 
+import javax.swing.JPanel;
 import javax.swing.UIManager;
 
+import controller.GizmoBallListener;
+import controller.RunListener1;
 import model.Model1;
 import view.BuildGui1;
 import view.GizmoBallView;
+import view.Gui;
 //import model.VerticalLine1;
 import view.RunGui1;
-
+import view.GizmoBallGui;;
 /**
  * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
  */
@@ -23,7 +27,9 @@ public class Main1 {
 		}
 
 		Model1 model = new Model1();
-		GizmoBallView view = new GizmoBallView();
+	//	GizmoBallGui gBallGui = new GizmoBallGui();
+		
+	//	GizmoBallGui view = new GizmoBallGui();
 
 		model.setBallSpeed(200, 200);
 
@@ -35,7 +41,10 @@ public class Main1 {
 		
 		
 
-		RunGui1 gui = new RunGui1(model, null);
-		gui.createAndShowGUI();
+		Gui Gui = new Gui(model);
+		Gui.createAndShowGUI();
+		
+		
+		
 	}
 }

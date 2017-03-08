@@ -22,6 +22,7 @@ import javax.swing.KeyStroke;
 import javax.swing.event.MouseInputListener;
 
 import controller.AddAbsorberListener;
+import controller.GizmoBallListener;
 import controller.RunListener1;
 import model.Model1;
 //import controller.RunListener;
@@ -36,16 +37,19 @@ public class RunGui1 {
 	
 	private JTextArea messageBoard;
 	private GizmoBallGui view;
+	private GizmoBallListener runListener;
+	private JMenuBar runBar;
+	private JPanel runButtons;
 
 	public RunGui1(Model1 m, GizmoBallGui v) {
 		model = m;
 		view = v;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
-		listener = new RunListener1(m, v);
+		runListener = new RunListener1(m, v);
 	}
 	
-/* public JPanel createButtons(RunListener1 runListener) {
+ public JPanel createButtons(RunListener1 runListener) {
 		
 		
 		JButton absorberButton = new JButton("Add Absorber");
@@ -55,44 +59,54 @@ public class RunGui1 {
 		absorberButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				messageBoard.setText("Click and drag to add absorber");
-				listener.setMouseListener(al);
+				((GizmoBallListener) listener).setMouseListener(al);
 			}
 		});
-		return board;
+		return runButtons;
 		
-	} */
+	} 
 
-public JMenuBar createMenuBar(JFrame frame) {
+public JMenuBar createMenuBar(RunListener1 runListener2) {
 	
 	final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 	
-	JMenuBar menubar = new JMenuBar();
+	//JMenuBar runBar = new JMenuBar();
 	
-	frame.setJMenuBar(menubar);
+	runListener2.setJMenuBar(runBar);
 	
 	JMenu menu;
 	JMenuItem item;
 	
 	menu = new JMenu("File");
-	menubar.add(menu);
+	runBar.add(menu);
 	
 	item = new JMenuItem("Save");
 	
 	item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
+	item.addActionListener(listener);
 	menu.add(item);
-	return menubar;
+	menu.addSeparator();
 	
+item = new JMenuItem("Load");
 	
+	item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
+	item.addActionListener(listener);
+	menu.add(item);
+	menu.addSeparator();
 	
+item = new JMenuItem("Quit");
 	
+	item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
+	item.addActionListener(listener);
+	menu.add(item);
+	menu.addSeparator();
 	
-	
-	
+	return runBar;
 	
 }
 	
 
-	public void createAndShowGUI() {
+/*	public void createAndShowGUI() {
 
 		frame = new JFrame("Gizmoball");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,15 +118,15 @@ public JMenuBar createMenuBar(JFrame frame) {
 
 		Container cp = frame.getContentPane();
 
-		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23);
+		Font gf = new Font("Rocket Script", Font.HANGING_BASELINE, 23);
 
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new GridLayout(4, 1));
+		buttons.setLayout(new GridLayout(1,4));
 
 		JButton button1 = new JButton("Start");
 		button1.setFont(gf);
 		button1.addActionListener(listener);
-		button1.setMaximumSize(new Dimension(100, 100));
+		button1.setMaximumSize(new Dimension(100,100));
 		buttons.add(button1);
 
 		JButton button2 = new JButton("Stop");
@@ -127,7 +141,7 @@ public JMenuBar createMenuBar(JFrame frame) {
 		button4.setMaximumSize(new Dimension(100, 100));
 		buttons.add(button4);
 
-		JButton button3 = new JButton("Quit");
+	/*	JButton button3 = new JButton("Quit");
 		button3.setFont(gf);
 		button3.addActionListener(listener);
 		button3.setMaximumSize(new Dimension(100, 100));
@@ -142,15 +156,15 @@ public JMenuBar createMenuBar(JFrame frame) {
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(listener);
 		loadButton.setFont(gf);
-		buttons.add(loadButton);
+		buttons.add(loadButton); */
 
-		cp.add(buttons, BorderLayout.SOUTH);
+	/*	cp.add(buttons, BorderLayout.SOUTH);
 		cp.add(board, BorderLayout.CENTER);
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-	}
+	} */
 
 	
 

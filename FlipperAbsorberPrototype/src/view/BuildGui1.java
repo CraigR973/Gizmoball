@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,10 +18,12 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 import javax.swing.event.MouseInputListener;
 
 import controller.AddAbsorberListener;
 import controller.AddGizmoListener;
+import controller.BuildListener;
 import controller.GizmoBallListener;
 import controller.MagicKeyListener;
 import controller.RunListener1;
@@ -40,17 +43,18 @@ public class BuildGui1 {
 	private JMenuBar buildBar;
 	private GizmoBallGui view;
 	private JTextArea messageBoard;
-	private JMenuBar menuBar;
+//	private JMenuBar menuBar;
 
 
-	public BuildGui1(Model1 m) {
+	public BuildGui1(Model1 m, GizmoBallGui v) {
 		model = m;
+		view = v;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
-		// listener = new RunListener1(m);
+		 buildListener = new BuildListener(m,v);
 	}
 	
-	public void createButtons() {
+	public JPanel createButtons(BuildListener buildListener) {
 		
 		
 		JButton absorberButton = new JButton("Add Absorber");
@@ -73,21 +77,67 @@ public class BuildGui1 {
 			}
 		});
 		
+JButton ballButton = new JButton("Add Ball");
+		
+		MouseInputListener bl =  new AddGizmoListener(model, view, messageBoard);
+		ballButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				messageBoard.setText("Click a box on the board you want to add a gizmo");
+				buildListener.setMouseListener(bl);
+			}
+		});
+		
+JButton rotateButton = new JButton("Rotate Gizmo");
+		
+		MouseInputListener rl =  new AddGizmoListener(model, view, messageBoard);
+		rotateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				messageBoard.setText("Click a box on the board you want to add a gizmo");
+				buildListener.setMouseListener(rl);
+			}
+		});
+		
+		
+		return buildButtons;
+		
 	}
 	
-	public void createMenuBar(JFrame frame) {
+	public JMenuBar createMenuBar(BuildListener buildListener) {
 		
 		final int SHORTCUT_MASK = Toolkit.getDefaultToolkit().getMenuShortcutKeyMask();
 		
-		JMenuBar menubar = new JMenuBar();
+		JMenuBar buildBar = new JMenuBar();
 		
-		frame.setJMenuBar(menubar);
+		buildListener.setJMenuBar(buildBar);
 		
 		JMenu menu;
 		JMenuItem item;
 		
 		menu = new JMenu("File");
-		menubar.add(menu);
+		buildBar.add(menu);
+		
+		item = new JMenuItem("Save");
+		
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
+		item.addActionListener(listener);
+		menu.add(item);
+		menu.addSeparator();
+		
+	item = new JMenuItem("Load");
+		
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
+		item.addActionListener(listener);
+		menu.add(item);
+		menu.addSeparator();
+		
+	item = new JMenuItem("Quit");
+		
+		item.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,SHORTCUT_MASK));
+		item.addActionListener(listener);
+		menu.add(item);
+		menu.addSeparator();
+		
+		return buildBar;
 		
 		
 		
@@ -102,7 +152,7 @@ public class BuildGui1 {
 		
 	}
 
-	public void createAndShowGUI() {
+/*	public void createAndShowGUI() {
 
 		frame = new JFrame("Gizmoball");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -114,30 +164,44 @@ public class BuildGui1 {
 
 		Container cp = frame.getContentPane();
 
-		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23);
+		Font gf = new Font("Rocket Script", Font.HANGING_BASELINE, 23);
 
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new GridLayout(4, 1));
+		buttons.setLayout(new GridLayout(2, 3));
 
-		JButton button1 = new JButton("Start");
+		JButton button1 = new JButton("Add Gizmo");
 		button1.setFont(gf);
 		button1.addActionListener(listener);
-		button1.setMaximumSize(new Dimension(100, 100));
+		button1.setMaximumSize(new Dimension(25, 100));
 		buttons.add(button1);
 
-		JButton button2 = new JButton("Stop");
+		JButton button2 = new JButton("Edit Gizmo");
 		button2.setFont(gf);
 		button2.addActionListener(listener);
-		button2.setMaximumSize(new Dimension(100, 100));
+		button2.setMaximumSize(new Dimension(25, 100));
 		buttons.add(button2);
 
-		JButton button4 = new JButton("Tick");
+		JButton button4 = new JButton("Connections");
 		button4.setFont(gf);
 		button4.addActionListener(listener);
-		button4.setMaximumSize(new Dimension(100, 100));
+		button4.setMaximumSize(new Dimension(25, 100));
 		buttons.add(button4);
+		
+		JButton button5 = new JButton("Edit Physics Values");
+		button5.setFont(gf);
+		button5.addActionListener(listener);
+		button5.setMaximumSize(new Dimension(25, 100));
+		buttons.add(button5);
+		
+		JButton button6 = new JButton("Add Ball");
+		button6.setFont(gf);
+		button6.addActionListener(listener);
+		button6.setMaximumSize(new Dimension(25, 100));
+		buttons.add(button6);
+		
+		
 
-		JButton button3 = new JButton("Quit");
+	/*	JButton button3 = new JButton("Quit");
 		button3.setFont(gf);
 		button3.addActionListener(listener);
 		button3.setMaximumSize(new Dimension(100, 100));
@@ -151,20 +215,20 @@ public class BuildGui1 {
 		
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(listener);
-		loadButton.setFont(gf);
-		buttons.add(loadButton);
+		loadButton.setFont(gf); 
+		buttons.add(loadButton); */
 		
-		JButton runModeButton = new JButton("Run Mode");
+/*		JButton runModeButton = new JButton("Run Mode");
 		runModeButton.addActionListener(listener);
 		runModeButton.setFont(gf);
 		buttons.add(runModeButton);
 
-		cp.add(buttons, BorderLayout.LINE_START);
+		cp.add(buttons, BorderLayout.SOUTH);
 		cp.add(board, BorderLayout.CENTER);
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-	}
+	} */
 
 }

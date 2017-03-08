@@ -8,6 +8,7 @@ import javax.swing.text.Utilities;
 
 import model.Model1;
 import view.GizmoBallGui;
+import view.GizmoBallView;
 
 public class AddAbsorberListener implements MouseInputListener {
 	
@@ -23,16 +24,16 @@ public class AddAbsorberListener implements MouseInputListener {
 	
 	public void MousePressed(MouseEvent e) {
 		messageBoard.setText("");
-		x1 = (int)(e.getX() / Utilities.GizmoBallGlobals.DEFAULT_L);
-		y1 = (int)(e.getY() / Utilities.GizmoBallGlobals.DEFAULT_L);
-		rubberband(x1, y1, xtemp, ytemp);
+	//	x1 = (int)(e.getX() / Utilities.GizmoBallGlobals.DEFAULT_L);
+	//	y1 = (int)(e.getY() / Utilities.GizmoBallGlobals.DEFAULT_L);
+	//	rubberband(x1, y1, xtemp, ytemp);
 	}
 	
 	public void MouseDragged(MouseEvent e) {
-		int xtemp = (int) Math.ceil((e.getX() / (Utilities.GizmoBallGlobals.DEFAULT_L * 1.0)));
-		int ytemp = (int) Math.ceil((e.getY() / (Utilities.GizmoBallGlobals.DEFAULT_L * 1.0)));
+//		int xtemp = (int) Math.ceil((e.getX() / (Utilities.GizmoBallGlobals.DEFAULT_L * 1.0)));
+//		int ytemp = (int) Math.ceil((e.getY() / (Utilities.GizmoBallGlobals.DEFAULT_L * 1.0)));
 		eraseRubberband();
-		rubberband(x1, y1, xtemp, ytemp);
+//		rubberband(x1, y1, xtemp, ytemp);
 	}
 
 	private void eraseRubberband() {

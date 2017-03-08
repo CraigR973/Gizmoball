@@ -6,12 +6,23 @@ import javax.swing.JTextArea;
 import javax.swing.event.MouseInputListener;
 
 import model.Model1;
+import view.GizmoBallGui;
 
 public class AddGizmoListener implements MouseInputListener {
 
-	public AddGizmoListener(Model1 model, Object messageBoard, JTextArea messageBoard2) {
-		// TODO Auto-generated constructor stub
+	private Model1 model;
+	private GizmoBallGui view;
+	private Object messageBoard;
+	
+	public AddGizmoListener(Model1 m, GizmoBallGui v, Object mb){
+		model = m;
+		view = v;
+		messageBoard = mb;
 	}
+	
+
+	
+
 
 	@Override
 	public void mouseClicked(MouseEvent e) {

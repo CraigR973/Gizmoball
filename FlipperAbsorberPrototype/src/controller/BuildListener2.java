@@ -13,16 +13,16 @@ import model.Model1;
 import view.GizmoBallGui;
 import view.GizmoBallView;
 
-public  class BuildListener implements GizmoBallListener {
+public  class BuildListener2 implements GizmoBallListener {
 	
 	private Model1 model;
 	private GizmoBallGui view;
 	private MouseInputListener mouseListener;
 	private KeyListener keyboardListener;
 	
-	public BuildListener(Model1 m, GizmoBallGui v) {
+	public BuildListener2(Model1 m) {
 		model = m;
-		view = v;
+//		view = v;
 		mouseListener = new AddGizmoListener(model, view, view.getMessageBoard());
 		keyboardListener = new DoNothingKeyListener(m);
 	}

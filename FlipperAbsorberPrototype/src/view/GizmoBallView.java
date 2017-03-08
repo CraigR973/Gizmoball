@@ -4,10 +4,11 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 
 import controller.BuildListener;
+import controller.GizmoBallListener;
 import controller.RunListener1;
 import model.Model1;
 
-public class GizmoBallView {
+public abstract class GizmoBallView implements GizmoBallGui {
 	
 	private GizmoBallGui runModeGui;
 	private GizmoBallGui buildModeGui;
@@ -24,14 +25,14 @@ public class GizmoBallView {
 	private RunListener1 runListener;
 	
 	public void createBuildGui() {
-		buildMode = new BuildGui1(model);
+		buildMode = new BuildGui1(model, buildModeGui);
 		buildListener = new BuildListener(model, this);
-		buildButtons = buildMode.createButtons(buildListener);
+     	buildButtons = buildMode.createButtons(buildListener);
 		buildBar = buildMode.createMenuBar(buildListener);
 	}
 	
 	public void createRunGui() {
-		runMode = new RunGui1(model);
+		runMode = new RunGui1(model, runModeGui);
 		runListener = new RunListener1(model, this);
 		runButtons = runMode.createButtons(runListener);
 		runBar = runMode.createMenuBar(runListener);
@@ -46,6 +47,8 @@ public class GizmoBallView {
 		buttons = runButtons;
 		bar = runBar;
 	}
+
+
 	
 	
 	
