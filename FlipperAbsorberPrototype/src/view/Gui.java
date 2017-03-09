@@ -8,6 +8,8 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -31,7 +33,8 @@ public class Gui {
 	private ActionListener listener;
 	private BuildListener2 buildListener;
 	private Board1 board;
-	private JPanel buttons;
+    private JPanel buttons;
+    final static String CHANGEBUTTON = "Switch Game";
 	private JPanel runButtons;
 	private JPanel buildButtons;
 	public boolean changeMode;
@@ -47,6 +50,17 @@ public class Gui {
 	//	buildListener = new BuildListener2(m);
 		
 	}
+	
+	/*public void addComponentToPane(Container pane) {
+		
+		JButton buttonChanger = new JButton();
+		String buttonItems[] = {CHANGEBUTTON};
+		
+	} */
+	
+	
+	
+
 
 	public void createAndShowGUI() {
 
@@ -93,13 +107,19 @@ public class Gui {
 		button4.setMaximumSize(new Dimension(100, 100));
 		buildButtons.add(button4);  */
 		
-		runButtons = new JPanel();
+		JPanel runButtons = new JPanel();
 		
 		JButton switchScreen = new JButton("Change Mode");
 
 		runButtons.add(switchScreen);
 		
-		buildButtons = new JPanel();
+//		runButtons.add(new JButton("Start"));
+//		runButtons.add(new JButton("Stop"));
+		
+		JPanel buildButtons = new JPanel();
+		
+//		buildButtons.add(new JButton("Ball"));
+//		buildButtons.add(new JButton("Absorber"));
 		
 		
 		cp.setLayout(new GridLayout(2,2));
@@ -139,7 +159,7 @@ public class Gui {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				if(changeMode == false) {
-					buttons = new RunButtons1();
+					buttons =  new RunButtons1();
 					changeMode = true;
 					
 					if(buildButtons.getComponentCount() != 0) {
@@ -164,6 +184,9 @@ public class Gui {
 		});
 	}
 }
+	
+
+	
 
 	/*	if (changeMode == false) {
 			runMode();

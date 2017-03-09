@@ -21,6 +21,7 @@ public class RunButtons1 extends  JPanel{
         this.setLayout(new BorderLayout());
 
         this.add(new Button("Button1"));
+        this.add(new Button("Button2"));
 
     }
 

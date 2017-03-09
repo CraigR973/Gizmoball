@@ -9,6 +9,7 @@ import model.Model1;
 import view.BuildGui1;
 import view.GizmoBallView;
 import view.Gui;
+import view.Gui2;
 //import model.VerticalLine1;
 import view.RunGui1;
 import view.GizmoBallGui;;
@@ -41,7 +42,7 @@ public class Main1 {
 		
 		
 
-		Gui gui = new Gui(model);
+		Gui2 gui = new Gui2(model);
 		gui.createAndShowGUI();
 		
 		
