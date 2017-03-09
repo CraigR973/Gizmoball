@@ -41,8 +41,8 @@ public class Main1 {
 		
 		
 
-		Gui Gui = new Gui(model);
-		Gui.createAndShowGUI();
+		Gui gui = new Gui(model);
+		gui.createAndShowGUI();
 		
 		
 		

@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
@@ -33,14 +34,17 @@ public class Gui {
 	private JPanel buttons;
 	private JPanel runButtons;
 	private JPanel buildButtons;
-	
+	public boolean changeMode;
 
 	public Gui(Model1 m) {
 		model = m;
+		this.changeMode = false;
+		this.buttons = null;
 
-		// RunListener catches all GUI events. In reality might have many listeners.
+		// RunListener catches all GUI events. In reality might have many
+		// listeners.
 		listener = new RunListener2(m);
-		buildListener = new BuildListener2(m);
+	//	buildListener = new BuildListener2(m);
 		
 	}
 
@@ -48,8 +52,6 @@ public class Gui {
 
 		frame = new JFrame("Absorber Prototype <3");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
 
 		// Board is passed the Model so it can act as Observer
 		board = new Board1(500, 500, model);
@@ -57,26 +59,125 @@ public class Gui {
 
 		Container cp = frame.getContentPane();
 
-		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23); 
+		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23);
 		
-		if 
+	//	JPanel buttons = new JPanel();
 		
-		cp.add(buttons, BorderLayout.LINE_START);
-		cp.add(board, BorderLayout.CENTER);
+		
+		
+	/*	JPanel runButtons = new JPanel();
+		
+		JButton button1 = new JButton("Start");
+		button1.setFont(gf);
+		button1.addActionListener(listener);
+		button1.setMaximumSize(new Dimension(100, 100));
+		runButtons.add(button1);
+
+		JButton button2 = new JButton("Stop");
+		button2.setFont(gf);
+		button2.addActionListener(listener);
+		button2.setMaximumSize(new Dimension(100, 100));
+		runButtons.add(button2);
+		
+		JPanel buildButtons = new JPanel();
+		
+		JButton button3 = new JButton("Absorber");
+		button3.setFont(gf);
+		button3.addActionListener(listener);
+		button3.setMaximumSize(new Dimension(100, 100));
+		buildButtons.add(button3);
+
+		JButton button4 = new JButton("Ball");
+		button4.setFont(gf);
+		button4.addActionListener(listener);
+		button4.setMaximumSize(new Dimension(100, 100));
+		buildButtons.add(button4);  */
+		
+		runButtons = new JPanel();
+		
+		JButton switchScreen = new JButton("Change Mode");
+
+		runButtons.add(switchScreen);
+		
+		buildButtons = new JPanel();
+		
+		
+		cp.setLayout(new GridLayout(2,2));
+		cp.add(runButtons);
+		cp.add(buildButtons);
+	//	cp.add(board, BorderLayout.CENTER);
 		
 		frame.pack();
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
-	}
-	
-	public void runButtons() {
-
-		//JPanel buttons = new JPanel();
-	//	runButtons.setLayout(new GridLayout(4, 1));
+		frame.setVisible(true); 
 		
-	//	Container cp = frame.getContentPane();
+		
+		
+		
+		
 
-		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23); 
+	//	runButtons = new JPanel();
+
+		
+
+	//	buildButtons = new JPanel();
+		
+	//	buildButtons.add(switchScreen);
+
+	//	JPanel buttons = new JPanel();
+	//	cp.setLayout(new GridLayout(4,4));
+	//	cp.add(runButtons);
+	//	cp.add(buildButtons);
+
+	//	cp.add(buttons, BorderLayout.LINE_START);
+	//	cp.add(board, BorderLayout.CENTER);
+
+		
+		switchScreen.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				
+				if(changeMode == false) {
+					buttons = new RunButtons1();
+					changeMode = true;
+					
+					if(buildButtons.getComponentCount() != 0) {
+						buildButtons.removeAll();
+					}
+					
+		
+				} else {
+					
+					changeMode = false;
+					buttons =  new BuildButtons1();
+					
+					if(buildButtons.getComponentCount() != 0) {
+						buildButtons.removeAll();
+					}
+				}
+				
+				buildButtons.add(buttons);
+				buildButtons.repaint();
+				buildButtons.revalidate();
+			}
+		});
+	}
+}
+
+	/*	if (changeMode == false) {
+			runMode();
+		}
+	} */
+
+/*	public void runButtons() {
+
+		// JPanel buttons = new JPanel();
+		// runButtons.setLayout(new GridLayout(4, 1));
+
+		// Container cp = frame.getContentPane();
+
+		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23);
 
 		JButton button1 = new JButton("Start");
 		button1.setFont(gf);
@@ -101,53 +202,43 @@ public class Gui {
 		button3.addActionListener(listener);
 		button3.setMaximumSize(new Dimension(100, 100));
 		runButtons.add(button3);
-		
+
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(listener);
 		saveButton.setFont(gf);
 		saveButton.setBackground(Color.decode("#D4FAFF"));
 		runButtons.add(saveButton);
-		
+
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(listener);
 		loadButton.setFont(gf);
 		runButtons.add(loadButton);
-		
+
 		JButton buildButton = new JButton("Build Mode");
 		buildButton.addActionListener(listener);
 		buildButton.setFont(gf);
 		runButtons.add(buildButton);
-		
+
 		buttons = runButtons;
 
-		
-
-		
 	}
-	
+
 	public void buildButtons() {
 
-		
-
-		
-
-	//	JPanel buildButtons = new JPanel();
+		// JPanel buildButtons = new JPanel();
 		buildButtons.setLayout(new GridLayout(4, 1));
-		
+
 		Container cp = frame.getContentPane();
 
-		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23); 
+		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23);
 
-       JButton addButton = new JButton("Add Gizmo");
-       addButton.addActionListener(buildListener);
-       addButton.setFont(gf);
-       buildButtons.add(addButton);
-		
-		
-		
+		JButton addButton = new JButton("Add Gizmo");
+		addButton.addActionListener(buildListener);
+		addButton.setFont(gf);
+		buildButtons.add(addButton);
+
 		buttons = buildButtons;
 
-		
 	} 
 
-}
+} */
