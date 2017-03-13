@@ -9,6 +9,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
@@ -21,6 +23,7 @@ import javax.swing.KeyStroke;
 
 import controller.BuildListener;
 import controller.RunListener1;
+import controller.RunListener2;
 import model.Model1;
 //import controller.RunListener;
 
@@ -36,32 +39,38 @@ public class Gui2 {
 	private Board1 board;
 	private boolean switchMode;
 	private JPanel buttons1;
-	
 
 	public Gui2(Model1 m) {
 		model = m;
 		this.buttons1 = null;
-	//	this.switchMode = true;
+	    this.switchMode = false;
 
-		// RunListener catches all GUI events. In reality might have many listeners.
-	//	listener = new RunListener1(m);
+		// RunListener catches all GUI events. In reality might have many
+		// listeners.
+		listener = new RunListener2(m);
 	}
 
 	public void createAndShowGUI() {
 
-		frame = new JFrame("Absorber Prototype <3");
+		frame = new JFrame("Gizmoball");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	//	frame.setSize(600,600);
 
 		// Board is passed the Model so it can act as Observer
 		board = new Board1(500, 500, model);
-		board.setBackground(Color.GRAY);
+		board.setBackground(Color.BLACK);
 
 		Container cp = frame.getContentPane();
 
-		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23);
+		Font gf = new Font("Rocket Script", Font.HANGING_BASELINE, 23);
 
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new GridLayout(4, 1));
+	//	buttons.setLayout(new GridLayout(2, 4));
+		 buttons.setLayout(new GridLayout(4, 1));
+
+		// JButton switchScreen = new JButton("Change Mode");
+
+		// buttons.add(switchScreen);
 
 		JButton button1 = new JButton("Start");
 		button1.setFont(gf);
@@ -86,170 +95,93 @@ public class Gui2 {
 		button3.addActionListener(listener);
 		button3.setMaximumSize(new Dimension(100, 100));
 		buttons.add(button3);
-		
+
 		JButton saveButton = new JButton("Save");
 		saveButton.addActionListener(listener);
 		saveButton.setFont(gf);
 		saveButton.setBackground(Color.decode("#D4FAFF"));
 		buttons.add(saveButton);
-		
+
 		JButton loadButton = new JButton("Load");
 		loadButton.addActionListener(listener);
 		loadButton.setFont(gf);
 		buttons.add(loadButton);
-		
+
 		JPanel buildButtons = new JPanel();
-		buildButtons.setLayout(new GridLayout(4, 1));
-		
+		buildButtons.setLayout(new GridLayout(4,1));
+
 		JButton ballButton = new JButton("Ball");
 		ballButton.addActionListener(listener);
 		ballButton.setFont(gf);
 		buildButtons.add(ballButton);
-		
-		
-		
-		
-			
-			JMenuBar bar = new JMenuBar();
-			
-			
-			
-			JMenu menu;
-			JMenuItem item;
-			
-			menu = new JMenu("File");
-			bar.add(menu);
-			
-			item = new JMenuItem("Change");
-			
-			
-			item.addActionListener((new ActionListener() {
-				
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					
-					if(switchMode == false) {
-						buttons1 =  buttons;
-						switchMode = true;
-						
-					/*	if(buildButtons.getComponentCount() != 0) {
-							buildButtons.removeAll();
-						}  */
-						
-						buildButtons.setVisible(false);
-						buttons.setVisible(true);
-						
-			
-					} else {
-						
-						switchMode = false;
-						buttons1 =  buildButtons;
-						
-				/*		if(buildButtons.getComponentCount() != 0) {
-							buildButtons.removeAll(); 
-							
-						}  */
-						buildButtons.setVisible(true);
-						buttons.setVisible(false);
-						
-					} 
-					
-					buildButtons.add(buttons1);
-					buildButtons.repaint();
-					buildButtons.revalidate();
-				}
-			}));
-	
 
-	
-	
-		
-			menu.add(item);
-		
-	//	JButton switchScreen1 = new JButton("Change Mode");
-	//	buildButtons.add(switchScreen1);
-		
-	//	JButton switchScreen2 = new JButton("Change Mode");
-	//	buttons.add(switchScreen2);
-		
+		JPanel build = new JPanel();
+//		build.setLayout(new GridLayout(4, 1));
+		JPanel run = new JPanel();
+	//	run.setLayout(new GridLayout(4, 1));
 
-	
-		
-		
+		buttons1 = new JPanel();
+	//	buttons1.setLayout(new GridLayout(4,1));
+		buttons1.add(run);
+		buttons1.add(build);
 
-		cp.add(buttons, BorderLayout.LINE_START);
-		cp.add(buildButtons, BorderLayout.LINE_START);
+		JMenuBar bar = new JMenuBar();
+
+		JMenu menu;
+		JMenuItem item;
+
+		menu = new JMenu("File");
+		bar.add(menu);
+
+		item = new JMenuItem("Change");
+
+		menu.add(item);
+
+		// cp.setLayout(new GridLayout(2,2));
+		cp.add(buttons1, BorderLayout.LINE_START);
+		// cp.add(buildButtons, BorderLayout.LINE_START);
+		// cp.add(buttons, BorderLayout.LINE_START);
+		// cp.add(buildButtons, BorderLayout.LINE_START);
 		cp.add(bar, BorderLayout.NORTH);
 		cp.add(board, BorderLayout.CENTER);
 
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
-		
-/*switchScreen1.addActionListener(new ActionListener() {
-			
+
+		item.addActionListener((new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				if(switchMode == false) {
-					buttons1 =  buttons;
-					switchMode = true;
-					
-					if(buildButtons.getComponentCount() != 0) {
-						buildButtons.removeAll();
-					}
-					
-		
-				} else {
-					
-					switchMode = false;
-					buttons1 =  buildButtons;
-					buttons.add(switchScreen1);
-					if(buildButtons.getComponentCount() != 0) {
-						buildButtons.removeAll();
-						
-					}
-				}
-				
-				buildButtons.add(buttons1);
-				buildButtons.repaint();
-				buildButtons.revalidate();
-			}
-		}); */
-	
-	
-/*	switchScreen2.addActionListener(new ActionListener() {
-		
-		@Override
-		public void actionPerformed(ActionEvent arg0) {
-			
-			if(switchMode == false) {
-				buttons1 =  buildButtons;
-				switchMode = true;
-				
-				if(buttons.getComponentCount() != 0) {
-					buttons.removeAll();
-				}
-				
-	
-			} else {
-				
-				switchMode = false;
-				buttons1 = buttons;
-				
-				if(buttons.getComponentCount() != 0) {
-					buttons.removeAll();
-				}
-			}
-			
-			buttons.add(buttons1);
-			buttons.repaint();
-			buttons.revalidate();
-		}
-	}); */
-} 
 
-	
-	
+				if (switchMode == false) {
+					buttons1 = buttons;
+					switchMode = true;
+
+					if (build.getComponentCount() != 0) {
+						build.removeAll();
+					}
+
+					
+
+				} else {
+
+					switchMode = false;
+					buttons1 = buildButtons;
+
+					if (build.getComponentCount() != 0) {
+						build.removeAll();
+
+					}
+					
+				}
+
+				build.add(buttons1);
+				build.repaint();
+				build.revalidate();
+			}
+		}));
+
+	}
 
 }
