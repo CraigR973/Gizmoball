@@ -41,6 +41,7 @@ public class Gui2 {
 	public Gui2(Model1 m) {
 		model = m;
 		this.buttons1 = null;
+	//	this.switchMode = true;
 
 		// RunListener catches all GUI events. In reality might have many listeners.
 	//	listener = new RunListener1(m);
@@ -106,6 +107,8 @@ public class Gui2 {
 		buildButtons.add(ballButton);
 		
 		
+		
+		
 			
 			JMenuBar bar = new JMenuBar();
 			
@@ -129,9 +132,12 @@ public class Gui2 {
 						buttons1 =  buttons;
 						switchMode = true;
 						
-						if(buildButtons.getComponentCount() != 0) {
+					/*	if(buildButtons.getComponentCount() != 0) {
 							buildButtons.removeAll();
-						}
+						}  */
+						
+						buildButtons.setVisible(false);
+						buttons.setVisible(true);
 						
 			
 					} else {
@@ -139,11 +145,14 @@ public class Gui2 {
 						switchMode = false;
 						buttons1 =  buildButtons;
 						
-						if(buildButtons.getComponentCount() != 0) {
-							buildButtons.removeAll();
+				/*		if(buildButtons.getComponentCount() != 0) {
+							buildButtons.removeAll(); 
 							
-						}
-					}
+						}  */
+						buildButtons.setVisible(true);
+						buttons.setVisible(false);
+						
+					} 
 					
 					buildButtons.add(buttons1);
 					buildButtons.repaint();
