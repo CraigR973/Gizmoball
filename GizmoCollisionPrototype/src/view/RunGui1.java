@@ -49,7 +49,7 @@ public class RunGui1 {
 		Font gf = new Font("Papyrus", Font.HANGING_BASELINE, 23);
 
 		JPanel buttons = new JPanel();
-		buttons.setLayout(new GridLayout(4, 1));
+		buttons.setLayout(new GridLayout(4,1));
 
 		JButton button1 = new JButton("Start");
 		button1.setFont(gf);
