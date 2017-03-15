@@ -1,6 +1,9 @@
 package model;
 import java.awt.Color;
+import java.util.ArrayList;
+
 import physics.Angle;
+import physics.Circle;
 import physics.LineSegment;
 import physics.Vect;
 public class LeftFlipper {
@@ -11,9 +14,10 @@ public class LeftFlipper {
 	private double height;
 	private double xpos;
 	private double ypos;
-	private LineSegment ls;
 	private Angle angle;
 	String flipperName;
+	private LineSegment ls2;
+	private LineSegment ls4;
 	
 	
 	public LeftFlipper(String name, double x, double y){
@@ -27,7 +31,9 @@ public class LeftFlipper {
 		xpos = x*20;
 		ypos = y*20;
 		angle = new Angle(a,b);
-		ls = new LineSegment(x, y, x + w, y);
+		setName(name);
+		ls2 = new LineSegment(xpos, ypos +5, xpos, ypos + h -5);
+		ls4 = new LineSegment(xpos + w, ypos + 5, xpos + w, ypos + h-5);
 	}
 	
 		public void setName(String n){
@@ -60,10 +66,6 @@ public class LeftFlipper {
 	}
 	
 	
-	public LineSegment getLFlipLineSeg(){
-		return ls;
-	}
-	
 	public double getXPos(){
 		return xpos;
 	}
@@ -88,4 +90,38 @@ public class LeftFlipper {
 	public double getWidth(){
 		return width;
 	}
+
+
+public LineSegment getLineSegs(int i){
+	ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
+	
+	lss.add(ls2);
+	lss.add(ls4);
+	
+	return lss.get(i);
+}
+
+public Circle getCorners(int i){
+	ArrayList<Circle> corners = new ArrayList<Circle>();
+	
+	Circle corner1 = new Circle(xpos +5, ypos+5, 5);
+	Circle corner4 = new Circle(xpos +5, ypos + height-5, 5);
+	
+	corners.add(corner1);
+	corners.add(corner4);
+	
+	return corners.get(i);
+}
+
+public Vect getCornerCentres(int i){
+	ArrayList<Vect> corCen = new ArrayList<Vect>();
+	
+	Vect cen1 = new Vect(getXPos() +5,getYPos()+5);
+	Vect cen4 = new Vect(getXPos() + 5,getYPos() + height -5);
+	
+	corCen.add(cen1);
+	corCen.add(cen4);
+	
+	return corCen.get(i);
+}
 }

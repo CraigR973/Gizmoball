@@ -28,7 +28,7 @@ public class Model extends Observable {
 	public Model() {
 
 		gws = new Walls(0, 0, 400, 400);
-		physicsLoop = new PhysicsLoop(balls, gws, abs, keyPressed, squares, circs, tris);
+		physicsLoop = new PhysicsLoop(balls, gws, abs, keyPressed, squares, circs, tris, leftFlippers, rightFlippers);
 		
 	}
 

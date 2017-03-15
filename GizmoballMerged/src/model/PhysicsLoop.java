@@ -16,19 +16,24 @@ public class PhysicsLoop {
 	private ArrayList<CircleGizmo> circs = new ArrayList<CircleGizmo>();
 	private ArrayList<TriangleGizmo> tris = new ArrayList<TriangleGizmo>();
 	private ArrayList<SquareGizmo> squares = new ArrayList<SquareGizmo>();
+	private ArrayList<LeftFlipper> leftFlippers = new ArrayList<LeftFlipper>();
+	private ArrayList<RightFlipper> rightFlippers = new ArrayList<RightFlipper>();
 	private Vect physics;
 	private double friction;
 	private double grav;
 	private int colourCounter = 0;
 
 	public PhysicsLoop(ArrayList<Ball> b, Walls walls, ArrayList<Absorber> absorber, boolean keyPress,
-			ArrayList<SquareGizmo> sqs, ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles) {
+			ArrayList<SquareGizmo> sqs, ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles, ArrayList<LeftFlipper> leftFlipper,
+			 ArrayList<RightFlipper> rightFlipper) {
 		ball = b;
 		abs = absorber;
 		keyPressed = keyPress;
 		squares = sqs;
 		circs = cirs;
 		tris = triangles;
+		leftFlippers = leftFlipper;
+		rightFlippers = rightFlipper;
 		gws = walls;
 		friction = 10;
 		grav = 20;
@@ -241,6 +246,53 @@ public class PhysicsLoop {
 					shortestTime = time;
 					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.get(n).getCentreOfBall(),
 							ball.get(n).getVelo(), 1.0);
+				}
+			}
+		}
+		//Time to collide to left flippers
+		if (!leftFlippers.isEmpty()) {
+			for (int i = 0; i < leftFlippers.size(); i++) {
+				for (int j = 0; j < 2; j++) {
+					time = Geometry.timeUntilWallCollision(leftFlippers.get(i).getLineSegs(j), ballCircle, ballVelocity);
+					if (time < shortestTime) {
+						shortestTime = time;
+						newVelo = Geometry.reflectWall(leftFlippers.get(i).getLineSegs(j), ball.get(n).getVelo(), 1.0);
+					}
+
+					time = Geometry.timeUntilCircleCollision(leftFlippers.get(i).getCorners(j), ballCircle, ballVelocity);
+					if (time < shortestTime) {
+						shortestTime = time;
+						newVelo = Geometry.reflectCircle(leftFlippers.get(i).getCornerCentres(j),
+								ball.get(n).getCentreOfBall(), ball.get(n).getVelo(), 1.0);
+						System.out.println("square corner collision");
+					}
+					if (time < 0.02){
+						System.out.println("square collision");
+					}
+				}
+			}
+		}
+		
+		//Time to collide with right flippers
+		if (!rightFlippers.isEmpty()) {
+			for (int i = 0; i < rightFlippers.size(); i++) {
+				for (int j = 0; j < 2; j++) {
+					time = Geometry.timeUntilWallCollision(rightFlippers.get(i).getLineSegs(j), ballCircle, ballVelocity);
+					if (time < shortestTime) {
+						shortestTime = time;
+						newVelo = Geometry.reflectWall(rightFlippers.get(i).getLineSegs(j), ball.get(n).getVelo(), 1.0);
+					}
+
+					time = Geometry.timeUntilCircleCollision(rightFlippers.get(i).getCorners(j), ballCircle, ballVelocity);
+					if (time < shortestTime) {
+						shortestTime = time;
+						newVelo = Geometry.reflectCircle(rightFlippers.get(i).getCornerCentres(j),
+								ball.get(n).getCentreOfBall(), ball.get(n).getVelo(), 1.0);
+						System.out.println("square corner collision");
+					}
+					if (time < 0.02){
+						System.out.println("square collision");
+					}
 				}
 			}
 		}
