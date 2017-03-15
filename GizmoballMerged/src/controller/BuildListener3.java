@@ -30,7 +30,7 @@ public class BuildListener3 implements ActionListener {
 			model.start();
 		} else
 			switch (e.getActionCommand()) {
-			case "Add Gizmo":
+			case "Add Circle":
 				System.out.println("Add");
 				break;
 			case "Stop":
