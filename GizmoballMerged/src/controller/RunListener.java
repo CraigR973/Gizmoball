@@ -48,6 +48,7 @@ public class RunListener implements ActionListener {
 				break;
 			case "Save":
 				System.out.println("Save Button");
+				model.save();
 				break;
 			case "Load":
 				System.out.println("Load Button");

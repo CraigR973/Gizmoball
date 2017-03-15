@@ -21,6 +21,7 @@ public class Model extends Observable {
 	private ArrayList<Absorber> abs = new ArrayList<Absorber>();
 	private ArrayList<Ball> balls = new ArrayList<Ball>();
 	private LoadReader file = new LoadReader();
+	private saveFile savefile = new saveFile();
 
 	int counter = 0;
 
@@ -120,7 +121,9 @@ public class Model extends Observable {
 	}
 	
 	
-	
+	public void save(){
+		savefile.save(tris, squares, circs, leftFlippers, rightFlippers, abs, balls);
+	}
 	
 
 	public void loadBoard() {
