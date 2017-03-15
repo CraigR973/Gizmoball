@@ -3,6 +3,7 @@ package main;
 import javax.swing.UIManager;
 
 import model.Model;
+import view.Gui;
 //import model.VerticalLine1;
 import view.RunGui;
 
@@ -32,7 +33,7 @@ public class Main {
 		
 		
 
-		RunGui gui = new RunGui(model);
+		Gui gui = new Gui(model);
 		gui.createAndShowGUI();
 	}
 }
