@@ -57,7 +57,8 @@ public class Gui2 {
 
 		frame = new JFrame("Gizmoball");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	//	frame.setSize(600,600);
+	//	frame.setSize(700,700);
+		
 
 		// Board is passed the Model so it can act as Observer
 		board = new Board1(500, 500, model);
@@ -70,6 +71,8 @@ public class Gui2 {
 		JPanel runButtons = new JPanel();
 	//	buttons.setLayout(new GridLayout(2, 4));
 		 runButtons.setLayout(new GridLayout(4,1));
+		 runButtons.setPreferredSize(new Dimension(300, 500));
+		 
 
 		// JButton switchScreen = new JButton("Change Mode");
 
@@ -112,6 +115,7 @@ public class Gui2 {
 
 		JPanel buildButtons = new JPanel();
 		buildButtons.setLayout(new GridLayout(4,1));
+		buildButtons.setPreferredSize(new Dimension(300, 500));
 
 		JButton addGizmoButton = new JButton("Add Gizmo");
 		addGizmoButton.addActionListener(listener2);
@@ -176,9 +180,11 @@ public class Gui2 {
 	//	buttons1.setLayout(new GridLayout(4,1));
 	//	buttons1.add(run);
 		buttons1.add(build);
+		buttons1.setPreferredSize(new Dimension(300, 700));
 	//	this.buttons1 = null;
 
 		JMenuBar bar = new JMenuBar();
+		bar.setLayout(new GridLayout(1,4));
 
 	//	JMenu menu;
 	//	JMenuItem item;
@@ -187,17 +193,20 @@ public class Gui2 {
 		JButton load;
 		JButton quit;
 		
-		change = new JButton("Change Mode");
+		
+		
 		save = new JButton("Save");
 		load = new JButton("Load");
 		quit = new JButton("Quit");
+		change = new JButton("Change Mode");
 
 	//	menu = new JMenu("File");
 	//	bar.add(menu);
-		bar.add(change);
+		
 		bar.add(save);
 		bar.add(load);
 		bar.add(quit);
+		bar.add(change);
 
 	//	item = new JMenuItem("Change");
 
@@ -210,7 +219,8 @@ public class Gui2 {
 		// cp.add(buildButtons, BorderLayout.LINE_START);
 		cp.add(bar, BorderLayout.NORTH);
 		cp.add(board, BorderLayout.CENTER);
-
+		
+		frame.setPreferredSize(new Dimension(800, 565));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
