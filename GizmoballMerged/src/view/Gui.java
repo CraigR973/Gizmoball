@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.plaf.ButtonUI;
@@ -28,6 +29,7 @@ import controller.BuildListener3;
 
 import controller.RunListener2;
 import model.Model;
+import model.PhysicsLoop;
 
 //import controller.RunListener;
 
@@ -197,7 +199,15 @@ public class Gui {
 		buildButtons.add(editFrictionButton);
 
 		JButton editGravityButton = new JButton("Edit Gravity");
-		editGravityButton.addActionListener(listener2);
+		editGravityButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			//	JOptionPane optionPane = new JOptionPane(); 
+				JOptionPane.showInputDialog(frame, "Please enter your new gravity value");
+				
+			}
+		});
 		editGravityButton.setFont(gf);
 		editGravityButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(editGravityButton);
