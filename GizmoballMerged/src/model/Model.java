@@ -215,44 +215,68 @@ public class Model extends Observable {
 		this.setChanged();
 	}
 
-	public void deleteGizmo(int x, int y) {
+	public String deleteGizmo(int x, int y) {
 		for (int i = 0; i < tris.size(); i++) {
 			if (tris.get(i).getXpos1() == x * 20 && tris.get(i).getYpos1() == y * 20) {
 				tris.remove(i);
+				this.notifyObservers();
+				this.setChanged();
+				return "Triangle";
 			}
 		}
 		for (int i = 0; i < circs.size(); i++) {
 			if (circs.get(i).getExactX() == x * 20 + 10 && circs.get(i).getExactY() == y * 20 + 10) {
 				circs.remove(i);
+				this.notifyObservers();
+				this.setChanged();
+				return "Circle";
 			}
 		}
 		for (int i = 0; i < squares.size(); i++) {
 			if (squares.get(i).getXPos() == x * 20 && squares.get(i).getYPos() == y * 20) {
 				squares.remove(i);
+				this.notifyObservers();
+				this.setChanged();
+				return "Square";
 			}
 		}
 		for (int i = 0; i < abs.size(); i++) {
 			if (abs.get(i).getYPos() == y * 20) {
 				abs.remove(i);
+				this.notifyObservers();
+				this.setChanged();
+				return "Absorber";
 			}
 		}
 		for (int i = 0; i < leftFlippers.size(); i++) {
 			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
 				leftFlippers.remove(i);
+				this.notifyObservers();
+				this.setChanged();
+				return "LF";
 			}
 		}
 		for (int i = 0; i < rightFlippers.size(); i++) {
 			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
 				rightFlippers.remove(i);
+				this.notifyObservers();
+				this.setChanged();
+				return "RF";
 			}
 		}
 		for (int i = 0; i < balls.size(); i++) {
 			if (balls.get(i).getExactX() == x * 20 && balls.get(i).getExactY() == y * 20) {
 				balls.remove(i);
+
+				this.notifyObservers();
+				this.setChanged();
+				return "Balls";
 			}
 		}
 		this.notifyObservers();
 		this.setChanged();
+
+		return null;
 	}
 
 	public void addAbsorberGizmo(int y) {
@@ -365,29 +389,29 @@ public class Model extends Observable {
 		this.notifyObservers();
 	}
 
-	public String moveGizmoRemove(int x, int y) {
-		if (checkSquares(x, y) != null) {
-			deleteGizmo(x, y);
-			return "Square";
-		}
-		if (checkTriangles(x, y) != null) {
-			deleteGizmo(x, y);
-			return "Triangle";
-		}
-		if (checkCircs(x, y) != null) {
-			deleteGizmo(x, y);
-			return "Circle";
-		}
-		if (checkBalls(x, y) != null) {
-			deleteGizmo(x, y);
-			return "Ball";
-		}
-		if (checkAbs(x, y) != null) {
-			deleteGizmo(x, y);
-			return "Absorber";
-		}
-		return null;
-	}
+//	public String moveGizmoRemove(int x, int y) {
+//		if (checkSquares(x, y) != null) {
+//			deleteGizmo(x, y);
+//			return "Square";
+//		}
+//		if (checkTriangles(x, y) != null) {
+//			deleteGizmo(x, y);
+//			return "Triangle";
+//		}
+//		if (checkCircs(x, y) != null) {
+//			deleteGizmo(x, y);
+//			return "Circle";
+//		}
+//		if (checkBalls(x, y) != null) {
+//			deleteGizmo(x, y);
+//			return "Ball";
+//		}
+//		if (checkAbs(x, y) != null) {
+//			deleteGizmo(x, y);
+//			return "Absorber";
+//		}
+//		return null;
+//	}
 
 	public void moveGizmoAdd(int x, int y, String giz) {
 		switch (giz) {

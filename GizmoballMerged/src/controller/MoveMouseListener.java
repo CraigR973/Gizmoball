@@ -39,7 +39,7 @@ public class MoveMouseListener implements MouseListener{
 		int x = Math.round(e.getX() / 20);
 		int y = Math.round(e.getY() / 20);
 		
-		giz = model.moveGizmoRemove(x, y);
+		giz = model.deleteGizmo(x, y);
 	}
 
 	@Override

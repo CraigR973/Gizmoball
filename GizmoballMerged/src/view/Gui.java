@@ -35,10 +35,6 @@ import model.PhysicsLoop;
 
 //import controller.RunListener;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
-
 public class Gui {
 
 	private Model model;
@@ -481,7 +477,6 @@ public class Gui {
 		
 		
 		
-
 		frame.setPreferredSize(new Dimension(659, 462));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
