@@ -100,7 +100,7 @@ public class RunGui {
 				
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
 					System.out.println("Flipper moved");
-					model.rotateLeftFLip();
+					model.rotateLeftFlip();
 					board.keyPressDetect();
 				}
 			}
@@ -109,10 +109,10 @@ public class RunGui {
 				// TODO Auto-generated method stub
 				if(e.getKeyCode() == KeyEvent.VK_LEFT){
 					System.out.println("Flipper moved");
-					model.rotateLeftFLip();
+					model.rotateLeftFlip();
 					board.keyPressDetectNon();
 				}
-			}
+			} 
 
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub

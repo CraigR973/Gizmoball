@@ -79,12 +79,19 @@ public class Board extends JPanel implements Observer {
 			int y = (int) lFlip.getYPos();
 			int width = (int) lFlip.getWidth();
 			int height = (int) lFlip.getHeight();
+			g2.fillRoundRect(x, y, width, height, width, height);
 			
-			if(keyPress == true){
+	/*		if(keyPress == true){
 				rotateLeftFlipper(g2, lFlip, x, y, height, width);
 			}else{
 				stopRotateLeftFlipper(g2, lFlip, x, y, height, width);
 			}
+		} */
+			
+			if(keyPress == true) {
+				gm.rotateLeftFlip();
+			}
+			
 		}
 
 	}
@@ -94,7 +101,7 @@ public class Board extends JPanel implements Observer {
 		repaint();
 	}
 
-	public void rotateLeftFlipper(Graphics2D g2, LeftFlipper lFlip, int x, int y, int h, int w){
+/*	public void rotateLeftFlipper(Graphics2D g2, LeftFlipper lFlip, int x, int y, int h, int w){
 		g2.setColor(Color.RED);
 		g2.fillRoundRect(x, y, h, w, w / 2, h / 2);
 		g2.dispose();
@@ -104,7 +111,7 @@ public class Board extends JPanel implements Observer {
 		g2.setColor(Color.RED);
 		g2.fillRoundRect(x, y, w, h, w / 2, h / 2);
 		g2.dispose();
-	}
+	} */
 	
 	public void keyPressDetect(){
 		keyPress = true;

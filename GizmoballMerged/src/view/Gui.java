@@ -22,6 +22,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 import javax.swing.plaf.ButtonUI;
 
@@ -175,6 +176,13 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				JOptionPane optionPane = new JOptionPane();
+				optionPane.add(new JTextArea("X velocity"));
+				optionPane.add(new JTextArea("Y velocity"));
+				
+	//			optionPane.showInputDialog(frame, "Hello");
+		//		Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your x value for ball velocity"));
+			//	Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your y value for ball velocity"));
 				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball");
 				board.addMouseListener(sml);
 			}
@@ -271,7 +279,20 @@ public class Gui {
 		buildButtons.add(clearButton);
 
 		JButton editFrictionButton = new JButton("Edit Friction");
-		editFrictionButton.addActionListener(listener2);
+		editFrictionButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			//	JOptionPane optionPane = new JOptionPane(); 
+				Double friction;
+				
+		//		friction = PhysicsLoop.getGrav();
+				
+				
+				friction = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your new friction value"));
+				
+			}
+		});
 		editFrictionButton.setFont(gf);
 		editFrictionButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(editFrictionButton);

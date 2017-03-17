@@ -62,7 +62,7 @@ public class Model extends Observable{
 		return ball;
 	}
 	
-	public void rotateLeftFLip() {
+	public void rotateLeftFlip() {
 		leftFlipper = rotateLeftFlipper(leftFlipper);
 		this.setChanged();
 		this.notifyObservers();
@@ -72,8 +72,10 @@ public class Model extends Observable{
 		double newA = 0.0;
 		double newB = 1.0;
 	
-		newA = 0.0;
-		newB = -1.0;
+		newA = leftFlipper.getXPos();
+		newB = leftFlipper.getYPos();
+		leftFlipper.setXPos(newA);
+		leftFlipper.setYPos(newB);
 		
 		
 		//leftFlipper.setAngle(newA);
