@@ -25,8 +25,9 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.plaf.ButtonUI;
 
+import controller.AddGizmoMouseListener;
 import controller.BuildListener3;
-
+import controller.MoveMouseListener;
 import controller.RunListener2;
 import model.Model;
 import model.PhysicsLoop;
@@ -127,49 +128,111 @@ public class Gui {
 		 */
 
 		JButton addCircleButton = new JButton("Add Circle");
-		addCircleButton.addActionListener(listener2);
+		addCircleButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Circle");
+				board.addMouseListener(sml);
+			}
+		});
 		addCircleButton.setFont(gf);
 		addCircleButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(addCircleButton);
 
 		JButton addSquareButton = new JButton("Add Square");
-		addSquareButton.addActionListener(listener2);
+		addSquareButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Square");
+				board.addMouseListener(sml);
+			}
+		});
 		addSquareButton.setFont(gf);
 		addSquareButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(addSquareButton);
 
 		JButton addTriangleButton = new JButton("Add Triangle");
-		addTriangleButton.addActionListener(listener2);
+		addTriangleButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Triangle");
+				board.addMouseListener(sml);
+			}
+		});
 		addTriangleButton.setFont(gf);
 		addTriangleButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(addTriangleButton);
 
 		JButton addBallButton = new JButton("Add Ball");
-		addBallButton.addActionListener(listener2);
+		addBallButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball");
+				board.addMouseListener(sml);
+			}
+		});
 		addBallButton.setFont(gf);
 		addBallButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(addBallButton);
 
 		JButton addAbsorberButton = new JButton("Add Absorber");
-		addAbsorberButton.addActionListener(listener2);
+		addAbsorberButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber");
+				board.addMouseListener(sml);
+			}
+		});
 		addAbsorberButton.setFont(gf);
 		addAbsorberButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(addAbsorberButton);
 
 		JButton addLeftFlipperButton = new JButton("Add Left Flipper");
-		addLeftFlipperButton.addActionListener(listener2);
+		addLeftFlipperButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "LF");
+				board.addMouseListener(sml);
+			}
+		});
 		addLeftFlipperButton.setFont(gf);
 		addLeftFlipperButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(addLeftFlipperButton);
 
 		JButton addRightFlipperButton = new JButton("Add Right Flipper");
-		addRightFlipperButton.addActionListener(listener2);
+		addRightFlipperButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "RF");
+				board.addMouseListener(sml);
+			}
+		});
 		addRightFlipperButton.setFont(gf);
 		addRightFlipperButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(addRightFlipperButton);
 
 		JButton rotateGizmoButton = new JButton("Rotate Gizmo");
-		rotateGizmoButton.addActionListener(listener2);
+		rotateGizmoButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
 		rotateGizmoButton.setFont(gf);
 		rotateGizmoButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(rotateGizmoButton);
@@ -181,13 +244,28 @@ public class Gui {
 		buildButtons.add(deleteGizmoButton);
 
 		JButton moveGizmoButton = new JButton("Move Gizmo");
-		moveGizmoButton.addActionListener(listener2);
+		moveGizmoButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				MoveMouseListener mml = new MoveMouseListener(model);
+				board.addMouseListener(mml);
+			}
+		});
 		moveGizmoButton.setFont(gf);
 		moveGizmoButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(moveGizmoButton);
 
 		JButton clearButton = new JButton("Clear");
-		clearButton.addActionListener(listener2);
+		clearButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				model.clearBoard();
+			}
+		});
 		clearButton.setFont(gf);
 		clearButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(clearButton);
@@ -389,7 +467,7 @@ public class Gui {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				board.flipMode(switchMode);
 				
 				if (switchMode == false) {
 					buttons1 = runButtons;

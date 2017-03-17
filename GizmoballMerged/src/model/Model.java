@@ -185,4 +185,270 @@ public class Model extends Observable {
 		this.notifyObservers();
 	}
 	
+	public void addSquareGizmo(int x, int y) {
+		String name = "S" + x + y;
+		SquareGizmo sqg = new SquareGizmo(name, x, y);
+		if (!checkGizmos(x, y)) {
+			squares.add(sqg);
+		}
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public void addCircleGizmo(int x, int y) {
+		String name = "C" + x + y;
+		CircleGizmo cg = new CircleGizmo(name, x, y);
+		if (!checkGizmos(x, y)) {
+			circs.add(cg);
+		}
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public void addTriangleGizmo(int x, int y) {
+		String name = "T" + x + y;
+		TriangleGizmo tg = new TriangleGizmo(name, x, y);
+		if (!checkGizmos(x, y)) {
+			tris.add(tg);
+		}
+		System.out.println(name);
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public void deleteGizmo(int x, int y) {
+		for (int i = 0; i < tris.size(); i++) {
+			if (tris.get(i).getXpos1() == x * 20 && tris.get(i).getYpos1() == y * 20) {
+				tris.remove(i);
+			}
+		}
+		for (int i = 0; i < circs.size(); i++) {
+			if (circs.get(i).getExactX() == x * 20 + 10 && circs.get(i).getExactY() == y * 20 + 10) {
+				circs.remove(i);
+			}
+		}
+		for (int i = 0; i < squares.size(); i++) {
+			if (squares.get(i).getXPos() == x * 20 && squares.get(i).getYPos() == y * 20) {
+				squares.remove(i);
+			}
+		}
+		for (int i = 0; i < abs.size(); i++) {
+			if (abs.get(i).getYPos() == y * 20) {
+				abs.remove(i);
+			}
+		}
+		for (int i = 0; i < leftFlippers.size(); i++) {
+			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+				leftFlippers.remove(i);
+			}
+		}
+		for (int i = 0; i < rightFlippers.size(); i++) {
+			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+				rightFlippers.remove(i);
+			}
+		}
+		for (int i = 0; i < balls.size(); i++) {
+			if (balls.get(i).getExactX() == x * 20 && balls.get(i).getExactY() == y * 20) {
+				balls.remove(i);
+			}
+		}
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public void addAbsorberGizmo(int y) {
+		String name = "A";
+		Absorber a = new Absorber(name, 0, 19);
+		if (!checkGizmos(0, y)) {
+			abs.add(a);
+		}
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public void addBallGizmo(int x, int y) {
+		String name = "B";
+		System.out.println(balls.size());
+		if (balls.size() < 1) {
+			Ball b = new Ball(name, x, y, 50, 50);
+			if (!checkGizmos(x, y)) {
+				balls.add(b);
+			}
+		} else {
+			System.out.println("too many balls");
+		}
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public void addRFlipperGizmo(int x, int y) {
+		String name = "RF" + x + y;
+		RightFlipper rf = new RightFlipper(name, x, y);
+		if (!checkGizmos(x, y)) {
+			rightFlippers.add(rf);
+		}
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public void addLFlipperGizmo(int x, int y) {
+		String name = "LF" + x + y;
+		LeftFlipper lf = new LeftFlipper(name, x, y);
+		if (!checkGizmos(x, y)) {
+			leftFlippers.add(lf);
+		}
+		this.notifyObservers();
+		this.setChanged();
+	}
+
+	public boolean checkGizmos(int x, int y) {
+		for (int i = 0; i < tris.size(); i++) {
+			if (tris.get(i).getXpos1() == x * 20 && tris.get(i).getYpos1() == y * 20) {
+				return true;
+			}
+		}
+		for (int i = 0; i < circs.size(); i++) {
+			if (circs.get(i).getExactX() == x * 20 + 10 && circs.get(i).getExactY() == y * 20 + 10) {
+				return true;
+			}
+		}
+		for (int i = 0; i < squares.size(); i++) {
+			if (squares.get(i).getXPos() == x * 20 && squares.get(i).getYPos() == y * 20) {
+				return true;
+			}
+		}
+		for (int i = 0; i < balls.size(); i++) {
+			if (balls.get(i).getExactX() == x * 20 && balls.get(i).getExactY() == y * 20) {
+				return true;
+			}
+		}
+		for (int i = 0; i < rightFlippers.size(); i++) {
+			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+				return true;
+			}
+		}
+		for (int i = 0; i < leftFlippers.size(); i++) {
+			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+				return true;
+			}
+		}
+		for (int i = 0; i < abs.size(); i++) {
+			if (abs.get(i).getYPos() == y * 20) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void clearBoard() {
+		if (!balls.isEmpty()) {
+			balls.clear();
+		}
+		if (!rightFlippers.isEmpty()) {
+			rightFlippers.clear();
+		}
+		if (!leftFlippers.isEmpty()) {
+			leftFlippers.clear();
+		}
+		if (!squares.isEmpty()) {
+			squares.clear();
+		}
+		if (!circs.isEmpty()) {
+			circs.clear();
+		}
+		if (!tris.isEmpty()) {
+			tris.clear();
+		}
+		if (!abs.isEmpty()) {
+			abs.clear();
+		}
+		this.setChanged();
+		this.notifyObservers();
+	}
+
+	public void moveGizmo(int x1, int y1, int x2, int y2) {
+		if(checkSquares(x1,y1)!=null){
+			deleteGizmo(x1, y1);
+			addSquareGizmo(x2, y2);
+		}
+		if(checkTriangles(x1,y1)!=null){
+			deleteGizmo(x1, y1);
+			addTriangleGizmo(x2, y2);
+		}
+		if(checkCircs(x1,y1)!=null){
+			deleteGizmo(x1, y1);
+			addSquareGizmo(x2, y2);
+		}
+		if(checkBalls(x1,y1)!=null){
+			deleteGizmo(x1, y1);
+			addBallGizmo(x2, y2);
+		}
+		if(checkAbs(x1,y1)!=null){
+			deleteGizmo(x1, y1);
+			addAbsorberGizmo(y2);
+		}
+	}
+
+	public SquareGizmo checkSquares(int x, int y) {
+		for (int i = 0; i < squares.size(); i++) {
+			if (squares.get(i).getXPos() == x * 20 && squares.get(i).getYPos() == y * 20) {
+				return squares.get(i);
+			}
+		}
+		return null;
+	}
+
+	public TriangleGizmo checkTriangles(int x, int y) {
+		for (int i = 0; i < tris.size(); i++) {
+			if (tris.get(i).getXpos1() == x * 20 && tris.get(i).getYpos1() == y * 20) {
+				return tris.get(i);
+			}
+		}
+		return null;
+	}
+
+	public CircleGizmo checkCircs(int x, int y) {
+		for (int i = 0; i < circs.size(); i++) {
+			if (circs.get(i).getExactX() == x * 20 + 10 && circs.get(i).getExactY() == y * 20 + 10) {
+				return circs.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public Ball checkBalls(int x, int y){
+		for (int i = 0; i < balls.size(); i++) {
+			if (balls.get(i).getExactX() == x * 20 && balls.get(i).getExactY() == y * 20) {
+				return balls.get(i);
+			}
+		}
+		return ball;
+	}
+	
+	public RightFlipper checkRFs(int x, int y){
+		for (int i = 0; i < rightFlippers.size(); i++) {
+			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+				return rightFlippers.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public LeftFlipper checkLFs(int x, int y){
+		for (int i = 0; i < leftFlippers.size(); i++) {
+			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+				return leftFlippers.get(i);
+			}
+		}
+		return null;
+	}
+	
+	public Absorber checkAbs(int x, int y){
+		for (int i = 0; i < abs.size(); i++) {
+			if (abs.get(i).getYPos() == y * 20) {
+				return abs.get(i);
+			}
+		}
+		return null;
+	}
 }

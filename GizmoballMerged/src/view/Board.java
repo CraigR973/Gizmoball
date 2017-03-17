@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,6 +25,7 @@ public class Board extends JPanel implements Observer {
 	protected int width;
 	protected int height;
 	protected Model gm;
+	private boolean buildMode = false;
 
 	public Board(int w, int h, Model m) {
 		// Observe changes in Model
@@ -45,6 +45,16 @@ public class Board extends JPanel implements Observer {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
+		
+		if(buildMode == true){
+			g2.setColor(Color.GRAY);
+			for(int i = 0; i < 500; i+=20){
+				g2.fillRect(i, 0, 1, 400);
+			}
+			for(int i = 0; i < 500; i+=20){
+				g2.fillRect(0, i, 400, 1);
+			}
+		}
 
 		for (int i = 0; i < gm.getBalls().size(); i++){
 		Ball b = gm.getBalls().get(i);
@@ -55,6 +65,7 @@ public class Board extends JPanel implements Observer {
 			int width = (int) (2 * b.getRadius());
 			g2.fillOval(x, y, width, width);
 		}
+		System.out.println("board b: " + gm.getBalls());
 		}
 
 		for (int i = 0; i < gm.getAbs().size(); i++){
@@ -94,6 +105,7 @@ public class Board extends JPanel implements Observer {
 				int height = (int) sq.getHeight();
 				g2.fillRect(x, y, width, height);
 			}
+			System.out.println("board " + gm.getSquares());
 		}
 
 		for (int i = 0; i < gm.getCircles().size(); i++) {
@@ -130,11 +142,32 @@ public class Board extends JPanel implements Observer {
 				g2.fillRoundRect(x, y, width, height, 15, 15);
 			}
 		}
+		
+		if(buildMode == false){
+			g2.setColor(Color.BLACK);
+			for(int i = 0; i < 500; i+=20){
+				g2.fillRect(i, 0, 1, 500);
+			}
+			for(int i = 0; i < 500; i+=20){
+				g2.fillRect(0, i, 500, 1);
+			}
+		}
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		repaint();
+	}
+	
+	public void flipMode(boolean mode){
+		System.out.println(buildMode + " flipping bmode");
+		buildMode = mode;
+		if(buildMode == true){
+			buildMode = false;
+		}else{
+			buildMode = true;
+		}
+		this.repaint();
 	}
 
 }
