@@ -38,6 +38,14 @@ public class PhysicsLoop {
 		friction = 10;
 		grav = 20;
 	}
+	
+	public double getGrav() {
+		return grav;
+	} 
+	
+	public void setGrav(double g) {
+		grav = g;
+	}
 
 	public void moveBall() {
 		System.out.println("Move ball pls");
