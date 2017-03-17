@@ -282,7 +282,12 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			//	JOptionPane optionPane = new JOptionPane(); 
-				JOptionPane.showInputDialog(frame, "Please enter your new gravity value");
+				Double gravity;
+				
+		//		gravity = PhysicsLoop.getGrav();
+				
+				
+				gravity = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your new gravity value"));
 				
 			}
 		});
