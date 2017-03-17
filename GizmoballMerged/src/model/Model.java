@@ -29,14 +29,14 @@ public class Model extends Observable {
 
 		gws = new Walls(0, 0, 400, 400);
 		physicsLoop = new PhysicsLoop(balls, gws, abs, keyPressed, squares, circs, tris, leftFlippers, rightFlippers);
-		
+
 	}
 
 	public void start() {
-		//System.out.println(balls);
-		//System.out.println(abs);
+		// System.out.println(balls);
+		// System.out.println(abs);
 		if (balls.get(0) != null && !balls.get(0).stopped()) {
-			//System.out.println(balls.get(0).getVelo());
+			// System.out.println(balls.get(0).getVelo());
 			physicsLoop.moveBall();
 			this.setChanged();
 			this.notifyObservers();
@@ -52,22 +52,23 @@ public class Model extends Observable {
 	}
 
 	public void setBallSpeed(int x, int y) {
-		if(!balls.isEmpty()){
-		ball.setVelo(new Vect(x, y));
+		if (!balls.isEmpty()) {
+			ball.setVelo(new Vect(x, y));
 		}
 	}
 
 	public void releaseBall() {
-		for(int i = 0; i < balls.size(); i++){
-		System.out.println("Release Ball called");
-		keyPressed = true;
-		balls.get(i).start();
+		for (int i = 0; i < balls.size(); i++) {
+			System.out.println("Release Ball called");
+			keyPressed = true;
+			balls.get(i).start();
 		}
 	}
 
 	public void captureBall() {
 		keyPressed = false;
 	}
+
 	public ArrayList<CircleGizmo> getCircles() {
 		return circs;
 	}
@@ -79,15 +80,15 @@ public class Model extends Observable {
 	public ArrayList<SquareGizmo> getSquares() {
 		return squares;
 	}
-	
-	public ArrayList<Absorber> getAbs(){
+
+	public ArrayList<Absorber> getAbs() {
 		return abs;
 	}
-	
-	public ArrayList<Ball> getBalls(){
+
+	public ArrayList<Ball> getBalls() {
 		return balls;
 	}
-	
+
 	public ArrayList<LeftFlipper> getLFlipper() {
 		return leftFlippers;
 	}
@@ -95,36 +96,34 @@ public class Model extends Observable {
 	public ArrayList<RightFlipper> getRFlipper() {
 		return rightFlippers;
 	}
-	
-	public void addSquare(SquareGizmo sq){
+
+	public void addSquare(SquareGizmo sq) {
 		squares.add(sq);
 	}
-	
-	public void addCircle(CircleGizmo c){
+
+	public void addCircle(CircleGizmo c) {
 		circs.add(c);
 	}
-	
-	public void addTriangle(TriangleGizmo t){
+
+	public void addTriangle(TriangleGizmo t) {
 		tris.add(t);
 	}
-	
-	public void addAbsorber(Absorber a){
+
+	public void addAbsorber(Absorber a) {
 		absorber = a;
 	}
-	
-	public void addLeftFlipper(LeftFlipper leftFlipper){
+
+	public void addLeftFlipper(LeftFlipper leftFlipper) {
 		leftFlippers.add(leftFlipper);
 	}
-	
-	public void addRightFlipper(RightFlipper rightFlipper){
+
+	public void addRightFlipper(RightFlipper rightFlipper) {
 		rightFlippers.add(rightFlipper);
 	}
-	
-	
-	public void save(){
+
+	public void save() {
 		savefile.save(tris, squares, circs, leftFlippers, rightFlippers, abs, balls);
 	}
-	
 
 	public void loadBoard() {
 		System.out.println("Starting load method");
@@ -144,7 +143,7 @@ public class Model extends Observable {
 					System.out.println("Loading triangle");
 					TriangleGizmo t = new TriangleGizmo(name, value1, value2);
 					tris.add(t);
-					
+
 				} else if (cGizmo.equals("Square")) {
 					SquareGizmo sq = new SquareGizmo(name, value1, value2);
 					squares.add(sq);
@@ -152,15 +151,15 @@ public class Model extends Observable {
 				} else if (cGizmo.equals("Circle")) {
 					CircleGizmo c = new CircleGizmo(name, value1, value2);
 					circs.add(c);
-				
+
 				} else if (cGizmo.equals("LeftFlipper")) {
 					LeftFlipper lf = new LeftFlipper(name, value1, value2);
 					leftFlippers.add(lf);
-					
+
 				} else if (cGizmo.equals("RightFlipper")) {
 					RightFlipper rf = new RightFlipper(name, value1, value2);
 					rightFlippers.add(rf);
-					
+
 				} else if (cGizmo.equals("Absorber")) {
 					Absorber a = new Absorber(name, value1, value2);
 					abs.add(a);
@@ -174,17 +173,17 @@ public class Model extends Observable {
 			}
 		}
 	}
-	
-	public void load(){
+
+	public void load() {
 		loadBoard();
-		//System.out.println("starting ball");
-		Vect v = new Vect(500,500);
+		// System.out.println("starting ball");
+		Vect v = new Vect(500, 500);
 		balls.get(0).setVelo(v);
-		//System.out.println(abs);
+		// System.out.println(abs);
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	public void addSquareGizmo(int x, int y) {
 		String name = "S" + x + y;
 		SquareGizmo sqg = new SquareGizmo(name, x, y);
@@ -366,26 +365,44 @@ public class Model extends Observable {
 		this.notifyObservers();
 	}
 
-	public void moveGizmo(int x1, int y1, int x2, int y2) {
-		if(checkSquares(x1,y1)!=null){
-			deleteGizmo(x1, y1);
-			addSquareGizmo(x2, y2);
+	public String moveGizmoRemove(int x, int y) {
+		if (checkSquares(x, y) != null) {
+			deleteGizmo(x, y);
+			return "Square";
 		}
-		if(checkTriangles(x1,y1)!=null){
-			deleteGizmo(x1, y1);
-			addTriangleGizmo(x2, y2);
+		if (checkTriangles(x, y) != null) {
+			deleteGizmo(x, y);
+			return "Triangle";
 		}
-		if(checkCircs(x1,y1)!=null){
-			deleteGizmo(x1, y1);
-			addSquareGizmo(x2, y2);
+		if (checkCircs(x, y) != null) {
+			deleteGizmo(x, y);
+			return "Circle";
 		}
-		if(checkBalls(x1,y1)!=null){
-			deleteGizmo(x1, y1);
-			addBallGizmo(x2, y2);
+		if (checkBalls(x, y) != null) {
+			deleteGizmo(x, y);
+			return "Ball";
 		}
-		if(checkAbs(x1,y1)!=null){
-			deleteGizmo(x1, y1);
-			addAbsorberGizmo(y2);
+		if (checkAbs(x, y) != null) {
+			deleteGizmo(x, y);
+			return "Absorber";
+		}
+		return null;
+	}
+
+	public void moveGizmoAdd(int x, int y, String giz) {
+		switch (giz) {
+		case "Square":
+			addSquareGizmo(x, y);
+			break;
+		case "Triangle":
+			addTriangleGizmo(x, y);
+			break;
+		case "Circle":
+			addCircleGizmo(x, y);
+			break;
+		case "Ball":
+			addBallGizmo(x, y);
+			break;
 		}
 	}
 
@@ -415,8 +432,8 @@ public class Model extends Observable {
 		}
 		return null;
 	}
-	
-	public Ball checkBalls(int x, int y){
+
+	public Ball checkBalls(int x, int y) {
 		for (int i = 0; i < balls.size(); i++) {
 			if (balls.get(i).getExactX() == x * 20 && balls.get(i).getExactY() == y * 20) {
 				return balls.get(i);
@@ -424,8 +441,8 @@ public class Model extends Observable {
 		}
 		return ball;
 	}
-	
-	public RightFlipper checkRFs(int x, int y){
+
+	public RightFlipper checkRFs(int x, int y) {
 		for (int i = 0; i < rightFlippers.size(); i++) {
 			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
 				return rightFlippers.get(i);
@@ -433,8 +450,8 @@ public class Model extends Observable {
 		}
 		return null;
 	}
-	
-	public LeftFlipper checkLFs(int x, int y){
+
+	public LeftFlipper checkLFs(int x, int y) {
 		for (int i = 0; i < leftFlippers.size(); i++) {
 			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
 				return leftFlippers.get(i);
@@ -442,8 +459,8 @@ public class Model extends Observable {
 		}
 		return null;
 	}
-	
-	public Absorber checkAbs(int x, int y){
+
+	public Absorber checkAbs(int x, int y) {
 		for (int i = 0; i < abs.size(); i++) {
 			if (abs.get(i).getYPos() == y * 20) {
 				return abs.get(i);
