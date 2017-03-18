@@ -6,32 +6,26 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.KeyStroke;
-import javax.swing.plaf.ButtonUI;
 
 import controller.AddGizmoMouseListener;
 import controller.BuildListener3;
+import controller.DeleteGizmoMouseListener;
 import controller.MoveMouseListener;
 import controller.RunListener2;
 import model.Model;
-import model.PhysicsLoop;
 
 //import controller.RunListener;
 
@@ -67,6 +61,7 @@ public class Gui {
 		board = new Board(400, 400, model);
 		board.setBackground(Color.GRAY);
 		board.setMaximumSize(new Dimension(400, 400));
+		board.addMouseListener(new DeleteGizmoMouseListener(model));
 
 		Container cp = frame.getContentPane();
 
@@ -130,7 +125,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Circle");
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Circle", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -144,7 +139,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Square");
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Square", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -158,7 +153,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Triangle");
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Triangle", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -179,7 +174,7 @@ public class Gui {
 	//			optionPane.showInputDialog(frame, "Hello");
 		//		Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your x value for ball velocity"));
 			//	Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your y value for ball velocity"));
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball");
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -193,7 +188,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber");
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -207,7 +202,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "LF");
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "LF", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -221,7 +216,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "RF");
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "RF", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -235,6 +230,41 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
+				board.addMouseListener(new MouseListener() {
+					
+					@Override
+					public void mouseReleased(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mousePressed(MouseEvent e) {
+						// TODO Auto-generated method stub
+						int x = Math.round(e.getX() / 20);
+						int y = Math.round(e.getY() / 20);
+						model.rotate(x, y);
+					}
+					
+					@Override
+					public void mouseExited(MouseEvent e) {
+						// TODO Auto-generated method stub
+
+						board.removeMouseListener(this);
+					}
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
 			}
 		});
 		rotateGizmoButton.setFont(gf);
@@ -253,7 +283,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				MoveMouseListener mml = new MoveMouseListener(model);
+				MoveMouseListener mml = new MoveMouseListener(model,board);
 				board.addMouseListener(mml);
 			}
 		});

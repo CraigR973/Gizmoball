@@ -45,56 +45,93 @@ public class Board extends JPanel implements Observer {
 		super.paintComponent(g);
 
 		Graphics2D g2 = (Graphics2D) g;
-		
-		if(buildMode == true){
+
+		if (buildMode == true) {
 			g2.setColor(Color.GRAY);
-			for(int i = 0; i < 500; i+=20){
+			for (int i = 0; i < 500; i += 20) {
 				g2.fillRect(i, 0, 1, 400);
 			}
-			for(int i = 0; i < 500; i+=20){
+			for (int i = 0; i < 500; i += 20) {
 				g2.fillRect(0, i, 400, 1);
 			}
 		}
 
-		for (int i = 0; i < gm.getBalls().size(); i++){
-		Ball b = gm.getBalls().get(i);
-		if (b != null) {
-			g2.setColor(b.getColour());
-			int x = (int) (b.getExactX() - b.getRadius());
-			int y = (int) (b.getExactY() - b.getRadius());
-			int width = (int) (2 * b.getRadius());
-			g2.fillOval(x, y, width, width);
-		}
-		System.out.println("board b: " + gm.getBalls());
+		for (int i = 0; i < gm.getBalls().size(); i++) {
+			Ball b = gm.getBalls().get(i);
+			if (b != null) {
+				g2.setColor(b.getColour());
+				int x = (int) (b.getExactX() - b.getRadius());
+				int y = (int) (b.getExactY() - b.getRadius());
+				int width = (int) (2 * b.getRadius());
+				g2.fillOval(x, y, width, width);
+			}
+			System.out.println("board b: " + gm.getBalls());
 		}
 
-		for (int i = 0; i < gm.getAbs().size(); i++){
-		Absorber abs = gm.getAbs().get(i);
-		if (abs != null) {
-			g2.setColor(abs.getColour());
-			int x = (int) abs.getXPos();
-			int y = (int) abs.getYPos();
-			int width = (int) abs.getWidth();
-			int height = (int) abs.getHeight();
-			g2.fillRect(x, y, width, height);
-		}
+		for (int i = 0; i < gm.getAbs().size(); i++) {
+			Absorber abs = gm.getAbs().get(i);
+			if (abs != null) {
+				g2.setColor(abs.getColour());
+				int x = (int) abs.getXPos();
+				int y = (int) abs.getYPos();
+				int width = (int) abs.getWidth();
+				int height = (int) abs.getHeight();
+				g2.fillRect(x, y, width, height);
+			}
 		}
 
 		for (int i = 0; i < gm.getTriangles().size(); i++) {
-			TriangleGizmo tri1 = gm.getTriangles().get(i);
-			if (tri1 != null) {
-				g2.setColor(tri1.getColour());
-				int x1 = (int) tri1.getXpos1();
-				int x2 = (int) tri1.getXpos2();
-				int x3 = (int) tri1.getXpos3();
-				int y1 = (int) tri1.getYpos1();
-				int y2 = (int) tri1.getYpos2();
-				int y3 = (int) tri1.getYpos3();
-				g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-				g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+			TriangleGizmo tri = gm.getTriangles().get(i);
+			if (tri != null) {
+				System.out.println("tri not null");
+				if (tri.getRotation() == 0) {
+					System.out.println("drawing unrotated triangle");
+					g2.setColor(tri.getColour());
+					int x1 = (int) tri.getXpos1();
+					int x2 = (int) tri.getXpos2();
+					int x3 = (int) tri.getXpos3();
+					int y1 = (int) tri.getYpos1();
+					int y2 = (int) tri.getYpos2();
+					int y3 = (int) tri.getYpos3();
+					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+				}
+				if (tri.getRotation() == 90) {
+					g2.setColor(tri.getColour());
+					int x1 = (int) tri.getXpos1()+20;
+					int x2 = (int) tri.getXpos2();
+					int x3 = (int) tri.getXpos3()-20;
+					int y1 = (int) tri.getYpos1()+20;
+					int y2 = (int) tri.getYpos2();
+					int y3 = (int) tri.getYpos3();
+					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+				}
+				if (tri.getRotation() == 180) {
+					g2.setColor(tri.getColour());
+					int x1 = (int) tri.getXpos1();
+					int x2 = (int) tri.getXpos2()-20;
+					int x3 = (int) tri.getXpos3();
+					int y1 = (int) tri.getYpos1();
+					int y2 = (int) tri.getYpos2()+20;
+					int y3 = (int) tri.getYpos3();
+					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+				}
+				if (tri.getRotation() == 270) {
+					g2.setColor(tri.getColour());
+					int x1 = (int) tri.getXpos1();
+					int x2 = (int) tri.getXpos2()-20;
+					int x3 = (int) tri.getXpos3();
+					int y1 = (int) tri.getYpos1()+20;
+					int y2 = (int) tri.getYpos2();
+					int y3 = (int) tri.getYpos3()-20;
+					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+				}
 			}
 		}
-		
+
 		for (int i = 0; i < gm.getSquares().size(); i++) {
 			SquareGizmo sq = gm.getSquares().get(i);
 			if (sq != null) {
@@ -118,10 +155,10 @@ public class Board extends JPanel implements Observer {
 				g2.fillOval(x, y, width, width);
 			}
 		}
-		
-		for(int i = 0; i < gm.getLFlipper().size(); i++){
+
+		for (int i = 0; i < gm.getLFlipper().size(); i++) {
 			LeftFlipper lf = gm.getLFlipper().get(i);
-			if (lf != null){
+			if (lf != null) {
 				g2.setColor(lf.getColour());
 				int x = (int) lf.getXPos();
 				int y = (int) lf.getYPos();
@@ -130,10 +167,10 @@ public class Board extends JPanel implements Observer {
 				g2.fillRoundRect(x, y, width, height, 15, 15);
 			}
 		}
-		
-		for(int i = 0; i < gm.getRFlipper().size(); i++){
+
+		for (int i = 0; i < gm.getRFlipper().size(); i++) {
 			RightFlipper rf = gm.getRFlipper().get(i);
-			if (rf != null){
+			if (rf != null) {
 				g2.setColor(rf.getColour());
 				int x = (int) rf.getXPos();
 				int y = (int) rf.getYPos();
@@ -142,13 +179,13 @@ public class Board extends JPanel implements Observer {
 				g2.fillRoundRect(x, y, width, height, 15, 15);
 			}
 		}
-		
-		if(buildMode == false){
+
+		if (buildMode == false) {
 			g2.setColor(Color.BLACK);
-			for(int i = 0; i < 500; i+=20){
+			for (int i = 0; i < 500; i += 20) {
 				g2.fillRect(i, 0, 1, 500);
 			}
-			for(int i = 0; i < 500; i+=20){
+			for (int i = 0; i < 500; i += 20) {
 				g2.fillRect(0, i, 500, 1);
 			}
 		}
@@ -158,16 +195,20 @@ public class Board extends JPanel implements Observer {
 	public void update(Observable arg0, Object arg1) {
 		repaint();
 	}
-	
-	public void flipMode(boolean mode){
+
+	public void flipMode(boolean mode) {
 		System.out.println(buildMode + " flipping bmode");
 		buildMode = mode;
-		if(buildMode == true){
+		if (buildMode == true) {
 			buildMode = false;
-		}else{
+		} else {
 			buildMode = true;
 		}
 		this.repaint();
+	}
+
+	public void rotate() {
+
 	}
 
 }

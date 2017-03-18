@@ -492,4 +492,12 @@ public class Model extends Observable {
 		}
 		return null;
 	}
+	
+	public void rotate(int x, int y){
+		if(checkTriangles(x, y) != null){
+			checkTriangles(x, y).rotate();
+		}
+		this.setChanged();
+		this.notifyObservers();
+	}
 }

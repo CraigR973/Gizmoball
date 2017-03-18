@@ -30,7 +30,7 @@ public class RightFlipper {
 		double h = 40;
 		width = w;
 		height = h;
-		xpos = x*20;
+		xpos = x*20+10;
 		ypos = y*20;
 		angle = new Angle(a,b);
 		setName(name);

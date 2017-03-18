@@ -4,15 +4,18 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import model.Model;
+import view.Board;
 
 public class MoveMouseListener implements MouseListener{
 
 	Model model;
+	Board board;
 	String giz;
 	
-	public MoveMouseListener(Model m) {
+	public MoveMouseListener(Model m, Board b) {
 		// TODO Auto-generated constructor stub
 		model = m;
+		board = b;
 	}
 
 	@Override
@@ -30,7 +33,6 @@ public class MoveMouseListener implements MouseListener{
 	@Override
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -51,6 +53,8 @@ public class MoveMouseListener implements MouseListener{
 		if(giz != null){
 			model.moveGizmoAdd(x, y, giz);
 		}
+		
+		board.removeMouseListener(this);
 	}
 
 }
