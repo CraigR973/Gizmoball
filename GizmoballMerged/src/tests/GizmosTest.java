@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 import org.junit.Test;
@@ -14,6 +15,7 @@ import model.Model;
 import model.RightFlipper;
 import model.SquareGizmo;
 import model.TriangleGizmo;
+import physics.Vect;
 
 public class GizmosTest {
 
@@ -99,14 +101,14 @@ public class GizmosTest {
 	@Test
 	public void addBallSize() {
 		assertEquals(model.getBalls().size(),0);
-		model.addBallGizmo(40, 40);
+		model.addBallGizmo(40, 40, 0, 0);
 		assertEquals(model.getBalls().size(),1);
 	}
 	
 	//Checks to make sure ball is placed in correct x and y points
 	@Test
 	public void checkBallPlacement() {
-		model.addBallGizmo(40, 40);
+		model.addBallGizmo(40, 40, 0, 0);
 		ArrayList<Ball> balls = model.getBalls();
 		int x = (int) (balls.get(0).getExactX()/20);
 		int y = (int) (balls.get(0).getExactY()/20);
@@ -185,4 +187,53 @@ public class GizmosTest {
 		model.getTriangles().get(0).addRotation();
 		assertEquals(model.getTriangles().get(0).getNoRotations(), 1);
 	}
+	@Test
+	public void add2Squares() {
+		assertEquals(model.getSquares().size(),0);
+		model.addSquareGizmo(20, 20);
+		assertEquals(model.getSquares().size(),1);
+		model.addSquareGizmo(20, 20);
+		assertEquals(model.getSquares().size(),1);
+	}
+	
+	@Test
+	public void add2Gimzmos() {
+		assertEquals(model.getSquares().size(),0);
+		model.addSquareGizmo(20, 20);
+		assertEquals(model.getSquares().size(),1);
+		model.addTriangleGizmo(20, 20);
+		assertEquals(model.getSquares().size(),1);
+		assertEquals(model.getTriangles().size(),0);
+	}
+	
+	@Test
+	public void changeLFColour()
+	{
+		model.addLFlipperGizmo(50, 50);
+		Color c1 = model.getLFlipper().get(0).getColour();
+		model.getLFlipper().get(0).setColour();
+		Color c2 = model.getLFlipper().get(0).getColour();
+		assertNotEquals(c1, c2);
+	}
+	
+	@Test
+	public void changeLFColour2()
+	{
+		model.addLFlipperGizmo(50, 50);
+		Color c1 = model.getLFlipper().get(0).getColour();
+		model.getLFlipper().get(0).setColour1();
+		Color c2 = model.getLFlipper().get(0).getColour();
+		assertEquals(c1, c2);
+	}
+	
+	@Test
+	public void changeLFVelo()
+	{
+		model.addLFlipperGizmo(50, 50);
+		Vect v1 = model.getLFlipper().get(0).getVelo();
+		model.getLFlipper().get(0).setVelo(new Vect(10, 10));
+		Vect v2 = model.getLFlipper().get(0).getVelo();
+		assertNotEquals(v1, v2);
+	}
+	
 }

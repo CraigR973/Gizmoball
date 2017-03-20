@@ -608,6 +608,85 @@ public class Model extends Observable {
 						}
 					}
 				}
+				else if(cGizmo.equals("Move"))
+				{
+					System.out.println("Moving gizmo");
+					int value1 = Integer.parseInt(st.nextToken());
+					int value2 = Integer.parseInt(st.nextToken());
+					char giz = name.charAt(0);
+					if(giz == 'S')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<squares.size(); index++)
+							{
+								SquareGizmo s = squares.get(index);
+								String sName = s.getName();
+								if(sName.equals(name))
+								{
+									deleteGizmo(name, "square");
+									moveGizmoAdd(value1, value2, "Square");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'T')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<tris.size(); index++)
+							{
+								TriangleGizmo t = tris.get(index);
+								String tName = t.getName();
+								if(tName.equals(name))
+								{
+									deleteGizmo(name, "triangle");
+									moveGizmoAdd(value1, value2, "Triangle");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'C')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<circs.size(); index++)
+							{
+								CircleGizmo c = circs.get(index);
+								String sName = c.getName();
+								if(sName.equals(name))
+								{
+									deleteGizmo(name, "circle");
+									moveGizmoAdd(value1, value2, "Circle");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'B')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<balls.size(); index++)
+							{
+								Ball b = balls.get(index);
+								String sName = b.getName();
+								if(sName.equals(name))
+								{
+									deleteGizmo(name, "ball");
+									moveGizmoAdd(value1, value2, "Ball");
+									found = true;
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
