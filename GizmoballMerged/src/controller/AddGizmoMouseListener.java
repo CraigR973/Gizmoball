@@ -10,15 +10,11 @@ public class AddGizmoMouseListener implements MouseListener {
 	private Model model;
 	private Board board;
 	private String gizmo;
-	private double xv;
-	private double yv;
 
-	public AddGizmoMouseListener(Model m, String g, Board b, double xVel, double yVel) {
+	public AddGizmoMouseListener(Model m, String g, Board b) {
 		model = m;
 		gizmo = g;
 		board = b;
-		xv=xVel;
-		yv=yVel;
 	}
 	
 	@Override
@@ -59,10 +55,6 @@ public class AddGizmoMouseListener implements MouseListener {
 			case "LF":
 				System.out.println("adding lf");
 				model.addLFlipperGizmo(x, y);
-				break;
-			case "Ball":
-				System.out.println("adding ball");
-				model.addBallGizmo(x, y, xv, yv);
 				break;
 			case "Absorber":
 				System.out.println("adding abs");

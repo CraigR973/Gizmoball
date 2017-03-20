@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 import physics.Circle;
 import physics.Geometry;
@@ -21,7 +22,6 @@ public class PhysicsLoop {
 	private Vect physics;
 	private double friction;
 	private double grav;
-	private int colourCounter = 0;
 
 	public PhysicsLoop(ArrayList<Ball> b, Walls walls, ArrayList<Absorber> absorber, boolean keyPress,
 			ArrayList<SquareGizmo> sqs, ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles, ArrayList<LeftFlipper> leftFlipper,
@@ -57,7 +57,6 @@ public class PhysicsLoop {
 	
 
 	public void moveBall() {
-		System.out.println("Move ball pls");
 		if (!ball.isEmpty()) {
 			for(int n = 0; n < ball.size(); n++){
 			double moveTime = 0.02; // 0.02 = 50 times per second as per
@@ -91,7 +90,6 @@ public class PhysicsLoop {
 //			 xVel += friction;
 //			 }
 //			 grav = 20;
-			System.out.println("g in physics loop " + grav);
 	//		 friction = 5;
 			 yVel += grav + friction;
 
@@ -100,7 +98,6 @@ public class PhysicsLoop {
 
 			CollisionDetails cd = timeUntilCollision(n);
 
-			colourCounter++;
 			double tuc = cd.getTuc();
 			if (tuc > moveTime) {
 				// No collision ...
@@ -112,7 +109,7 @@ public class PhysicsLoop {
 				ba.setVelo(cd.getVelo());
 			}
 
-			if (ba.getExactX() > 400 || ball.get(n).getExactY() > 380) {
+			if (ba.getExactX() > 400 || ball.get(n).getExactY() > 400) {
 				ba.setExactX(390);
 				ba.setExactY(385);
 			}
@@ -150,26 +147,22 @@ public class PhysicsLoop {
 				if (time < shortestTime) {
 					shortestTime = time;
 					// newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
-					// System.out.println("APPROACHING ABSORBER");
 					if (time < 0.02) {
-						System.out.println("Collision");
-						ball.get(n).setExactX(395);
-						ball.get(n).setExactY(385);
+//						ball.get(n).setExactX(395);
+//						ball.get(n).setExactY(385);
+						ball.get(n).setExactX(abs.get(i).setXPos());
+						ball.get(n).setExactY(abs.get(i).setYPos());
 						while (keyPressed == false) {
+							if(ball.get(n).getExactY() > (abs.get(i).getYPos()+abs.get(i).getHeight()-15)){
+								ball.get(n).setExactX(abs.get(i).setYPos());
+							}
 							ball.get(n).setVelo(new Vect(0, 0));
-							System.out.println("Ball stopped in absorber");
 							ball.get(n).stop();
-							System.out.println("Ball stopped: " + ball.get(n).stopped());
-							System.out.println("Current velo: " + ball.get(n).getVelo());
-							System.out.println("X: " + ball.get(n).getExactX() + " Y: " + ball.get(n).getExactY());
 							break;
 						}
-						System.out.println("Ball left absorber");
 						Vect velo = new Vect(0, 1000);
 						newVelo = Geometry.reflectWall(ls, velo, 1.0);
 						ball.get(n).setVelo(velo);
-						System.out.println(ball.get(n).getVelo().x());
-						System.out.println(ball.get(n).getVelo().y());
 					}
 
 				}
@@ -184,6 +177,9 @@ public class PhysicsLoop {
 					if (time < shortestTime) {
 						shortestTime = time;
 						newVelo = Geometry.reflectWall(squares.get(i).getLineSegs(j), ball.get(n).getVelo(), 1.0);
+						if (time < 0.02){
+							squares.get(i).setColour(randColour());
+						}
 					}
 
 					time = Geometry.timeUntilCircleCollision(squares.get(i).getCorners(j), ballCircle, ballVelocity);
@@ -191,11 +187,11 @@ public class PhysicsLoop {
 						shortestTime = time;
 						newVelo = Geometry.reflectCircle(squares.get(i).getCornerCentres(j),
 								ball.get(n).getCentreOfBall(), ball.get(n).getVelo(), 1.0);
-						System.out.println("square corner collision");
+						if (time < 0.02){
+							squares.get(i).setColour(randColour());
+						}
 					}
-					if (time < 0.02){
-						System.out.println("square collision");
-					}
+					
 				}
 			}
 		}
@@ -211,30 +207,9 @@ public class PhysicsLoop {
 						newVelo = Geometry.reflectWall(tris.get(i).getLinSegs(j), ball.get(n).getVelo(), 1.0);
 						
 						if (time < 0.02) {
-							tris.get(i).setColour(Color.WHITE);
-							double xVel = 0;
-							double yVel = 0;
-
-							if (ball.get(n).getVelo().x() > 0) {
-								xVel = ball.get(n).getVelo().x() + 100;
-							} else {
-								xVel = ball.get(n).getVelo().x() - 100;
-							}
-							if (ball.get(n).getVelo().y() > 0) {
-								yVel = ball.get(n).getVelo().y() + 100;
-							} else {
-								yVel = ball.get(n).getVelo().y() - 100;
-							}
-
-							Vect nVel = new Vect(xVel, yVel);
-							//ball.get(n).setVelo(nVel);
-							System.out.println("triangle collision");
+							tris.get(i).setColour(randColour());
 						}
 						
-						if(colourCounter%5 == 3){
-							tris.get(i).setColour(Color.BLUE);
-						}
-						System.out.println("tri line segs " + i + ": " + tris.get(i).getLinSegs(j).p1() + " " + tris.get(i).getLinSegs(j).p2());
 					}
 
 					// Corner collisions for triangles
@@ -243,7 +218,9 @@ public class PhysicsLoop {
 						shortestTime = time;
 						newVelo = Geometry.reflectCircle(tris.get(i).getCornerCentres(j), ball.get(n).getCentreOfBall(),
 								ball.get(n).getVelo(), 1.0);
-						System.out.println("tri corner cvollision");
+					}
+					if(time < 0.02){
+						tris.get(i).setColour(randColour());
 					}
 				}
 			}
@@ -257,6 +234,10 @@ public class PhysicsLoop {
 					shortestTime = time;
 					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.get(n).getCentreOfBall(),
 							ball.get(n).getVelo(), 1.0);
+
+					if(time < 0.02){
+						circs.get(i).setColour(randColour());
+					}
 				}
 
 				time = Geometry.timeUntilCircleCollision(circs.get(i).getCircle(), ballCircle, ballVelocity);
@@ -264,6 +245,10 @@ public class PhysicsLoop {
 					shortestTime = time;
 					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.get(n).getCentreOfBall(),
 							ball.get(n).getVelo(), 1.0);
+
+					if(time < 0.02){
+						circs.get(i).setColour(randColour());
+					}
 				}
 			}
 		}
@@ -282,10 +267,6 @@ public class PhysicsLoop {
 						shortestTime = time;
 						newVelo = Geometry.reflectCircle(leftFlippers.get(i).getCornerCentres(j),
 								ball.get(n).getCentreOfBall(), ball.get(n).getVelo(), 1.0);
-						System.out.println("square corner collision");
-					}
-					if (time < 0.02){
-						System.out.println("square collision");
 					}
 				}
 			}
@@ -306,10 +287,6 @@ public class PhysicsLoop {
 						shortestTime = time;
 						newVelo = Geometry.reflectCircle(rightFlippers.get(i).getCornerCentres(j),
 								ball.get(n).getCentreOfBall(), ball.get(n).getVelo(), 1.0);
-						System.out.println("square corner collision");
-					}
-					if (time < 0.02){
-						System.out.println("square collision");
 					}
 				}
 			}
@@ -328,5 +305,15 @@ public class PhysicsLoop {
 		ball.setExactX(newX);
 		ball.setExactY(newY);
 		return ball;
+	}
+	
+	private Color randColour(){
+		Random rnd = new Random();
+		int red = rnd.nextInt();
+		int blue = rnd.nextInt();
+		int green = rnd.nextInt();
+		
+		Color randomColour = new Color(rnd.nextInt(0xFFFFFF));
+		return randomColour;
 	}
 }
