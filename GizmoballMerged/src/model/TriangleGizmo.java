@@ -15,6 +15,12 @@ public class TriangleGizmo {
 	private double ypos1;
 	private double ypos2;
 	private double ypos3;
+	private double ogX1;
+	private double ogX2;
+	private double ogX3;
+	private double ogY1;
+	private double ogY2;
+	private double ogY3;
 	private Color colour;
 	private LineSegment ls1;
 	private LineSegment ls2;
@@ -23,6 +29,9 @@ public class TriangleGizmo {
 	private double height;
 	private String triangleName;
 	private int angle = 0;
+	private ArrayList<Vect> cornerCentres = new ArrayList<Vect>();
+	private ArrayList<Circle> corners = new ArrayList<Circle>();
+	private ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
 
 	// x1 = top left, x2 = bottom, x3 = top right, y1 = top left, y2 = bottom,
 	// y3 = top right
@@ -38,11 +47,20 @@ public class TriangleGizmo {
 		width = w;
 		height = h;
 		colour = Color.WHITE;
-		ls1 = new LineSegment(x1 * 20, y1 * 20, xpos2, ypos2);
+		ls1 = new LineSegment(xpos1, ypos2, xpos2, ypos2);
 		ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
-		ls3 = new LineSegment(x1 * 20, y1 * 20, xpos3, ypos3);
+		ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
 		setName(name);
 		resetAngle();
+		ogX1 = xpos1;
+		ogX2 = xpos2;
+		ogX3 = xpos3;
+		ogY1 = ypos1;
+		ogY2 = ypos2;
+		ogY3 = ypos3;
+		setCorners();
+		setCornerCentres();
+		setLineSegs();
 	}
 
 	public void setName(String n) {
@@ -132,18 +150,32 @@ public class TriangleGizmo {
 	}
 
 	public LineSegment getLinSegs(int i) {
-		ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
-
-		lss.add(ls1);
-		lss.add(ls2);
-		lss.add(ls3);
+		// ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
+		//
+		// lss.add(ls1);
+		// lss.add(ls2);
+		// lss.add(ls3);
 
 		return lss.get(i);
 	}
 
-	public Circle getCorners(int i) {
-		ArrayList<Circle> corners = new ArrayList<Circle>();
+	public void setLineSegs() {
+		ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
+		ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
+		ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
 
+		lss.add(ls1);
+		lss.add(ls2);
+		lss.add(ls3);
+	}
+
+	public Circle getCorners(int i) {
+		// ArrayList<Circle> corners = new ArrayList<Circle>();
+
+		return corners.get(i);
+	}
+
+	public void setCorners() {
 		Circle corner1 = new Circle(xpos1, ypos1, 0);
 		Circle corner2 = new Circle(xpos2, ypos2, 0);
 		Circle corner3 = new Circle(xpos3, ypos3, 0);
@@ -151,13 +183,15 @@ public class TriangleGizmo {
 		corners.add(corner1);
 		corners.add(corner2);
 		corners.add(corner3);
-
-		return corners.get(i);
 	}
 
 	public Vect getCornerCentres(int i) {
-		ArrayList<Vect> cornerCentres = new ArrayList<Vect>();
+		// ArrayList<Vect> cornerCentres = new ArrayList<Vect>();
 
+		return cornerCentres.get(i);
+	}
+
+	public void setCornerCentres() {
 		Vect cen1 = new Vect(getXpos1(), getYpos1());
 		Vect cen2 = new Vect(getXpos2(), getYpos2());
 		Vect cen3 = new Vect(getXpos3(), getYpos3());
@@ -165,8 +199,6 @@ public class TriangleGizmo {
 		cornerCentres.add(cen1);
 		cornerCentres.add(cen2);
 		cornerCentres.add(cen3);
-
-		return cornerCentres.get(i);
 	}
 
 	public void setColour(Color c) {
@@ -177,6 +209,7 @@ public class TriangleGizmo {
 		System.out.println("Angle: " + angle);
 		angle = (angle + 90) % 360;
 		rotateLs();
+		// setRotatedLineSegs();
 		return angle;
 	}
 
@@ -184,31 +217,125 @@ public class TriangleGizmo {
 		return angle;
 	}
 
+	// public void rotateLs() {
+	// setCorners();
+	// setCornerCentres();
+	// Circle c1 = corners.get(0);
+	// Circle c2 = corners.get(1);
+	// Circle c3 = corners.get(3);
+	// Vect cen1 = cornerCentres.get(0);
+	// Vect cen2 = cornerCentres.get(1);
+	// Vect cen3 = cornerCentres.get(2);
+	// if (angle == 0) {
+	//// setOriginalCoordinates();
+	// ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
+	// ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
+	// ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
+	// }
+	// if (angle == 90) {
+	//// setOriginalCoordinates();
+	//// xpos1 = xpos1 + 20;
+	//// ypos1 = ypos1 + 20;
+	//// xpos3 = xpos3 - 20;
+	// ls1 = new LineSegment(xpos1 + 20, ypos1 + 20, xpos2, ypos2);
+	// ls2 = new LineSegment(xpos2, ypos2, xpos3 - 20, ypos3);
+	// ls3 = new LineSegment(xpos1 + 20, ypos1 + 20, xpos3 - 20, ypos3);
+	// c1 = new Circle(xpos1+20, ypos1+20,0);
+	// c3 = new Circle(xpos3-20,ypos3,0);
+	// cen1 = new Vect(xpos1+20,ypos1+20);
+	// cen3 = new Vect(xpos3-20,ypos3);
+	//// ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
+	//// ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
+	//// ls3 = new LineSegment(xpos1 , ypos1 , xpos3 , ypos3);
+	//// System.out.println("xpos1 at first rotate yo ahaha " + xpos1);
+	//
+	// System.out.println("ypos1 at first rotate yo ahaha " + ypos1);
+	// }
+	// if (angle == 180) {
+	//// setOriginalCoordinates();
+	//// xpos2 -= 20;
+	//// ypos2 +=20;
+	//// ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2 );
+	//// ls2 = new LineSegment(xpos2 , ypos2 , xpos3, ypos3);
+	//// ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
+	// ls1 = new LineSegment(xpos1, ypos1, xpos2 - 20, ypos2 + 20);
+	// ls2 = new LineSegment(xpos2 - 20, ypos2 + 20, xpos3, ypos3);
+	// ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
+	// c2 = new Circle(xpos2-20, ypos2+20,0);
+	// cen2 = new Vect(xpos2-20, ypos2+20);
+	// }
+	// if (angle == 270) {
+	//// setOriginalCoordinates();
+	//// ypos1+=20;
+	//// xpos2-=20;
+	//// ypos3-=20;
+	//// ls1 = new LineSegment(xpos1, ypos1 , xpos2 , ypos2);
+	//// ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3 );
+	//// ls3 = new LineSegment(xpos1, ypos1 , xpos3, ypos3 );
+	// ls1 = new LineSegment(xpos1, ypos1 + 20, xpos2 - 20, ypos2);
+	// ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3 - 20);
+	// ls3 = new LineSegment(xpos1, ypos1 + 20, xpos3, ypos3 - 20);
+	// c1 = new Circle(xpos1, ypos1+20,0);
+	// c2 = new Circle(xpos2 - 20, ypos2, 0);
+	// c3 = new Circle(xpos3, ypos3-20, 0);
+	// cen1 = new Vect(xpos1, ypos1+20);
+	// cen2 = new Vect(xpos2 - 20, ypos2);
+	// cen3 = new Vect(xpos3, ypos3-20);
+	// }
+	// }
+
 	public void rotateLs() {
+		setOriginalCoordinates();
 		if (angle == 0) {
 			ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
 			ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
 			ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
+			clear();
 		}
 		if (angle == 90) {
-			ls1 = new LineSegment(xpos1 + 20, ypos1 + 20, xpos2, ypos2);
-			ls2 = new LineSegment(xpos2, ypos2, xpos3 - 20, ypos3);
-			ls3 = new LineSegment(xpos1 + 20, ypos1 + 20, xpos3 - 220, ypos3);
+			xpos1 += 20;
+			ypos1 += 20;
+			xpos3 -= 20;
+			clear();
 		}
 		if (angle == 180) {
-			ls1 = new LineSegment(xpos1, ypos1, xpos2 - 20, ypos2 + 20);
-			ls2 = new LineSegment(xpos2 - 20, ypos2 + 20, xpos3, ypos3);
+			xpos2 -= 20;
+			ypos2 += 20;
+			ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
+			ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
 			ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
-			;
+			clear();
 		}
 		if (angle == 270) {
-			ls1 = new LineSegment(xpos1, ypos1 + 20, xpos2 - 20, ypos2);
-			ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3 - 20);
-			ls3 = new LineSegment(xpos1, ypos1 + 20, xpos3, ypos3 - 20);
+			ypos1 += 20;
+			xpos2 -= 20;
+			ypos3 -= 20;
+			ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
+			ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
+			ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
+			clear();
 		}
+		setLineSegs();
+		setCornerCentres();
+		setCorners();
 	}
 
 	public void resetAngle() {
 		angle = 0;
+	}
+
+	public void setOriginalCoordinates() {
+		xpos1 = ogX1;
+		xpos2 = ogX2;
+		xpos3 = ogX3;
+		ypos1 = ogY1;
+		ypos2 = ogY2;
+		ypos3 = ogY3;
+	}
+
+	public void clear() {
+		lss.clear();
+		corners.clear();
+		cornerCentres.clear();
 	}
 }

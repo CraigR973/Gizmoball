@@ -26,7 +26,6 @@ public class Model extends Observable {
 	int counter = 0;
 
 	public Model() {
-
 		gws = new Walls(0, 0, 400, 400);
 		physicsLoop = new PhysicsLoop(balls, gws, abs, keyPressed, squares, circs, tris, leftFlippers, rightFlippers);
 
@@ -289,11 +288,11 @@ public class Model extends Observable {
 		this.setChanged();
 	}
 
-	public void addBallGizmo(int x, int y) {
+	public void addBallGizmo(int x, int y, double xv, double yv) {
 		String name = "B";
 		System.out.println(balls.size());
 		if (balls.size() < 1) {
-			Ball b = new Ball(name, x, y, 50, 50);
+			Ball b = new Ball(name, x, y, xv, yv);
 			if (!checkGizmos(x, y)) {
 				balls.add(b);
 			}
@@ -389,30 +388,6 @@ public class Model extends Observable {
 		this.notifyObservers();
 	}
 
-//	public String moveGizmoRemove(int x, int y) {
-//		if (checkSquares(x, y) != null) {
-//			deleteGizmo(x, y);
-//			return "Square";
-//		}
-//		if (checkTriangles(x, y) != null) {
-//			deleteGizmo(x, y);
-//			return "Triangle";
-//		}
-//		if (checkCircs(x, y) != null) {
-//			deleteGizmo(x, y);
-//			return "Circle";
-//		}
-//		if (checkBalls(x, y) != null) {
-//			deleteGizmo(x, y);
-//			return "Ball";
-//		}
-//		if (checkAbs(x, y) != null) {
-//			deleteGizmo(x, y);
-//			return "Absorber";
-//		}
-//		return null;
-//	}
-
 	public void moveGizmoAdd(int x, int y, String giz) {
 		switch (giz) {
 		case "Square":
@@ -425,7 +400,7 @@ public class Model extends Observable {
 			addCircleGizmo(x, y);
 			break;
 		case "Ball":
-			addBallGizmo(x, y);
+			addBallGizmo(x, y, 50, 50);
 			break;
 		}
 	}
@@ -495,9 +470,27 @@ public class Model extends Observable {
 	
 	public void rotate(int x, int y){
 		if(checkTriangles(x, y) != null){
+			System.out.println("in rotating method of model");
 			checkTriangles(x, y).rotate();
 		}
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	public void flipFlippers(){
+		System.out.println("flipFlippers called");
+		leftFlippers.get(0).rotateLines();
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void unflipFlippers(){
+		leftFlippers.get(0).unrotateLines();
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void setGrav(double g){
+		physicsLoop.setGrav(g);
 	}
 }

@@ -27,6 +27,8 @@ public class Board extends JPanel implements Observer {
 	protected Model gm;
 	private boolean buildMode = false;
 
+	private boolean keyPress = false;
+
 	public Board(int w, int h, Model m) {
 		// Observe changes in Model
 		m.addObserver(this);
@@ -84,51 +86,51 @@ public class Board extends JPanel implements Observer {
 			TriangleGizmo tri = gm.getTriangles().get(i);
 			if (tri != null) {
 				System.out.println("tri not null");
-				if (tri.getRotation() == 0) {
-					System.out.println("drawing unrotated triangle");
+//				if (tri.getRotation() == 0) {
+//					System.out.println("drawing unrotated triangle");
+//					g2.setColor(tri.getColour());
+//					int x1 = (int) tri.getXpos1();
+//					int x2 = (int) tri.getXpos2();
+//					int x3 = (int) tri.getXpos3();
+//					int y1 = (int) tri.getYpos1();
+//					int y2 = (int) tri.getYpos2();
+//					int y3 = (int) tri.getYpos3();
+//					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+//					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+//				}
+//				if (tri.getRotation() == 90) {
+//					g2.setColor(tri.getColour());
+//					int x1 = (int) tri.getXpos1();//+20;
+//					int x2 = (int) tri.getXpos2();
+//					int x3 = (int) tri.getXpos3();//-20;
+//					int y1 = (int) tri.getYpos1();//+20;
+//					int y2 = (int) tri.getYpos2();
+//					int y3 = (int) tri.getYpos3();
+//					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+//					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+//				}
+//				if (tri.getRotation() == 180) {
+//					g2.setColor(tri.getColour());
+//					int x1 = (int) tri.getXpos1();
+//					int x2 = (int) tri.getXpos2();//-20;
+//					int x3 = (int) tri.getXpos3();
+//					int y1 = (int) tri.getYpos1();
+//					int y2 = (int) tri.getYpos2();//+20;
+//					int y3 = (int) tri.getYpos3();
+//					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+//					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
+//				}
+//				if (tri.getRotation() == 270) {
 					g2.setColor(tri.getColour());
 					int x1 = (int) tri.getXpos1();
-					int x2 = (int) tri.getXpos2();
+					int x2 = (int) tri.getXpos2();//-20;
 					int x3 = (int) tri.getXpos3();
-					int y1 = (int) tri.getYpos1();
+					int y1 = (int) tri.getYpos1();//+20;
 					int y2 = (int) tri.getYpos2();
-					int y3 = (int) tri.getYpos3();
+					int y3 = (int) tri.getYpos3();//-20;
 					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
 					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-				}
-				if (tri.getRotation() == 90) {
-					g2.setColor(tri.getColour());
-					int x1 = (int) tri.getXpos1()+20;
-					int x2 = (int) tri.getXpos2();
-					int x3 = (int) tri.getXpos3()-20;
-					int y1 = (int) tri.getYpos1()+20;
-					int y2 = (int) tri.getYpos2();
-					int y3 = (int) tri.getYpos3();
-					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-				}
-				if (tri.getRotation() == 180) {
-					g2.setColor(tri.getColour());
-					int x1 = (int) tri.getXpos1();
-					int x2 = (int) tri.getXpos2()-20;
-					int x3 = (int) tri.getXpos3();
-					int y1 = (int) tri.getYpos1();
-					int y2 = (int) tri.getYpos2()+20;
-					int y3 = (int) tri.getYpos3();
-					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-				}
-				if (tri.getRotation() == 270) {
-					g2.setColor(tri.getColour());
-					int x1 = (int) tri.getXpos1();
-					int x2 = (int) tri.getXpos2()-20;
-					int x3 = (int) tri.getXpos3();
-					int y1 = (int) tri.getYpos1()+20;
-					int y2 = (int) tri.getYpos2();
-					int y3 = (int) tri.getYpos3()-20;
-					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
-				}
+//				}
 			}
 		}
 
@@ -206,9 +208,24 @@ public class Board extends JPanel implements Observer {
 		}
 		this.repaint();
 	}
-
-	public void rotate() {
-
+	
+	public void rotateLeftFlipper(Graphics2D g2, LeftFlipper lFlip, int x, int y, int h, int w) {
+		g2.setColor(lFlip.getColour());
+		g2.fillRoundRect(x, y, h, w, w / 2, h / 2);
+		g2.dispose();
 	}
 
+	public void stopRotateLeftFlipper(Graphics2D g2, LeftFlipper lFlip, int x, int y, int h, int w) {
+		g2.setColor(lFlip.getColour());
+		g2.fillRoundRect(x, y, w, h, w / 2, h / 2);
+		g2.dispose();
+	}
+	
+	public void keyPressDetect() {
+		keyPress = true;
+	}
+
+	public void keyPressDetectNon() {
+		keyPress = false;
+	}
 }

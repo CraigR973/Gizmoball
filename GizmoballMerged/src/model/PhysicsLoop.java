@@ -81,7 +81,8 @@ public class PhysicsLoop {
 //			 } else if (xVel < 0) {
 //			 xVel += friction;
 //			 }
-			 grav = 20;
+//			 grav = 20;
+			System.out.println("g in physics loop " + grav);
 			 friction = 5;
 			 yVel += grav + friction;
 

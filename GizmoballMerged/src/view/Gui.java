@@ -14,6 +14,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
@@ -24,6 +25,7 @@ import controller.AddGizmoMouseListener;
 import controller.BuildListener3;
 import controller.DeleteGizmoMouseListener;
 import controller.MoveMouseListener;
+import controller.RotateGizmoMouseListener;
 import controller.RunListener2;
 import model.Model;
 
@@ -61,7 +63,7 @@ public class Gui {
 		board = new Board(400, 400, model);
 		board.setBackground(Color.GRAY);
 		board.setMaximumSize(new Dimension(400, 400));
-		board.addMouseListener(new DeleteGizmoMouseListener(model));
+		board.addMouseListener(new DeleteGizmoMouseListener(model, board));
 
 		Container cp = frame.getContentPane();
 
@@ -125,7 +127,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Circle", board);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Circle", board,0,0);
 				board.addMouseListener(sml);
 			}
 		});
@@ -139,7 +141,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Square", board);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Square", board,0,0);
 				board.addMouseListener(sml);
 			}
 		});
@@ -153,7 +155,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Triangle", board);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Triangle", board,0,0);
 				board.addMouseListener(sml);
 			}
 		});
@@ -167,14 +169,13 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				JOptionPane optionPane = new JOptionPane();
-				optionPane.add(new JTextArea("X velocity"));
-				optionPane.add(new JTextArea("Y velocity"));
+				double optionPaneXv = Double.parseDouble(JOptionPane.showInputDialog("Enter X Vel"));
+				double optionPaneYv = Double.parseDouble(JOptionPane.showInputDialog("Enter Y Vel"));
 				
 	//			optionPane.showInputDialog(frame, "Hello");
 		//		Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your x value for ball velocity"));
 			//	Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your y value for ball velocity"));
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball", board);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball", board, optionPaneXv, optionPaneYv);
 				board.addMouseListener(sml);
 			}
 		});
@@ -188,7 +189,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber", board);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber", board,0,0);
 				board.addMouseListener(sml);
 			}
 		});
@@ -202,7 +203,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "LF", board);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "LF", board,0,0);
 				board.addMouseListener(sml);
 			}
 		});
@@ -216,7 +217,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "RF", board);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "RF", board,0,0);
 				board.addMouseListener(sml);
 			}
 		});
@@ -230,41 +231,8 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				board.addMouseListener(new MouseListener() {
-					
-					@Override
-					public void mouseReleased(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {
-						// TODO Auto-generated method stub
-						int x = Math.round(e.getX() / 20);
-						int y = Math.round(e.getY() / 20);
-						model.rotate(x, y);
-					}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {
-						// TODO Auto-generated method stub
-
-						board.removeMouseListener(this);
-					}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						// TODO Auto-generated method stub
-						
-					}
-				});
+				MouseListener rml = new RotateGizmoMouseListener(model, board);
+				board.addMouseListener(rml);
 			}
 		});
 		rotateGizmoButton.setFont(gf);
@@ -329,12 +297,15 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			//	JOptionPane optionPane = new JOptionPane(); 
-				Double gravity;
+				double gravity;
 				
 		//		gravity = PhysicsLoop.getGrav();
 				
 				
 				gravity = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your new gravity value"));
+				System.out.println(gravity);
+					model.setGrav(gravity);
+				
 				
 			}
 		});
@@ -437,7 +408,8 @@ public class Gui {
 					model.releaseBall();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					System.out.println("Up pressed");
+					model.flipFlippers();
+					board.repaint();
 				}
 			}
 
@@ -447,6 +419,10 @@ public class Gui {
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
 					System.out.println("Space released");
 					model.captureBall();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					model.unflipFlippers();
+					board.repaint();
 				}
 			}
 
