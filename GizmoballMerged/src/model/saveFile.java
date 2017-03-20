@@ -54,7 +54,7 @@ public class saveFile {
 					bufferWrite.newLine();
 					if(triangles.get(i).getRotation() > 0)
 					{
-						int no = triangles.get(i).getRotation()/90;
+						int no = triangles.get(i).getNoRotations();
 						for(int in = 0; in < no;in++)
 						{
 							bufferWrite.write("Rotate ");

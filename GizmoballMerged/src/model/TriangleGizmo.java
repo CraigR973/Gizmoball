@@ -24,6 +24,10 @@ public class TriangleGizmo {
 	private String triangleName;
 	private int angle = 0;
 	int rotations = 0;
+	ArrayList<String> keyConnections = new ArrayList<String>();
+	ArrayList<String> connections = new ArrayList<String>();
+	boolean isConnect = false;
+	boolean isKeyConnect = false;
 
 	// x1 = top left, x2 = bottom, x3 = top right, y1 = top left, y2 = bottom,
 	// y3 = top right
@@ -198,6 +202,11 @@ public class TriangleGizmo {
 	public int getRotation() {
 		return angle;
 	}
+	
+	public int getNoRotations()
+	{
+		return rotations;
+	}
 
 	public void rotateLs() {
 		if (angle == 0) {
@@ -225,5 +234,27 @@ public class TriangleGizmo {
 
 	public void resetAngle() {
 		angle = 0;
+	}
+	
+	public void addConnections(String connect)
+	{
+		isConnect = true;
+		connections.add(connect);
+	}
+	
+	public ArrayList<String> getConnections()
+	{
+		return connections;
+	}
+	
+	public void addKeyConnections(String connect)
+	{
+		isKeyConnect = true;
+		keyConnections.add(connect);
+	}
+	
+	public ArrayList<String> getKeyConnections()
+	{
+		return keyConnections;
 	}
 }

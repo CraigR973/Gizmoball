@@ -20,6 +20,7 @@ public class CircleGizmo {
 	ArrayList<String> keyConnections = new ArrayList<String>();
 	ArrayList<String> connections = new ArrayList<String>();
 	boolean isConnect = false;
+	boolean isKeyConnect = false;
 
 //	private boolean stopped;
 
@@ -87,6 +88,17 @@ public class CircleGizmo {
 	public ArrayList<String> getConnections()
 	{
 		return connections;
+	}
+	
+	public void addKeyConnections(String connect)
+	{
+		isKeyConnect = true;
+		keyConnections.add(connect);
+	}
+	
+	public ArrayList<String> getKeyConnections()
+	{
+		return keyConnections;
 	}
 
 }
