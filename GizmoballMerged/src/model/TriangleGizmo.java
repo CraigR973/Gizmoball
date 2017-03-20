@@ -47,7 +47,7 @@ public class TriangleGizmo {
 		double h = 20;
 		xpos1 = x1 * 20;
 		xpos2 = (x1 * 20) + w;
-		xpos3 = xpos2;
+		xpos3 = xpos1;
 		ypos1 = y1 * 20;
 		ypos2 = y1 * 20;
 		ypos3 = ypos2 + h;
@@ -212,20 +212,16 @@ public class TriangleGizmo {
 		colour = c;
 	}
 
-	public void addRotation()
-	{
-		if(rotations <= 3)
-		{
-			rotations +=1;
+	public void addRotation() {
+		if (rotations <= 3) {
+			rotations += 1;
 			rotate();
-		}
-		else
-		{
+		} else {
 			rotations = 0;
 			rotate();
 		}
 	}
-	
+
 	public int rotate() {
 		System.out.println("Angle: " + angle);
 		angle = (angle + 90) % 360;
@@ -237,9 +233,8 @@ public class TriangleGizmo {
 	public int getRotation() {
 		return angle;
 	}
-	
-	public int getNoRotations()
-	{
+
+	public int getNoRotations() {
 		return rotations;
 	}
 
@@ -319,23 +314,25 @@ public class TriangleGizmo {
 			clear();
 		}
 		if (angle == 90) {
-			xpos1 += 20;
-			ypos1 += 20;
-			xpos3 -= 20;
+			xpos3 += width;
+			
+			ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
+			ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
+			ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
 			clear();
 		}
 		if (angle == 180) {
-			xpos2 -= 20;
-			ypos2 += 20;
+			xpos1 += width;
+			ypos2 += height;
+
 			ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
 			ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
 			ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
 			clear();
 		}
 		if (angle == 270) {
-			ypos1 += 20;
-			xpos2 -= 20;
-			ypos3 -= 20;
+			ypos2 += height;
+			
 			ls1 = new LineSegment(xpos1, ypos1, xpos2, ypos2);
 			ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
 			ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);
@@ -349,7 +346,6 @@ public class TriangleGizmo {
 	public void resetAngle() {
 		angle = 0;
 	}
-
 
 	public void setOriginalCoordinates() {
 		xpos1 = ogX1;
@@ -366,26 +362,21 @@ public class TriangleGizmo {
 		cornerCentres.clear();
 	}
 
-	
-	public void addConnections(String connect)
-	{
+	public void addConnections(String connect) {
 		isConnect = true;
 		connections.add(connect);
 	}
-	
-	public ArrayList<String> getConnections()
-	{
+
+	public ArrayList<String> getConnections() {
 		return connections;
 	}
-	
-	public void addKeyConnections(String connect)
-	{
+
+	public void addKeyConnections(String connect) {
 		isKeyConnect = true;
 		keyConnections.add(connect);
 	}
-	
-	public ArrayList<String> getKeyConnections()
-	{
+
+	public ArrayList<String> getKeyConnections() {
 		return keyConnections;
 
 	}

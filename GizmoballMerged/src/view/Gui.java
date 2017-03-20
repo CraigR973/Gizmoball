@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import controller.AddBallMouseListener;
 import controller.AddGizmoMouseListener;
 import controller.BuildListener3;
 import controller.DeleteGizmoMouseListener;
@@ -132,7 +133,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Circle", board,0,0);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Circle", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -146,7 +147,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Square", board,0,0);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Square", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -160,7 +161,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Triangle", board,0,0);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Triangle", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -174,15 +175,27 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				int optionPaneXv = Integer.parseInt(JOptionPane.showInputDialog("Enter X Vel"));
-				int optionPaneYv = Integer.parseInt(JOptionPane.showInputDialog("Enter Y Vel"));
+
+		//		int optionPaneXv = Integer.parseInt(JOptionPane.showInputDialog("Enter X Vel"));
+		//		int optionPaneYv = Integer.parseInt(JOptionPane.showInputDialog("Enter Y Vel"));
+
+				double xVel = Double.parseDouble(JOptionPane.showInputDialog("Enter X Vel"));
+				double yVel = Double.parseDouble(JOptionPane.showInputDialog("Enter Y Vel"));
+
 				
 	//			optionPane.showInputDialog(frame, "Hello");
 		//		Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your x value for ball velocity"));
 			//	Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your y value for ball velocity"));
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball", board, optionPaneXv, optionPaneYv);
-				board.addMouseListener(sml);
+
+			//	AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball", board, optionPaneXv, optionPaneYv);
+			//	board.addMouseListener(sml);
 			//	model.setBallSpeed(optionPaneXv, optionPaneYv);
+
+//				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball", board, optionPaneXv, optionPaneYv);
+//				board.addMouseListener(sml);
+				AddBallMouseListener abml = new AddBallMouseListener(model, board, xVel, yVel);
+				board.addMouseListener(abml);
+
 			}
 		});
 		addBallButton.setFont(gf);
@@ -195,7 +208,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber", board,0,0);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -209,7 +222,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "LF", board,0,0);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "LF", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -223,7 +236,7 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "RF", board,0,0);
+				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "RF", board);
 				board.addMouseListener(sml);
 			}
 		});
@@ -407,98 +420,98 @@ public class Gui {
 		cp.add(board, BorderLayout.CENTER);
 		
 		KeyListener ckl = new ConnectKeyListener(model, board); 
-		frame.addKeyListener(ckl);
+//		frame.addKeyListener(ckl);
 
 
-//		frame.addKeyListener(new KeyListener() {
-//
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-//					System.out.println("Space pressed");
-//					model.releaseBall();
-//				}
-//				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//					model.flipFlippers();
-//					board.repaint();
-//				}
-//			}
-//
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-//					System.out.println("Space released");
-//					model.captureBall();
-//				}
-//				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//					model.unflipFlippers();
-//					board.repaint();
-//				}
-//			}
-//
-//			@Override
-//			public void keyTyped(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-
-		
-		
-//		frame.addKeyListener(new KeyListener() {
-//
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-//					System.out.println("Space pressed");
-//					model.releaseBall();
-//				}
-//				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-//					System.out.println("Up pressed");
-//				}
-//			}
-//
-//			@Override
-//			public void keyReleased(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-//					System.out.println("Space released");
-//					model.captureBall();
-//				}
-//			}
-//
-//			@Override
-//			public void keyTyped(KeyEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-
-
-		board.addKeyListener(new KeyListener() {
+		frame.addKeyListener(new KeyListener() {
 
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				System.out.println("Key press detected on board");
-				model.releaseBall();
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					System.out.println("Space pressed");
+					model.releaseBall();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					model.flipFlippers();
+					board.repaint();
+				}
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				model.captureBall();
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					System.out.println("Space released");
+					model.captureBall();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					model.unflipFlippers();
+					board.repaint();
+				}
 			}
 
 			@Override
-			public void keyPressed(KeyEvent e) {
+			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
 
 			}
 		});
+
+		
+		
+		frame.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					System.out.println("Space pressed");
+					model.releaseBall();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					System.out.println("Up pressed");
+				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					System.out.println("Space released");
+					model.captureBall();
+				}
+			}
+
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+
+//		board.addKeyListener(new KeyListener() {
+//
+//			@Override
+//			public void keyTyped(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//				System.out.println("Key press detected on board");
+//				model.releaseBall();
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//				model.captureBall();
+//			}
+//
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
 
 		startButton.setFocusable(false);
 		stopButton.setFocusable(false);

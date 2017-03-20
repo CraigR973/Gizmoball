@@ -85,4 +85,12 @@ public class Absorber {
 	{
 		return keyConnections;
 	}
+	
+	public double setXPos(){
+		return (xpos + width - 15);
+	}
+	
+	public double setYPos(){
+		return (ypos + height - 15);
+	}
 }

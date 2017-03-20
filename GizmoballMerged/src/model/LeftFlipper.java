@@ -23,14 +23,13 @@ public class LeftFlipper {
 	String flipperName;
 	private LineSegment ls2;
 	private LineSegment ls4;
-    private ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
+	private ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
 	ArrayList<String> keyConnections = new ArrayList<String>();
 	ArrayList<String> connections = new ArrayList<String>();
 	boolean isConnect = false;
 	boolean isKeyConnect = false;
 
-	
-	public LeftFlipper(String name, double x, double y){
+	public LeftFlipper(String name, double x, double y) {
 
 		colour = Color.YELLOW;
 		double a = 1.0;
@@ -43,7 +42,7 @@ public class LeftFlipper {
 		ypos = y * 20;
 		angle = new Angle(a, b);
 		setName(name);
-       ls2 = new LineSegment(xpos, ypos + 5, xpos, ypos + h - 5);
+		ls2 = new LineSegment(xpos, ypos + 5, xpos, ypos + h - 5);
 		ls4 = new LineSegment(xpos + w, ypos + 5, xpos + w, ypos + h - 5);
 		rotation = 0;
 		setInits();
@@ -56,14 +55,12 @@ public class LeftFlipper {
 	public String getName() {
 		return flipperName;
 	}
-	
-	public void setColour()
-	{
+
+	public void setColour() {
 		colour = Color.PINK;
 	}
-	
-	public void setColour1()
-	{
+
+	public void setColour1() {
 		colour = Color.WHITE;
 	}
 
@@ -84,10 +81,10 @@ public class LeftFlipper {
 	}
 
 	public Color getColour() {
-         return colour;
+		return colour;
 	}
-	
-		public double getXPos() {
+
+	public double getXPos() {
 		return xpos;
 	}
 
@@ -113,7 +110,6 @@ public class LeftFlipper {
 
 	public LineSegment getLineSegs(int i) {
 		// ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
-
 
 		lss.add(ls2);
 		lss.add(ls4);
@@ -178,27 +174,22 @@ public class LeftFlipper {
 		lss.clear();
 	}
 
+	public void addConnections(String connect) {
+		isConnect = true;
+		connections.add(connect);
+	}
 
-public void addConnections(String connect)
-{
-	isConnect = true;
-	connections.add(connect);
-}
+	public ArrayList<String> getConnections() {
+		return connections;
+	}
 
-public ArrayList<String> getConnections()
-{
-	return connections;
-}
+	public void addKeyConnections(String connect) {
+		isKeyConnect = true;
+		keyConnections.add(connect);
+	}
 
-public void addKeyConnections(String connect)
-{
-	isKeyConnect = true;
-	keyConnections.add(connect);
-}
-
-public ArrayList<String> getKeyConnections()
-{
-	return keyConnections;
-}
+	public ArrayList<String> getKeyConnections() {
+		return keyConnections;
+	}
 
 }

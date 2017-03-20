@@ -136,4 +136,9 @@ public class SquareGizmo {
 	{
 		return keyConnections;
 	}
+
+	public void setColour(Color c) {
+		// TODO Auto-generated method stub
+		colour = c;
+	}
 }

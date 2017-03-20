@@ -58,7 +58,7 @@ public class Model extends Observable {
 
 	public void releaseBall() {
 		for (int i = 0; i < balls.size(); i++) {
-			System.out.println("Release Ball called");
+			
 			keyPressed = true;
 			balls.get(i).start();
 		}
@@ -217,7 +217,6 @@ public class Model extends Observable {
 						boolean found = false;
 						while(found != true)
 						{
-							System.out.println("Rotating Left Flippers");
 							found = true;
 						}
 					}
@@ -226,7 +225,6 @@ public class Model extends Observable {
 						boolean found = false;
 						while(found != true)
 						{
-							System.out.println("Rotating Right Flippers");
 							found = true;
 						}
 					}
@@ -497,7 +495,6 @@ public class Model extends Observable {
 					}
 				else if(cGizmo.equals("Delete"))
 				{
-					System.out.println("Deleting gizmo");
 					char giz = name.charAt(0);
 					if(giz == 'S')
 					{
@@ -510,7 +507,6 @@ public class Model extends Observable {
 								String sName = s.getName();
 								if(sName.equals(name))
 								{
-									System.out.println("Deleting square");
 									deleteGizmo(name, "square");
 									found = true;
 								}
@@ -528,7 +524,6 @@ public class Model extends Observable {
 								String aName = a.getName();
 								if(aName.equals(name))
 								{
-									System.out.println("Deleting absorber");
 									deleteGizmo(name, "absorber");
 									found = true;
 								}
@@ -546,7 +541,6 @@ public class Model extends Observable {
 								String cName = c.getName();
 								if(cName.equals(name))
 								{
-									System.out.println("Deleting circle");
 									deleteGizmo(name, "circle");
 									found = true;
 								}
@@ -564,7 +558,6 @@ public class Model extends Observable {
 								String lfName = lf.getName();
 								if(lfName.equals(name))
 								{
-									System.out.println("Deleting left flipper");
 									deleteGizmo(name, "leftflipper");
 									found = true;
 								}
@@ -582,7 +575,6 @@ public class Model extends Observable {
 								String sName = rf.getName();
 								if(sName.equals(name))
 								{
-									System.out.println("Deleting right flipper");
 									deleteGizmo(name, "rightflippers");
 									found = true;
 								}
@@ -600,7 +592,6 @@ public class Model extends Observable {
 								String tName = t.getName();
 								if(tName.equals(name))
 								{
-									System.out.println("Deleting triangle");
 									deleteGizmo(name, "triangle");
 									found = true;
 								}
@@ -610,7 +601,6 @@ public class Model extends Observable {
 				}
 				else if(cGizmo.equals("Move"))
 				{
-					System.out.println("Moving gizmo");
 					int value1 = Integer.parseInt(st.nextToken());
 					int value2 = Integer.parseInt(st.nextToken());
 					char giz = name.charAt(0);
@@ -792,7 +782,6 @@ public class Model extends Observable {
 		if (!checkGizmos(x, y)) {
 			tris.add(tg);
 		}
-		System.out.println(name);
 		this.notifyObservers();
 		this.setChanged();
 	}
@@ -863,7 +852,7 @@ public class Model extends Observable {
 
 	public void addAbsorberGizmo(int y) {
 		String name = "A";
-		Absorber a = new Absorber(name, 0, 19);
+		Absorber a = new Absorber(name, 0, y);
 		if (!checkGizmos(0, y)) {
 			abs.add(a);
 		}
@@ -873,7 +862,6 @@ public class Model extends Observable {
 
 	public void addBallGizmo(int x, int y, double xv, double yv) {
 		String name = "B";
-		System.out.println(balls.size());
 		if (balls.size() < 1) {
 			Ball b = new Ball(name, x, y, xv, yv);
 			if (!checkGizmos(x, y)) {
@@ -1053,7 +1041,6 @@ public class Model extends Observable {
 	
 	public void rotate(int x, int y){
 		if(checkTriangles(x, y) != null){
-			System.out.println("in rotating method of model");
 			checkTriangles(x, y).rotate();
 		}
 		this.setChanged();
@@ -1061,7 +1048,6 @@ public class Model extends Observable {
 	}
 	
 	public void flipFlippers(){
-		System.out.println("flipFlippers called");
 		leftFlippers.get(0).rotateLines();
 		this.setChanged();
 		this.notifyObservers();
