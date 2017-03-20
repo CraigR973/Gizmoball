@@ -46,6 +46,15 @@ public class PhysicsLoop {
 	public void setGrav(double g) {
 		grav = g;
 	}
+	
+	public double getFriction() {
+		return friction;
+	} 
+	
+	public void setFriction(double f) {
+		friction = f;
+	}
+	
 
 	public void moveBall() {
 		System.out.println("Move ball pls");
@@ -83,7 +92,7 @@ public class PhysicsLoop {
 //			 }
 //			 grav = 20;
 			System.out.println("g in physics loop " + grav);
-			 friction = 5;
+	//		 friction = 5;
 			 yVel += grav + friction;
 
 			physics = new Vect(xVel, yVel);

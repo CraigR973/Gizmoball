@@ -283,12 +283,14 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			//	JOptionPane optionPane = new JOptionPane(); 
-				Double friction;
+				double friction;
 				
 		//		friction = PhysicsLoop.getGrav();
 				
 				
 				friction = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your new friction value"));
+				System.out.println(friction);
+				model.setFriction(friction);
 				
 			}
 		});

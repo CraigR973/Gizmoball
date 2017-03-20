@@ -1076,4 +1076,8 @@ public class Model extends Observable {
 	public void setGrav(double g){
 		physicsLoop.setGrav(g);
 	}
+	
+	public void setFriction(double f) {
+		physicsLoop.setFriction(f);
+	}
 }
