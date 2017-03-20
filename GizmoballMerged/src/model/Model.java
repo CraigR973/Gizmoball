@@ -369,7 +369,7 @@ public class Model extends Observable {
 					String value2 = st.nextToken();
 					String value3 = st.nextToken();
 					char giz = value3.charAt(0);
-					String connection = name + " " + value1 + " " + value2;
+					String connection = name + " " + value1 + " " + value2 + " " + value3;
 					if(giz == 'L')
 					{
 						boolean found = false;
@@ -495,11 +495,189 @@ public class Model extends Observable {
 								}
 							}
 						}
+					}
+				else if(cGizmo.equals("Delete"))
+				{
+					System.out.println("Deleting gizmo");
+					char giz = name.charAt(0);
+					if(giz == 'S')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<squares.size(); index++)
+							{
+								SquareGizmo s = squares.get(index);
+								String sName = s.getName();
+								if(sName.equals(name))
+								{
+									System.out.println("Deleting square");
+									deleteGizmo(name, "square");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'A')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<abs.size(); index++)
+							{
+								Absorber a = abs.get(index);
+								String aName = a.getName();
+								if(aName.equals(name))
+								{
+									System.out.println("Deleting absorber");
+									deleteGizmo(name, "absorber");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'C')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<balls.size(); index++)
+							{
+								CircleGizmo c = circs.get(index);
+								String cName = c.getName();
+								if(cName.equals(name))
+								{
+									System.out.println("Deleting circle");
+									deleteGizmo(name, "circle");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'L')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<leftFlippers.size(); index++)
+							{
+								LeftFlipper lf = leftFlippers.get(index);
+								String lfName = lf.getName();
+								if(lfName.equals(name))
+								{
+									System.out.println("Deleting left flipper");
+									deleteGizmo(name, "leftflipper");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'R')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<rightFlippers.size(); index++)
+							{
+								RightFlipper rf = rightFlippers.get(index);
+								String sName = rf.getName();
+								if(sName.equals(name))
+								{
+									System.out.println("Deleting right flipper");
+									deleteGizmo(name, "rightflippers");
+									found = true;
+								}
+							}
+						}
+					}
+					if(giz == 'T')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<tris.size(); index++)
+							{
+								TriangleGizmo t = tris.get(index);
+								String tName = t.getName();
+								if(tName.equals(name))
+								{
+									System.out.println("Deleting triangle");
+									deleteGizmo(name, "triangle");
+									found = true;
+								}
+							}
+						}
+					}
 				}
 			}
 		}
 	}
 
+	//For use with loading in deletes
+	public void deleteGizmo(String name, String gizmo)
+	{
+		if(gizmo.equals("square"))
+		{
+			for(int i = 0; i<squares.size(); i++)
+			{
+				if(squares.get(i).getName().equals(name))
+				{
+					squares.remove(i);
+				}
+			}
+		}
+		if(gizmo.equals("absorber"))
+		{
+			for(int i = 0; i<abs.size(); i++)
+			{
+				if(abs.get(i).getName().equals(name))
+				{
+					abs.remove(i);
+				}
+			}
+		}
+		if(gizmo.equals("circle"))
+		{
+			for(int i = 0; i<circs.size(); i++)
+			{
+				if(circs.get(i).getName().equals(name))
+				{
+					circs.remove(i);
+				}
+			}
+		}
+		if(gizmo.equals("leftflipper"))
+		{
+			for(int i = 0; i<leftFlippers.size(); i++)
+			{
+				if(leftFlippers.get(i).getName().equals(name))
+				{
+					leftFlippers.remove(i);
+				}
+			}
+		}
+		if(gizmo.equals("rightflippers"))
+		{
+			for(int i = 0; i<rightFlippers.size(); i++)
+			{
+				if(rightFlippers.get(i).getName().equals(name))
+				{
+					rightFlippers.remove(i);
+				}
+			}
+		}
+		if(gizmo.equals("triangle"))
+		{
+			for(int i = 0; i<tris.size(); i++)
+			{
+				if(tris.get(i).getName().equals(name))
+				{
+					tris.remove(i);
+				}
+			}
+		}
+	}
+	
 	public void load() {
 		loadBoard();
 		// System.out.println("starting ball");

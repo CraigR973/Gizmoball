@@ -66,7 +66,16 @@ public class RightFlipper {
 			angle = ang;
 		}
 		
-	
+		public void setColour()
+		{
+			colour = Color.decode("#ffba6e");
+		}
+		
+		public void setColour1()
+		{
+			colour = Color.WHITE;
+		}
+		
 	public Color getColour(){
 		return colour;
 	}

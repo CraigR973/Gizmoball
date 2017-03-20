@@ -48,6 +48,16 @@ public class LeftFlipper {
 			return flipperName;
 		}
 	
+		public void setColour()
+		{
+			colour = Color.PINK;
+		}
+		
+		public void setColour1()
+		{
+			colour = Color.WHITE;
+		}
+		
 		public Vect getVelo() {
 			return velocity;
 		}

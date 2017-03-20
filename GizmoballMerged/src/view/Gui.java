@@ -25,6 +25,7 @@ import controller.BuildListener3;
 import controller.DeleteGizmoMouseListener;
 import controller.MoveMouseListener;
 import controller.RunListener2;
+import controller.ConnectKeyListener;
 import model.Model;
 
 //import controller.RunListener;
@@ -427,35 +428,38 @@ public class Gui {
 		cp.add(bar, BorderLayout.NORTH);
 		cp.add(board, BorderLayout.CENTER);
 
-		frame.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyPressed(KeyEvent e) {
-				// TODO Auto-generated method stub
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					System.out.println("Space pressed");
-					model.releaseBall();
-				}
-				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					System.out.println("Up pressed");
-				}
-			}
-
-			@Override
-			public void keyReleased(KeyEvent e) {
-				// TODO Auto-generated method stub
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					System.out.println("Space released");
-					model.captureBall();
-				}
-			}
-
-			@Override
-			public void keyTyped(KeyEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+		KeyListener ckl = new ConnectKeyListener(model, board); 
+		frame.addKeyListener(ckl);
+		
+//		frame.addKeyListener(new KeyListener() {
+//
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+//					System.out.println("Space pressed");
+//					model.releaseBall();
+//				}
+//				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+//					System.out.println("Up pressed");
+//				}
+//			}
+//
+//			@Override
+//			public void keyReleased(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+//					System.out.println("Space released");
+//					model.captureBall();
+//				}
+//			}
+//
+//			@Override
+//			public void keyTyped(KeyEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
 
 		board.addKeyListener(new KeyListener() {
 
