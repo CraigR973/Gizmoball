@@ -202,7 +202,7 @@ public class PhysicsLoop {
 						newVelo = Geometry.reflectWall(tris.get(i).getLinSegs(j), ball.get(n).getVelo(), 1.0);
 						
 						if (time < 0.02) {
-							tris.get(i).setColour(Color.BLUE);
+							tris.get(i).setColour(Color.WHITE);
 							double xVel = 0;
 							double yVel = 0;
 
@@ -223,7 +223,7 @@ public class PhysicsLoop {
 						}
 						
 						if(colourCounter%5 == 3){
-							tris.get(i).setColour(Color.WHITE);
+							tris.get(i).setColour(Color.BLUE);
 						}
 						System.out.println("tri line segs " + i + ": " + tris.get(i).getLinSegs(j).p1() + " " + tris.get(i).getLinSegs(j).p2());
 					}

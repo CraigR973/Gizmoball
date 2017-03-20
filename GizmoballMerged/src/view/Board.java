@@ -49,7 +49,7 @@ public class Board extends JPanel implements Observer {
 		Graphics2D g2 = (Graphics2D) g;
 
 		if (buildMode == true) {
-			g2.setColor(Color.GRAY);
+		//	g2.setColor(Color.GRAY);
 			for (int i = 0; i < 500; i += 20) {
 				g2.fillRect(i, 0, 1, 400);
 			}

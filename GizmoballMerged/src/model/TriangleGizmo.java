@@ -53,7 +53,7 @@ public class TriangleGizmo {
 		ypos3 = ypos2 + h;
 		width = w;
 		height = h;
-		colour = Color.WHITE;
+		colour = Color.BLUE;
 		ls1 = new LineSegment(xpos1, ypos2, xpos2, ypos2);
 		ls2 = new LineSegment(xpos2, ypos2, xpos3, ypos3);
 		ls3 = new LineSegment(xpos1, ypos1, xpos3, ypos3);

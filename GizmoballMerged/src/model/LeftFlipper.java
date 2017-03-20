@@ -32,7 +32,7 @@ public class LeftFlipper {
 	
 	public LeftFlipper(String name, double x, double y){
 
-		colour = Color.WHITE;
+		colour = Color.YELLOW;
 		double a = 1.0;
 		double b = 1.0;
 		double w = 10;

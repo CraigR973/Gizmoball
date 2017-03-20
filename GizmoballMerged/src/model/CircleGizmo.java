@@ -28,7 +28,7 @@ public class CircleGizmo {
 	public CircleGizmo(String name, double x, double y) {
 		xpos = (x*20)+10; // Centre coordinates
 		ypos = (y*20)+10;
-		colour = Color.BLACK;
+		colour = Color.GREEN;
 		radius = 10;
 		radLs = new LineSegment(x+20,y+20,x-20,y-20);
 		setName(name);

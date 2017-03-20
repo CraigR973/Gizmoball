@@ -65,6 +65,10 @@ public class Gui {
 		board.setBackground(Color.GRAY);
 		board.setMaximumSize(new Dimension(400, 400));
 		board.addMouseListener(new DeleteGizmoMouseListener(model, board));
+		
+	/*	if(switchMode==true) {
+			board.setBackground(Color.WHITE);
+		} */
 
 		Container cp = frame.getContentPane();
 
@@ -537,6 +541,8 @@ public class Gui {
 				if (switchMode == false) {
 					buttons1 = runButtons;
 					switchMode = true;
+					board.setBackground(Color.BLACK);
+					
 
 					if (build.getComponentCount() != 0) {
 						build.removeAll();
@@ -546,6 +552,7 @@ public class Gui {
 
 					switchMode = false;
 					buttons1 = buildButtons;
+					board.setBackground(Color.WHITE);
 
 					if (build.getComponentCount() != 0) {
 						build.removeAll();

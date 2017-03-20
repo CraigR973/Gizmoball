@@ -28,7 +28,7 @@ public class SquareGizmo {
 	public SquareGizmo(String name, double x, double y){
 		double w = 20;
 		double h = 20;
-		colour = Color.BLACK;
+		colour = Color.RED;
 		width = w;
 		height = h;
 		xpos = x * 20;
