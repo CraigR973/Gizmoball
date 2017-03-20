@@ -174,14 +174,15 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				double optionPaneXv = Double.parseDouble(JOptionPane.showInputDialog("Enter X Vel"));
-				double optionPaneYv = Double.parseDouble(JOptionPane.showInputDialog("Enter Y Vel"));
+				int optionPaneXv = Integer.parseInt(JOptionPane.showInputDialog("Enter X Vel"));
+				int optionPaneYv = Integer.parseInt(JOptionPane.showInputDialog("Enter Y Vel"));
 				
 	//			optionPane.showInputDialog(frame, "Hello");
 		//		Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your x value for ball velocity"));
 			//	Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your y value for ball velocity"));
 				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Ball", board, optionPaneXv, optionPaneYv);
 				board.addMouseListener(sml);
+			//	model.setBallSpeed(optionPaneXv, optionPaneYv);
 			}
 		});
 		addBallButton.setFont(gf);
