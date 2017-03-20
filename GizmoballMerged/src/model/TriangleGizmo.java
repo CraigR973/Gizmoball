@@ -23,6 +23,7 @@ public class TriangleGizmo {
 	private double height;
 	private String triangleName;
 	private int angle = 0;
+	int rotations = 0;
 
 	// x1 = top left, x2 = bottom, x3 = top right, y1 = top left, y2 = bottom,
 	// y3 = top right
@@ -173,6 +174,20 @@ public class TriangleGizmo {
 		colour = c;
 	}
 
+	public void addRotation()
+	{
+		if(rotations <= 3)
+		{
+			rotations +=1;
+			rotate();
+		}
+		else
+		{
+			rotations = 0;
+			rotate();
+		}
+	}
+	
 	public int rotate() {
 		System.out.println("Angle: " + angle);
 		angle = (angle + 90) % 360;

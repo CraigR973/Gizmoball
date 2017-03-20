@@ -20,6 +20,10 @@ public class RightFlipper {
 	private LineSegment ls2;
 	//private LineSegment ls3;
 	private LineSegment ls4;
+	ArrayList<String> keyConnections = new ArrayList<String>();
+	ArrayList<String> connections = new ArrayList<String>();
+	boolean isConnect = false;
+	boolean isKeyConnect = false;
 	
 	
 	public RightFlipper(String name, double x, double y){
@@ -124,5 +128,27 @@ public class RightFlipper {
 		corCen.add(cen4);
 		
 		return corCen.get(i);
+	}
+	
+	public void addConnections(String connect)
+	{
+		isConnect = true;
+		connections.add(connect);
+	}
+	
+	public ArrayList<String> getConnections()
+	{
+		return connections;
+	}
+	
+	public void addKeyConnections(String connect)
+	{
+		isKeyConnect = true;
+		keyConnections.add(connect);
+	}
+	
+	public ArrayList<String> getKeyConnections()
+	{
+		return keyConnections;
 	}
 }

@@ -17,6 +17,9 @@ public class CircleGizmo {
 	private Color colour;
 	private LineSegment radLs;
 	private String circleName;
+	ArrayList<String> keyConnections = new ArrayList<String>();
+	ArrayList<String> connections = new ArrayList<String>();
+	boolean isConnect = false;
 
 //	private boolean stopped;
 
@@ -73,6 +76,17 @@ public class CircleGizmo {
 	public Vect getCircleCentre(){
 		Vect cen = new Vect(getExactX(),getExactY());
 		return cen;
+	}
+	
+	public void addConnections(String connect)
+	{
+		isConnect = true;
+		connections.add(connect);
+	}
+	
+	public ArrayList<String> getConnections()
+	{
+		return connections;
 	}
 
 }

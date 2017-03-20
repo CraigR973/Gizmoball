@@ -136,39 +136,194 @@ public class Model extends Observable {
 				// System.out.println(st.nextToken());
 				String cGizmo = st.nextToken();
 				String name = st.nextToken();
-				double value1 = Double.parseDouble(st.nextToken());
-				double value2 = Double.parseDouble(st.nextToken());
 
 				if (cGizmo.equals("Triangle")) {
 					System.out.println("Loading triangle");
-					TriangleGizmo t = new TriangleGizmo(name, value1, value2);
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					double nvalue1 = Double.parseDouble(value1);
+					double nvalue2 = Double.parseDouble(value2);
+					TriangleGizmo t = new TriangleGizmo(name, nvalue1, nvalue2);
 					tris.add(t);
-
+					
 				} else if (cGizmo.equals("Square")) {
-					SquareGizmo sq = new SquareGizmo(name, value1, value2);
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					double nvalue1 = Double.parseDouble(value1);
+					double nvalue2 = Double.parseDouble(value2);
+					SquareGizmo sq = new SquareGizmo(name, nvalue1, nvalue2);
 					squares.add(sq);
 
 				} else if (cGizmo.equals("Circle")) {
-					CircleGizmo c = new CircleGizmo(name, value1, value2);
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					double nvalue1 = Double.parseDouble(value1);
+					double nvalue2 = Double.parseDouble(value2);
+					CircleGizmo c = new CircleGizmo(name, nvalue1, nvalue2);
 					circs.add(c);
-
+				
 				} else if (cGizmo.equals("LeftFlipper")) {
-					LeftFlipper lf = new LeftFlipper(name, value1, value2);
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					double nvalue1 = Double.parseDouble(value1);
+					double nvalue2 = Double.parseDouble(value2);
+					LeftFlipper lf = new LeftFlipper(name, nvalue1, nvalue2);
 					leftFlippers.add(lf);
-
+					
 				} else if (cGizmo.equals("RightFlipper")) {
-					RightFlipper rf = new RightFlipper(name, value1, value2);
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					double nvalue1 = Double.parseDouble(value1);
+					double nvalue2 = Double.parseDouble(value2);
+					RightFlipper rf = new RightFlipper(name, nvalue1, nvalue2);
 					rightFlippers.add(rf);
-
+					
 				} else if (cGizmo.equals("Absorber")) {
-					Absorber a = new Absorber(name, value1, value2);
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					double nvalue1 = Double.parseDouble(value1);
+					double nvalue2 = Double.parseDouble(value2);
+					Absorber a = new Absorber(name, nvalue1, nvalue2);
 					abs.add(a);
-					System.out.println(abs);
 				} else if (cGizmo.equals("Ball")) {
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					double nvalue1 = Double.parseDouble(value1);
+					double nvalue2 = Double.parseDouble(value2);
 					double value3 = Double.parseDouble(st.nextToken());
 					double value4 = Double.parseDouble(st.nextToken());
-					Ball b = new Ball(name, value1, value2, value3, value4);
+					Ball b = new Ball(name, nvalue1, nvalue2, value3, value4);
 					balls.add(b);
+				}
+				else if(cGizmo.equals("Rotate"))
+				{
+					char giz = name.charAt(0);
+					if(giz == 'T')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<tris.size(); index++)
+							{
+								TriangleGizmo t = tris.get(index);
+								String triName = t.getName();
+								if(triName.equals(name))
+								{
+									t.addRotation();
+									found = true;
+								}
+								
+							}
+						}
+					}
+					
+				}
+				else if(cGizmo.equals("Connect"))
+				{
+					String value1 = st.nextToken();
+					char giz = name.charAt(0);
+					if(giz == 'C')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<circs.size(); index++)
+							{
+								CircleGizmo c = circs.get(index);
+								String circName = c.getName();
+								if(circName.equals(name))
+								{
+									c.addConnections(value1);
+									found = true;
+								}
+								
+							}
+						}
+					}
+					if(giz == 'A')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<abs.size(); index++)
+							{
+								Absorber a = abs.get(index);
+								String aName = a.getName();
+								if(aName.equals(name))
+								{
+									a.addConnections(value1);
+									found = true;
+								}
+								
+							}
+						}
+					}
+				}
+				else if(cGizmo.equals("KeyConnect"))
+				{
+					String value1 = st.nextToken();
+					String value2 = st.nextToken();
+					String value3 = st.nextToken();
+					char giz = value3.charAt(0);
+					String connection = name + " " + value1 + " " + value2;
+					if(giz == 'L')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<leftFlippers.size(); index++)
+							{
+								LeftFlipper lf = leftFlippers.get(index);
+								String LFName = lf.getName();
+								if(LFName.equals(value3))
+								{
+									lf.addKeyConnections(connection);
+									found = true;
+								}
+								
+							}
+						}
+					}
+					if(giz == 'R')
+					{
+						boolean found = false;
+						while(found != true)
+						{
+							for(int index = 0; index<rightFlippers.size(); index++)
+							{
+								RightFlipper rf = rightFlippers.get(index);
+								String RFName = rf.getName();
+								if(RFName.equals(value3))
+								{
+									rf.addKeyConnections(connection);
+									found = true;
+								}
+								
+							}
+						}
+					}
+					if(giz == 'A')
+						{
+							boolean found = false;
+							while(found != true)
+							{
+								for(int index = 0; index<abs.size(); index++)
+								{
+									Absorber a = abs.get(index);
+									String aName = a.getName();
+									if(aName.equals(value3))
+									{
+										a.addKeyConnections(connection);
+										found = true;
+									}
+									
+								}
+							}
+					}
+//					name value 1
+//					String value2 = st.nextToken();
+//					String value3 = st.nextToken();
+					System.out.println("KeyConnection");
 				}
 			}
 		}
