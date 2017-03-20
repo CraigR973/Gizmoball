@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+import java.util.ArrayList;
 
 import physics.Circle;
 import physics.Vect;
@@ -13,6 +14,10 @@ public class Ball {
 	private Color colour;
 	private String ballName;
 	private boolean stopped;
+	ArrayList<String> keyConnections = new ArrayList<String>();
+	ArrayList<String> connections = new ArrayList<String>();
+	boolean isConnect = false;
+	boolean isKeyConnect = false;
 
 	// x, y coordinates and x,y velocity
 	public Ball(String name, double x, double y, double xv, double yv) {
@@ -80,6 +85,28 @@ public class Ball {
 	
 	public String getName(){
 		return ballName;
+	}
+	
+	public void addConnections(String connect)
+	{
+		isConnect = true;
+		connections.add(connect);
+	}
+	
+	public ArrayList<String> getConnections()
+	{
+		return connections;
+	}
+	
+	public void addKeyConnections(String connect)
+	{
+		isKeyConnect = true;
+		keyConnections.add(connect);
+	}
+	
+	public ArrayList<String> getKeyConnections()
+	{
+		return keyConnections;
 	}
 
 }
