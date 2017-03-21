@@ -429,6 +429,8 @@ public class Gui {
 
 		keyConnectButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(keyConnectButton);
+		
+	
 
 		JButton keyDisconnectButton = new JButton("Key Disconnect");
 		keyDisconnectButton.addActionListener(listener2);
