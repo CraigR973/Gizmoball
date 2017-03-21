@@ -541,7 +541,7 @@ public class Gui {
 		
 		
 		
-		frame.setPreferredSize(new Dimension(659, 462));
+		frame.setPreferredSize(new Dimension(658, 462));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);

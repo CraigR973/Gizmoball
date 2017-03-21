@@ -16,6 +16,9 @@ public class Model extends Observable{
 	private Walls gws;
 	private boolean hitAbs = false;
 	private LeftFlipper leftFlipper;
+	private Ball ball1;
+	private Ball ball2;
+	
 	
 	public Model() {
 		gws = new Walls(0, 0, 500, 500);
@@ -70,12 +73,13 @@ public class Model extends Observable{
 	
 	public LeftFlipper rotateLeftFlipper(LeftFlipper leftFlipper) {
 		double newA = 0.0;
-		double newB = 1.0;
+		double newB = 0.0;
+		Angle newAngle;
+		newAngle = (newA, newB);
 	
-		newA = leftFlipper.getXPos();
-		newB = leftFlipper.getYPos();
-		leftFlipper.setXPos(newA);
-		leftFlipper.setYPos(newB);
+		
+	//	newAngle = (newA, newB);
+		leftFlipper.setAngle(newAngle);
 		
 		
 		//leftFlipper.setAngle(newA);

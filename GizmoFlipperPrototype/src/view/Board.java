@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -27,6 +29,8 @@ public class Board extends JPanel implements Observer {
 	protected int height;
 	protected Model gm;
 	private boolean keyPress = false;
+	private int angle;
+	int offset = 5;
 
 	public Board(int w, int h, Model m) {
 		// Observe changes in Model
@@ -44,6 +48,7 @@ public class Board extends JPanel implements Observer {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		AffineTransform at = new AffineTransform();
 
 		Graphics2D g2 = (Graphics2D) g;
 
@@ -74,6 +79,7 @@ public class Board extends JPanel implements Observer {
 
 		LeftFlipper lFlip = gm.getLeftFlipper();
 		if (lFlip != null) {
+	//		Shape lf;
 			g2.setColor(lFlip.getColour());
 			int x = (int) lFlip.getXPos();
 			int y = (int) lFlip.getYPos();
@@ -88,8 +94,21 @@ public class Board extends JPanel implements Observer {
 			}
 		} */
 			
-			if(keyPress == true) {
-				gm.rotateLeftFlip();
+			
+			
+				
+			
+			
+	//		if(keyPress == true) {
+				
+	//			g2.rotate(Math.toRadians(270));
+	//			g2.setTransform(at);
+				
+		//		at.rotate(Math.toRadians(90), x + width/2, y + height / 2);
+		//		Shape transformed = at.createTransformedShape(lf);
+		//		g2.fill(transformed);
+				
+				
 			}
 			
 		}
@@ -119,5 +138,13 @@ public class Board extends JPanel implements Observer {
 	
 	public void keyPressDetectNon(){
 		keyPress = false;
+	}
+	
+	public void rotate() {
+		angle -= offset;
+		if (angle <= 0) {
+			angle = 360;
+		}
+		repaint();
 	}
 }

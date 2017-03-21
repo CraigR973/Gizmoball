@@ -16,6 +16,8 @@ public class LeftFlipper {
 	private double ypos;
 	private LineSegment ls;
 	private Angle angle;
+	private Ball ball1;
+	private Ball ball2;
 	
 
 	
@@ -30,6 +32,9 @@ public class LeftFlipper {
 		ypos = y;
 		angle = new Angle(a,b);
 		ls = new LineSegment(x, y, x + w, y);
+	//	ball1 = b1;
+	//	ball2 = b2;
+
 	}
 	
 		public Vect getVelo() {
@@ -39,6 +44,16 @@ public class LeftFlipper {
 		public void setVelo(Vect v) {
 			velocity = v;
 		}
+		
+		public Ball getFirstBall() {
+			return ball1;
+		}
+		
+		public Ball getSecondBall() {
+			return ball2;
+		}
+		
+		
 		
 		public Angle getAngle() {
 			return angle;
