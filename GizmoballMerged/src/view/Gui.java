@@ -25,11 +25,13 @@ import controller.AddBallMouseListener;
 import controller.AddGizmoMouseListener;
 import controller.BuildListener3;
 import controller.DeleteGizmoMouseListener;
+import controller.KeyConnectMouseListener;
 import controller.MoveMouseListener;
 import controller.RotateGizmoMouseListener;
 import controller.RunListener2;
 import controller.ConnectKeyListener;
 import model.Model;
+import model.PhysicsLoop;
 
 //import controller.RunListener;
 
@@ -42,6 +44,7 @@ public class Gui {
 	private Board board;
 	private boolean switchMode;
 	private JPanel buttons1;
+	private PhysicsLoop pl;
 
 	public Gui(Model m) {
 		model = m;
@@ -347,12 +350,89 @@ public class Gui {
 		buildButtons.add(disconnectButton);
 
 		JButton keyConnectButton = new JButton("Key Connect");
+		keyConnectButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//gets gizmos user wants to add connection to
+				MouseListener kcml = new KeyConnectMouseListener(model, board);
+				board.addMouseListener(kcml);
+				
+			
+				
+				//gets button user wants to connect to gizmo
+//				frame.addKeyListener(new KeyListener() {
+//
+//					@Override
+//					public void keyPressed(KeyEvent e) {
+//						// TODO Auto-generated method stub
+//						int keycode = e.getKeyCode();
+//						String connection = "key " + keycode + " down";
+//						//model.storeKeyConnection(connection);
+//						System.out.println(connection);
+//					}
+//
+//					@Override
+//					public void keyReleased(KeyEvent e) {
+//					}
+//
+//					@Override
+//					public void keyTyped(KeyEvent e) {
+//						// TODO Auto-generated method stub
+//
+//					}
+//				});
+			}
+		});
+		keyConnectButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//gets gizmos user wants to add connection to
+//				MouseListener kcml = new KeyConnectMouseListener(model, board);
+//				board.addMouseListener(kcml);
+				
+			
+				
+				//gets button user wants to connect to gizmo
+				frame.addKeyListener(new KeyListener() {
+
+					@Override
+					public void keyPressed(KeyEvent e) {
+						// TODO Auto-generated method stub
+						int keycode = e.getKeyCode();
+						String connection = "key " + keycode + " down";
+						model.storeKeyConnection(connection);
+						model.addKeyConnection("Square");
+						//System.out.println(connection);
+					}
+
+					@Override
+					public void keyReleased(KeyEvent e) {
+						frame.removeKeyListener(this);
+					}
+
+					@Override
+					public void keyTyped(KeyEvent e) {
+						// TODO Auto-generated method stub
+
+					}
+				});
+				
+			}
+		});
+		
 		keyConnectButton.addActionListener(listener2);
 		keyConnectButton.setFont(gf);
+
 		keyConnectButton.setMaximumSize(new Dimension(75, 15));
 		buildButtons.add(keyConnectButton);
+		
+	
 
-		JButton keyDisconnectButton = new JButton("Key Connect");
+		JButton keyDisconnectButton = new JButton("Key Disconnect");
 		keyDisconnectButton.addActionListener(listener2);
 		keyDisconnectButton.setFont(gf);
 		keyDisconnectButton.setMaximumSize(new Dimension(75, 15));
@@ -420,7 +500,7 @@ public class Gui {
 		cp.add(board, BorderLayout.CENTER);
 		
 		KeyListener ckl = new ConnectKeyListener(model, board); 
-//		frame.addKeyListener(ckl);
+		frame.addKeyListener(ckl);
 
 
 		frame.addKeyListener(new KeyListener() {
@@ -429,7 +509,7 @@ public class Gui {
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					System.out.println("Space pressed");
+					//System.out.println("Space pressed");
 					model.releaseBall();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -442,7 +522,7 @@ public class Gui {
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					System.out.println("Space released");
+					//System.out.println("Space released");
 					model.captureBall();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -541,7 +621,7 @@ public class Gui {
 		
 		
 		
-		frame.setPreferredSize(new Dimension(658, 462));
+		frame.setPreferredSize(new Dimension(659, 462));
 		frame.pack();
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
@@ -569,6 +649,7 @@ public class Gui {
 					switchMode = false;
 					buttons1 = buildButtons;
 					board.setBackground(Color.WHITE);
+				    ((RunListener2) listener).getTimer().stop();
 
 					if (build.getComponentCount() != 0) {
 						build.removeAll();

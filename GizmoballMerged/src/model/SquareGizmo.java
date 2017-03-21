@@ -136,6 +136,10 @@ public class SquareGizmo {
 	{
 		return keyConnections;
 	}
+	
+	public boolean isConnect() {
+		return isKeyConnect;
+	}
 
 	public void setColour(Color c) {
 		// TODO Auto-generated method stub

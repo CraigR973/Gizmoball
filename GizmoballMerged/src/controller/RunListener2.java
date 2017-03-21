@@ -63,4 +63,8 @@ public class RunListener2 implements ActionListener {
 				break;
 			}
 	}
+	
+	public Timer getTimer() {
+		return timer;
+	}
 }

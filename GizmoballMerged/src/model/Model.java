@@ -22,6 +22,8 @@ public class Model extends Observable {
 	private ArrayList<Ball> balls = new ArrayList<Ball>();
 	private LoadReader file = new LoadReader();
 	private saveFile savefile = new saveFile();
+	private String currentGizmo;
+	private String currentKey;
 
 	int counter = 0;
 
@@ -849,6 +851,48 @@ public class Model extends Observable {
 
 		return null;
 	}
+	
+	public String getGizmo(int x, int y) {
+		for (int i = 0; i < tris.size(); i++) {
+			if (tris.get(i).getXpos1() == x * 20 && tris.get(i).getYpos1() == y * 20) {
+				return tris.get(i).getName();
+			}
+		}
+		for (int i = 0; i < circs.size(); i++) {
+			if (circs.get(i).getExactX() == x * 20 + 10 && circs.get(i).getExactY() == y * 20 + 10) {
+				return circs.get(i).getName();
+			}
+		}
+		for (int i = 0; i < squares.size(); i++) {
+			if (squares.get(i).getXPos() == x * 20 && squares.get(i).getYPos() == y * 20) {
+				return squares.get(i).getName();
+			}
+		}
+		for (int i = 0; i < abs.size(); i++) {
+			if (abs.get(i).getYPos() == y * 20) {
+				return abs.get(i).getName();
+			}
+		}
+		for (int i = 0; i < leftFlippers.size(); i++) {
+			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+				return leftFlippers.get(i).getName();
+			}
+		}
+		for (int i = 0; i < rightFlippers.size(); i++) {
+			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+				return rightFlippers.get(i).getName();
+			}
+		}
+		for (int i = 0; i < balls.size(); i++) {
+			if (balls.get(i).getExactX() == x * 20 && balls.get(i).getExactY() == y * 20) {
+				return balls.get(i).getName();
+			}
+		}
+		this.notifyObservers();
+		this.setChanged();
+
+		return null;
+	}
 
 	public void addAbsorberGizmo(int y) {
 		String name = "A";
@@ -933,6 +977,45 @@ public class Model extends Observable {
 		return false;
 	}
 
+	public void storeGizConnection(String gizmo)
+	{
+		currentGizmo = gizmo;
+		System.out.println(currentGizmo);
+	}
+	
+	public String getGizConnection()
+	{
+		return currentGizmo;
+	}
+
+	public void storeKeyConnection(String key)
+	{
+		currentKey = key;
+		System.out.println(currentKey);
+	}
+	
+	public String getKeyConnection()
+	{
+		return currentKey;
+	}
+	
+	public void addKeyConnection(String gizmo)
+	{
+		if(gizmo.equals("Square"))
+		{
+			String cgizmo = getGizConnection();
+			String cKey = getKeyConnection();
+			for(int i = 0; i<squares.size(); i++)
+			{
+				if(squares.get(i).getName().equals(cgizmo))
+				{
+					squares.get(i).addKeyConnections(cKey);
+				}
+				System.out.println(squares.get(i).getKeyConnections());
+			}
+		}
+	}
+	
 	public void clearBoard() {
 		if (!balls.isEmpty()) {
 			balls.clear();

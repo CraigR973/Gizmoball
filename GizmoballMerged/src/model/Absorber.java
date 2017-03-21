@@ -39,6 +39,16 @@ public class Absorber {
 		return colour;
 	}
 	
+	public void setColour()
+	{
+		colour = Color.GREEN;
+	}
+	
+	public void setColour1() {
+		colour = Color.MAGENTA;
+	}
+
+	
 	public LineSegment getAbsLineSeg(){
 		return ls;
 	}
