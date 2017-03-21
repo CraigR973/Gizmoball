@@ -16,8 +16,12 @@ public class ConnectKeyListener implements KeyListener {
 	private String gizmo;
 	private int akeyEvent;
 	private int skeyEvent;
+	private int tkeyEvent;
+	private int ckeyEvent;
 	ArrayList<String> absorberConnection = new ArrayList<String>();
 	ArrayList<String> squareConnection = new ArrayList<String>();
+	ArrayList<String> triangleConnection = new ArrayList<String>();
+	ArrayList<String> circleConnection = new ArrayList<String>();
 
 	public ConnectKeyListener(Model m, Board b) {
 		model = m;
@@ -96,6 +100,86 @@ public class ConnectKeyListener implements KeyListener {
 			}
 		}
 	}
+	
+	public void getTriangleKey() {
+		String connect = "";
+		if (model.getTriangles().size() > 0) {
+			triangleConnection = model.getTriangles().get(0).getKeyConnections();
+			for (int i = 0; i < triangleConnection.size(); i++) {
+				connect = triangleConnection.get(i);
+			}
+			// absorberConnection =
+			// model.getSquares().get(0).getKeyConnections();
+			// ArrayList<String> circleConnection =
+			// model.getCircles().get(0).getKeyConnections();
+			// ArrayList<String> triangleConnection =
+			// model.getTriangles().get(0).getKeyConnections();
+			
+			/*
+			 * for(int i = 0; i<model.getSquares().size(); i++) {
+			 * if(model.getSquares().get(i).isConnect() == true) {
+			 * 
+			 * } }
+			 */
+			/*
+			 * for(int i = 0; i<circleConnection.size(); i++) { connect =
+			 * circleConnection.get(i); } for(int i = 0;
+			 * i<triangleConnection.size(); i++) { connect =
+			 * triangleConnection.get(i); } for(int i = 0;
+			 * i<squaresConnection.size(); i++) { connect =
+			 * squaresConnection.get(i); }
+			 */
+
+			StringTokenizer st = new StringTokenizer(connect);
+			if (st.hasMoreTokens()) {
+				String k = st.nextToken();
+				tkeyEvent = Integer.parseInt(st.nextToken());
+				String k1 = st.nextToken();
+				String k2 = st.nextToken();
+
+			}
+		}
+	}
+	
+	public void getCircleKey() {
+		String connect = "";
+		if (model.getCircles().size() > 0) {
+			circleConnection = model.getCircles().get(0).getKeyConnections();
+			for (int i = 0; i < circleConnection.size(); i++) {
+				connect = circleConnection.get(i);
+			}
+			// absorberConnection =
+			// model.getSquares().get(0).getKeyConnections();
+			// ArrayList<String> circleConnection =
+			// model.getCircles().get(0).getKeyConnections();
+			// ArrayList<String> triangleConnection =
+			// model.getTriangles().get(0).getKeyConnections();
+			
+			/*
+			 * for(int i = 0; i<model.getSquares().size(); i++) {
+			 * if(model.getSquares().get(i).isConnect() == true) {
+			 * 
+			 * } }
+			 */
+			/*
+			 * for(int i = 0; i<circleConnection.size(); i++) { connect =
+			 * circleConnection.get(i); } for(int i = 0;
+			 * i<triangleConnection.size(); i++) { connect =
+			 * triangleConnection.get(i); } for(int i = 0;
+			 * i<squaresConnection.size(); i++) { connect =
+			 * squaresConnection.get(i); }
+			 */
+
+			StringTokenizer st = new StringTokenizer(connect);
+			if (st.hasMoreTokens()) {
+				String k = st.nextToken();
+				ckeyEvent = Integer.parseInt(st.nextToken());
+				String k1 = st.nextToken();
+				String k2 = st.nextToken();
+
+			}
+		}
+	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -118,6 +202,44 @@ public class ConnectKeyListener implements KeyListener {
 						System.out.println("Match");
 						
 						model.getSquares().get(i).setColour(Color.GREEN);
+					} else {
+						System.out.println("Doesn't match");
+						
+					}
+
+					
+				}
+			}
+			if (model.getTriangles().size() > 0) {
+				getTriangleKey();
+
+				for (int i = 0; i < model.getTriangles().size(); i++) {
+					System.out.println(model.getTriangles().get(i).isConnect());
+					System.out.println("Button  "  + skeyEvent);
+					if (e.getKeyCode() == KeyEvent.VK_UP && model.getTriangles().get(i).isConnect() == true) {
+
+						System.out.println("Match");
+						
+						model.getTriangles().get(i).setColour(Color.YELLOW);
+					} else {
+						System.out.println("Doesn't match");
+						
+					}
+
+					
+				}
+			}
+			if (model.getCircles().size() > 0) {
+				getSquareKey();
+
+				for (int i = 0; i < model.getCircles().size(); i++) {
+					System.out.println(model.getCircles().get(i).isConnect());
+					System.out.println("Button  "  + skeyEvent);
+					if (e.getKeyCode() == KeyEvent.VK_DOWN && model.getCircles().get(i).isConnect() == true) {
+
+						System.out.println("Match");
+						
+						model.getCircles().get(i).setColour(Color.CYAN);
 					} else {
 						System.out.println("Doesn't match");
 						
@@ -190,6 +312,40 @@ public class ConnectKeyListener implements KeyListener {
 
 					System.out.println("Match");
 					model.getSquares().get(i).setColour(Color.RED);
+				} else {
+					System.out.println("Doesn't match");
+				}
+
+				
+			}
+		}
+		
+		if (model.getTriangles().size() > 0) {
+			getSquareKey();
+
+			for (int i = 0; i < model.getTriangles().size(); i++) {
+				System.out.println(model.getTriangles().get(i).isConnect());
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+
+					System.out.println("Match");
+					model.getTriangles().get(i).setColour(Color.BLUE);
+				} else {
+					System.out.println("Doesn't match");
+				}
+
+				
+			}
+		}
+		
+		if (model.getCircles().size() > 0) {
+			getSquareKey();
+
+			for (int i = 0; i < model.getCircles().size(); i++) {
+				System.out.println(model.getCircles().get(i).isConnect());
+				if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+
+					System.out.println("Match");
+					model.getCircles().get(i).setColour(Color.GREEN);
 				} else {
 					System.out.println("Doesn't match");
 				}

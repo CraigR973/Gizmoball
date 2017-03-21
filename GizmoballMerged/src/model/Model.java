@@ -1014,6 +1014,32 @@ public class Model extends Observable {
 				System.out.println(squares.get(i).getKeyConnections());
 			}
 		}
+		if(gizmo.equals("Triangle"))
+		{
+			String cgizmo = getGizConnection();
+			String cKey = getKeyConnection();
+			for(int i = 0; i<tris.size(); i++)
+			{
+				if(tris.get(i).getName().equals(cgizmo))
+				{
+					tris.get(i).addKeyConnections(cKey);
+				}
+				System.out.println(tris.get(i).getKeyConnections());
+			}
+		}
+		if(gizmo.equals("Circle"))
+		{
+			String cgizmo = getGizConnection();
+			String cKey = getKeyConnection();
+			for(int i = 0; i<circs.size(); i++)
+			{
+				if(circs.get(i).getName().equals(cgizmo))
+				{
+					circs.get(i).addKeyConnections(cKey);
+				}
+				System.out.println(circs.get(i).getKeyConnections());
+			}
+		}
 	}
 	
 	public void clearBoard() {

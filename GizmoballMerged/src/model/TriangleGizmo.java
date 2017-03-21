@@ -380,4 +380,8 @@ public class TriangleGizmo {
 		return keyConnections;
 
 	}
+	
+	public boolean isConnect() {
+		return isKeyConnect;
+	}
 }

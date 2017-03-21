@@ -105,5 +105,9 @@ public class CircleGizmo {
 		// TODO Auto-generated method stub
 		colour = c;
 	}
+	
+	public boolean isConnect() {
+		return isKeyConnect;
+	}
 
 }

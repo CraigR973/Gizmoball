@@ -406,6 +406,8 @@ public class Gui {
 						String connection = "key " + keycode + " down";
 						model.storeKeyConnection(connection);
 						model.addKeyConnection("Square");
+						model.addKeyConnection("Triangle");
+						model.addKeyConnection("Circle");
 						//System.out.println(connection);
 					}
 
