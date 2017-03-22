@@ -7,17 +7,15 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
 import model.Model;
-import view.RunGui;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
+
+
 
 public class RunListener implements ActionListener {
 
 	private Timer timer;
 	private Model model;
-	private RunGui gui;
+
 
 	public RunListener(Model m) {
 		model = m;
@@ -52,13 +50,7 @@ public class RunListener implements ActionListener {
 				break;
 			case "Load":
 				System.out.println("Load Button");
-//				JFileChooser fileChooser = new JFileChooser();
-//				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-//				int result = fileChooser.showOpenDialog(null);
-//				if (result == JFileChooser.APPROVE_OPTION) {
-//				    File selectedFile = fileChooser.getSelectedFile();
-//				    System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-//				}
+//				
 				model.load();
 				break;
 			}

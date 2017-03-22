@@ -2,9 +2,7 @@ package model;
 
 import physics.Vect;
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
+
 
 public  class CollisionDetails {
 	private double tuc;

@@ -10,7 +10,7 @@ import physics.Vect;
 
 public class CircleGizmo {
 
-//	private Vect velocity;
+
 	private double radius;
 	private double xpos;
 	private double ypos;
@@ -22,9 +22,7 @@ public class CircleGizmo {
 	boolean isConnect = false;
 	boolean isKeyConnect = false;
 
-//	private boolean stopped;
 
-	// x, y coordinates and x,y velocity
 	public CircleGizmo(String name, double x, double y) {
 		xpos = (x*20)+10; // Centre coordinates
 		ypos = (y*20)+10;
@@ -50,7 +48,7 @@ public class CircleGizmo {
 		return new Circle(xpos, ypos, radius);
 	}
 
-	// Ball specific methods that deal with double precision.
+	
 	public double getExactX() {
 		return xpos;
 	}

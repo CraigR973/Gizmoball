@@ -103,8 +103,10 @@ public class PhysicsLoop {
 				// friction = 5;
 
 
-				double frictionX = Math.abs((xVel * (1 - mu * 0.02 - mu2 * xVel * 0.02))) / 50;
-				double frictionY = Math.abs((yVel * (1 - mu * 0.02 - mu2 * yVel * 0.02))) / 50;
+//				double frictionX = Math.abs((xVel * (1 - mu * 0.02 - mu2 * xVel * 0.02))) / 50;
+//				double frictionY = Math.abs((yVel * (1 - mu * 0.02 - mu2 * yVel * 0.02))) / 50;
+				double frictionX = mu + mu2;
+				double frictionY = mu + mu2;
 				
 				// yVel += grav + friction;
 				if (yVel < 0) {

@@ -7,9 +7,7 @@ import model.Model;
 import view.Gui;
 
 
-/**
- * @author Murray Wood Demonstration of MVC and MIT Physics Collisions 2014
- */
+
 
 public class BuildListener3 implements ActionListener {
 

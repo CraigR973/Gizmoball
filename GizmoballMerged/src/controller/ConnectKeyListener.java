@@ -33,22 +33,11 @@ public class ConnectKeyListener implements KeyListener {
 		String connect = "";
 		if (model.getAbs().size() > 0) {
 			absorberConnection = model.getAbs().get(0).getKeyConnections();
-			// ArrayList<String> circleConnection =
-			// model.getCircles().get(0).getKeyConnections();
-			// ArrayList<String> triangleConnection =
-			// model.getTriangles().get(0).getKeyConnections();
-			// squareConnection = model.getSquares().get(0).getKeyConnections();
+		
 			for (int i = 0; i < absorberConnection.size(); i++) {
 				connect = absorberConnection.get(i);
 			}
-			/*
-			 * for(int i = 0; i<circleConnection.size(); i++) { connect =
-			 * circleConnection.get(i); } for(int i = 0;
-			 * i<triangleConnection.size(); i++) { connect =
-			 * triangleConnection.get(i); } for(int i = 0;
-			 * i<squaresConnection.size(); i++) { connect =
-			 * squaresConnection.get(i); }
-			 */
+		
 
 			StringTokenizer st = new StringTokenizer(connect);
 			if (st.hasMoreTokens()) {
@@ -148,27 +137,7 @@ public class ConnectKeyListener implements KeyListener {
 			for (int i = 0; i < circleConnection.size(); i++) {
 				connect = circleConnection.get(i);
 			}
-			// absorberConnection =
-			// model.getSquares().get(0).getKeyConnections();
-			// ArrayList<String> circleConnection =
-			// model.getCircles().get(0).getKeyConnections();
-			// ArrayList<String> triangleConnection =
-			// model.getTriangles().get(0).getKeyConnections();
-			
-			/*
-			 * for(int i = 0; i<model.getSquares().size(); i++) {
-			 * if(model.getSquares().get(i).isConnect() == true) {
-			 * 
-			 * } }
-			 */
-			/*
-			 * for(int i = 0; i<circleConnection.size(); i++) { connect =
-			 * circleConnection.get(i); } for(int i = 0;
-			 * i<triangleConnection.size(); i++) { connect =
-			 * triangleConnection.get(i); } for(int i = 0;
-			 * i<squaresConnection.size(); i++) { connect =
-			 * squaresConnection.get(i); }
-			 */
+		
 
 			StringTokenizer st = new StringTokenizer(connect);
 			if (st.hasMoreTokens()) {
@@ -189,7 +158,7 @@ public class ConnectKeyListener implements KeyListener {
 			if (e.getKeyCode() == akeyEvent) {
 				System.out.println("Space pressed");
 				model.releaseBall();
-				// model.getSquares().get(0).setColour(Color.GREEN);
+				
 			}
 			if (model.getSquares().size() > 0) {
 				getSquareKey();
@@ -283,19 +252,7 @@ public class ConnectKeyListener implements KeyListener {
 			System.out.println("Space released");
 			model.captureBall();
 		}
-		for (int i = 0; i < model.getLFlipper().size(); i++) {
 
-			if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-				model.getLFlipper().get(i).setColour1();
-			}
-		}
-
-		for (int i = 0; i < model.getRFlipper().size(); i++) {
-
-			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-				model.getRFlipper().get(i).setColour1();
-			}
-		}
 
 		for (int i = 0; i < model.getAbs().size(); i++) {
 			if (e.getKeyCode() == KeyEvent.VK_RIGHT) {

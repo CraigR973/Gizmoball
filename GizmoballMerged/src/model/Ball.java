@@ -19,9 +19,9 @@ public class Ball {
 	boolean isConnect = false;
 	boolean isKeyConnect = false;
 
-	// x, y coordinates and x,y velocity
+	
 	public Ball(String name, double x, double y, double xv, double yv) {
-		xpos = x*20; // Centre coordinates
+		xpos = x*20; 
 		ypos = y*20;
 		colour = Color.BLUE;
 		velocity = new Vect(xv, yv);
@@ -33,6 +33,11 @@ public class Ball {
 		return velocity;
 	}
 
+	public void setName(String name)
+	{
+		ballName = name;
+	}
+	
 	public void setVelo(Vect v) {
 		velocity = v;
 	}
@@ -45,7 +50,7 @@ public class Ball {
 		return new Circle(xpos, ypos, radius);
 	}
 
-	// Ball specific methods that deal with double precision.
+	
 	public double getExactX() {
 		return xpos;
 	}

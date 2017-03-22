@@ -30,7 +30,7 @@ public class Board extends JPanel implements Observer {
 	private boolean keyPress = false;
 
 	public Board(int w, int h, Model m) {
-		// Observe changes in Model
+		
 		m.addObserver(this);
 		width = w;
 		height = h;
@@ -38,7 +38,7 @@ public class Board extends JPanel implements Observer {
 		this.setBorder(BorderFactory.createLineBorder(Color.black));
 	}
 
-	// Fix onscreen size
+	
 	public Dimension getPreferredSize() {
 		return new Dimension(width, height);
 	}

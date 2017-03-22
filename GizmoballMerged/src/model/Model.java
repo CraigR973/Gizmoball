@@ -34,10 +34,9 @@ public class Model extends Observable {
 	}
 
 	public void start() {
-		// System.out.println(balls);
-		// System.out.println(abs);
+		
 		if (balls.get(0) != null && !balls.get(0).stopped()) {
-			// System.out.println(balls.get(0).getVelo());
+			
 			physicsLoop.moveBall();
 			this.setChanged();
 			this.notifyObservers();
@@ -775,15 +774,7 @@ public class Model extends Observable {
 		return null;
 	}
 
-	// public void addAbsorberGizmo(int y) {
-	// String name = "A";
-	// Absorber a = new Absorber(name, 0, y);
-	// if (!checkGizmos(0, y)) {
-	// abs.add(a);
-	// }
-	// this.notifyObservers();
-	// this.setChanged();
-	// }
+
 
 	public void addAbsorberGizmo(int x, int y, int width, int height) {
 		String name = "A";

@@ -21,9 +21,9 @@ public class RightFlipper {
 	private double initX;
 	private Angle angle;
 	String flipperName;
-	// private LineSegment ls1;
+	
 	private LineSegment ls2;
-	// private LineSegment ls3;
+	
 	private LineSegment ls4;
 	ArrayList<String> keyConnections = new ArrayList<String>();
 	ArrayList<String> connections = new ArrayList<String>();

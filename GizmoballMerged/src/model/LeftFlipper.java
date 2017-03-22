@@ -116,7 +116,7 @@ public class LeftFlipper {
 	}
 
 	public LineSegment getLineSegs(int i) {
-		// ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
+		
 
 		return lss.get(i);
 	}

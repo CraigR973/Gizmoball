@@ -28,11 +28,7 @@ public class AddGizmoMouseListener implements MouseListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 
-		// if (e.getButton() == MouseEvent.BUTTON3) {
-		// int x = Math.round(e.getX() / 20);
-		// int y = Math.round(e.getY() / 20);
-		// model.deleteGizmo(x, y);
-		// }
+		
 		// TODO Auto-generated method stub
 		if (e.getButton() == MouseEvent.BUTTON1) {
 
