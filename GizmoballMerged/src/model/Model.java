@@ -571,6 +571,7 @@ public class Model extends Observable {
 				}
 			}
 		}
+		file.getGizmos().clear();
 	}
 
 	// For use with loading in deletes
@@ -620,10 +621,13 @@ public class Model extends Observable {
 	}
 
 	public void load() {
+		clearBoard();
 		loadBoard();
 		// System.out.println("starting ball");
 		Vect v = new Vect(500, 500);
-		balls.get(0).setVelo(v);
+		if (!balls.isEmpty()) {
+			balls.get(0).setVelo(v);
+		}
 		// System.out.println(abs);
 		this.setChanged();
 		this.notifyObservers();
@@ -685,7 +689,7 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < abs.size(); i++) {
-			if (abs.get(i).getYPos() == y * 20) {
+			if (abs.get(i).getXPos() == x*20 && abs.get(i).getYPos() == y * 20) {
 				abs.remove(i);
 				this.notifyObservers();
 				this.setChanged();
@@ -693,7 +697,8 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20)
+					|| (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() + 20 == y * 20)) {
 				leftFlippers.remove(i);
 				this.notifyObservers();
 				this.setChanged();
@@ -701,7 +706,9 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((rightFlippers.get(i).getXPos() - 10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20)
+					|| (rightFlippers.get(i).getXPos() - 10 == x * 20
+							&& rightFlippers.get(i).getYPos() + 20 == y * 20)) {
 				rightFlippers.remove(i);
 				this.notifyObservers();
 				this.setChanged();
@@ -745,12 +752,15 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20)
+					|| (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() + 20 == y * 20)) {
 				return leftFlippers.get(i).getName();
 			}
 		}
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((rightFlippers.get(i).getXPos() - 10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20)
+					|| (rightFlippers.get(i).getXPos() - 10 == x * 20
+							&& rightFlippers.get(i).getYPos() + 20 == y * 20)) {
 				return rightFlippers.get(i).getName();
 			}
 		}
@@ -765,16 +775,16 @@ public class Model extends Observable {
 		return null;
 	}
 
-//	public void addAbsorberGizmo(int y) {
-//		String name = "A";
-//		Absorber a = new Absorber(name, 0, y);
-//		if (!checkGizmos(0, y)) {
-//			abs.add(a);
-//		}
-//		this.notifyObservers();
-//		this.setChanged();
-//	}
-	
+	// public void addAbsorberGizmo(int y) {
+	// String name = "A";
+	// Absorber a = new Absorber(name, 0, y);
+	// if (!checkGizmos(0, y)) {
+	// abs.add(a);
+	// }
+	// this.notifyObservers();
+	// this.setChanged();
+	// }
+
 	public void addAbsorberGizmo(int x, int y, int width, int height) {
 		String name = "A";
 		Absorber a = new Absorber(name, x, y, width, height);
@@ -841,12 +851,15 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((rightFlippers.get(i).getXPos() - 10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20)
+					|| (rightFlippers.get(i).getXPos() - 10 == x * 20
+							&& rightFlippers.get(i).getYPos() + 20 == y * 20)) {
 				return true;
 			}
 		}
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20)
+					|| (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() + 20 == y * 20)) {
 				return true;
 			}
 		}
@@ -910,27 +923,27 @@ public class Model extends Observable {
 	}
 
 	public void clearBoard() {
-		if (!balls.isEmpty()) {
+//		if (!balls.isEmpty()) {
 			balls.clear();
-		}
-		if (!rightFlippers.isEmpty()) {
+//		}
+//		if (!rightFlippers.isEmpty()) {
 			rightFlippers.clear();
-		}
-		if (!leftFlippers.isEmpty()) {
+//		}
+//		if (!leftFlippers.isEmpty()) {
 			leftFlippers.clear();
-		}
-		if (!squares.isEmpty()) {
+//		}
+//		if (!squares.isEmpty()) {
 			squares.clear();
-		}
-		if (!circs.isEmpty()) {
+//		}
+//		if (!circs.isEmpty()) {
 			circs.clear();
-		}
-		if (!tris.isEmpty()) {
+//		}
+//		if (!tris.isEmpty()) {
 			tris.clear();
-		}
-		if (!abs.isEmpty()) {
+//		}
+//		if (!abs.isEmpty()) {
 			abs.clear();
-		}
+//		}
 		this.setChanged();
 		this.notifyObservers();
 	}
@@ -990,7 +1003,9 @@ public class Model extends Observable {
 
 	public RightFlipper checkRFs(int x, int y) {
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((rightFlippers.get(i).getXPos() - 10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20)
+					|| (rightFlippers.get(i).getXPos() - 10 == x * 20
+							&& rightFlippers.get(i).getYPos() + 20 == y * 20)) {
 				return rightFlippers.get(i);
 			}
 		}
@@ -999,7 +1014,8 @@ public class Model extends Observable {
 
 	public LeftFlipper checkLFs(int x, int y) {
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20)
+					|| (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() + 20 == y * 20)) {
 				return leftFlippers.get(i);
 			}
 		}
@@ -1029,7 +1045,7 @@ public class Model extends Observable {
 				leftFlippers.get(i).rotateLines();
 			}
 		}
-		if(!rightFlippers.isEmpty()){
+		if (!rightFlippers.isEmpty()) {
 			for (int i = 0; i < rightFlippers.size(); i++) {
 				rightFlippers.get(i).rotateLines();
 			}

@@ -255,10 +255,16 @@ public class saveFile {
 					int y1 = (int) (absorbers.get(i).getYPos()/20); 
 					String x = Integer.toString(x1);
 					String y = Integer.toString(y1);
+					int width = (int) (absorbers.get(i).getWidth()/20);
+					int height = (int) (absorbers.get(i).getHeight()/20);
+					String w = Integer.toString(width);
+					String h = Integer.toString(height);
 					bufferWrite.write(type +" ");
 					bufferWrite.write(name +" ");
 					bufferWrite.write(x +" ");
 					bufferWrite.write(y +" ");
+					bufferWrite.write(w + " ");
+					bufferWrite.write(h + " ");
 					bufferWrite.newLine();
 					//Connections
 					if(absorbers.get(i).isConnect == true)
