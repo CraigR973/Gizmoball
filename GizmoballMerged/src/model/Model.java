@@ -60,7 +60,7 @@ public class Model extends Observable {
 
 	public void releaseBall() {
 		for (int i = 0; i < balls.size(); i++) {
-			
+
 			keyPressed = true;
 			balls.get(i).start();
 		}
@@ -143,7 +143,7 @@ public class Model extends Observable {
 					double nvalue2 = Double.parseDouble(value2);
 					TriangleGizmo t = new TriangleGizmo(name, nvalue1, nvalue2);
 					tris.add(t);
-					
+
 				} else if (cGizmo.equals("Square")) {
 					String value1 = st.nextToken();
 					String value2 = st.nextToken();
@@ -159,7 +159,7 @@ public class Model extends Observable {
 					double nvalue2 = Double.parseDouble(value2);
 					CircleGizmo c = new CircleGizmo(name, nvalue1, nvalue2);
 					circs.add(c);
-				
+
 				} else if (cGizmo.equals("LeftFlipper")) {
 					String value1 = st.nextToken();
 					String value2 = st.nextToken();
@@ -167,7 +167,7 @@ public class Model extends Observable {
 					double nvalue2 = Double.parseDouble(value2);
 					LeftFlipper lf = new LeftFlipper(name, nvalue1, nvalue2);
 					leftFlippers.add(lf);
-					
+
 				} else if (cGizmo.equals("RightFlipper")) {
 					String value1 = st.nextToken();
 					String value2 = st.nextToken();
@@ -175,7 +175,7 @@ public class Model extends Observable {
 					double nvalue2 = Double.parseDouble(value2);
 					RightFlipper rf = new RightFlipper(name, nvalue1, nvalue2);
 					rightFlippers.add(rf);
-					
+
 				} else if (cGizmo.equals("Absorber")) {
 					String value1 = st.nextToken();
 					String value2 = st.nextToken();
@@ -192,431 +192,329 @@ public class Model extends Observable {
 					double value4 = Double.parseDouble(st.nextToken());
 					Ball b = new Ball(name, nvalue1, nvalue2, value3, value4);
 					balls.add(b);
-				}
-				else if(cGizmo.equals("Rotate"))
-				{
+				} else if (cGizmo.equals("Rotate")) {
 					char giz = name.charAt(0);
-					if(giz == 'T')
-					{
+					if (giz == 'T') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<tris.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < tris.size(); index++) {
 								TriangleGizmo t = tris.get(index);
 								String triName = t.getName();
-								if(triName.equals(name))
-								{
+								if (triName.equals(name)) {
 									t.addRotation();
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'L')
-					{
+					if (giz == 'L') {
 						boolean found = false;
-						while(found != true)
-						{
+						while (found != true) {
 							found = true;
 						}
 					}
-					if(giz == 'R')
-					{
+					if (giz == 'R') {
 						boolean found = false;
-						while(found != true)
-						{
+						while (found != true) {
 							found = true;
 						}
 					}
-				}
-				else if(cGizmo.equals("Connect"))
-				{
+				} else if (cGizmo.equals("Connect")) {
 					String value1 = st.nextToken();
 					char giz = name.charAt(0);
-					if(giz == 'C')
-					{
+					if (giz == 'C') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<circs.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < circs.size(); index++) {
 								CircleGizmo c = circs.get(index);
 								String circName = c.getName();
-								if(circName.equals(name))
-								{
+								if (circName.equals(name)) {
 									c.addConnections(value1);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'A')
-					{
+					if (giz == 'A') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<abs.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < abs.size(); index++) {
 								Absorber a = abs.get(index);
 								String aName = a.getName();
-								if(aName.equals(name))
-								{
+								if (aName.equals(name)) {
 									a.addConnections(value1);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'B')
-					{
+					if (giz == 'B') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<balls.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < balls.size(); index++) {
 								Ball b = balls.get(index);
 								String ballName = b.getName();
-								if(ballName.equals(name))
-								{
+								if (ballName.equals(name)) {
 									b.addConnections(value1);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'L')
-					{
+					if (giz == 'L') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<leftFlippers.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < leftFlippers.size(); index++) {
 								LeftFlipper lf = leftFlippers.get(index);
 								String lfName = lf.getName();
-								if(lfName.equals(name))
-								{
+								if (lfName.equals(name)) {
 									lf.addConnections(value1);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'R')
-					{
+					if (giz == 'R') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<rightFlippers.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < rightFlippers.size(); index++) {
 								RightFlipper rf = rightFlippers.get(index);
 								String circName = rf.getName();
-								if(circName.equals(name))
-								{
+								if (circName.equals(name)) {
 									rf.addConnections(value1);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'S')
-					{
+					if (giz == 'S') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<squares.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < squares.size(); index++) {
 								SquareGizmo s = squares.get(index);
 								String sName = s.getName();
-								if(sName.equals(name))
-								{
+								if (sName.equals(name)) {
 									s.addConnections(value1);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'T')
-					{
+					if (giz == 'T') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<tris.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < tris.size(); index++) {
 								TriangleGizmo t = tris.get(index);
 								String tName = t.getName();
-								if(tName.equals(name))
-								{
+								if (tName.equals(name)) {
 									t.addConnections(value1);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-				}
-				else if(cGizmo.equals("KeyConnect"))
-				{
+				} else if (cGizmo.equals("KeyConnect")) {
 					String value1 = st.nextToken();
 					String value2 = st.nextToken();
 					String value3 = st.nextToken();
 					char giz = value3.charAt(0);
 					String connection = name + " " + value1 + " " + value2 + " " + value3;
-					if(giz == 'L')
-					{
+					if (giz == 'L') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<leftFlippers.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < leftFlippers.size(); index++) {
 								LeftFlipper lf = leftFlippers.get(index);
 								String LFName = lf.getName();
-								if(LFName.equals(value3))
-								{
+								if (LFName.equals(value3)) {
 									lf.addKeyConnections(connection);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'R')
-					{
+					if (giz == 'R') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<rightFlippers.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < rightFlippers.size(); index++) {
 								RightFlipper rf = rightFlippers.get(index);
 								String RFName = rf.getName();
-								if(RFName.equals(value3))
-								{
+								if (RFName.equals(value3)) {
 									rf.addKeyConnections(connection);
 									found = true;
 								}
-								
+
 							}
 						}
 					}
-					if(giz == 'A')
-						{
-							boolean found = false;
-							while(found != true)
-							{
-								for(int index = 0; index<abs.size(); index++)
-								{
-									Absorber a = abs.get(index);
-									String aName = a.getName();
-									if(aName.equals(value3))
-									{
-										a.addKeyConnections(connection);
-										found = true;
-									}
-									
-								}
-							}
-						}
-						if(giz == 'T')
-						{
-							boolean found = false;
-							while(found != true)
-							{
-								for(int index = 0; index<tris.size(); index++)
-								{
-									TriangleGizmo t = tris.get(index);
-									String tName = t.getName();
-									if(tName.equals(value3))
-									{
-										t.addKeyConnections(connection);
-										found = true;
-									}			
-								}
-							}
-						}
-						if(giz == 'B')
-						{
-							boolean found = false;
-							while(found != true)
-							{
-								for(int index = 0; index<balls.size(); index++)
-								{
-									Ball b = balls.get(index);
-									String tName = b.getName();
-									if(tName.equals(value3))
-									{
-										b.addKeyConnections(connection);
-										found = true;
-									}
-									
-								}
-							}
-						}
-						if(giz == 'S')
-						{
-							boolean found = false;
-							while(found != true)
-							{
-								for(int index = 0; index<squares.size(); index++)
-								{
-									SquareGizmo s = squares.get(index);
-									String sName = s.getName();
-									if(sName.equals(value3))
-									{
-										s.addKeyConnections(connection);
-										found = true;
-									}
-									
-								}
-							}
-						}
-						if(giz == 'C')
-						{
-							boolean found = false;
-							while(found != true)
-							{
-								for(int index = 0; index<circs.size(); index++)
-								{
-									CircleGizmo c = circs.get(index);
-									String tName = c.getName();
-									if(tName.equals(value3))
-									{
-										c.addKeyConnections(connection);
-										found = true;
-									}
-									
-								}
-							}
-						}
-					}
-				else if(cGizmo.equals("Delete"))
-				{
-					char giz = name.charAt(0);
-					if(giz == 'S')
-					{
+					if (giz == 'A') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<squares.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < abs.size(); index++) {
+								Absorber a = abs.get(index);
+								String aName = a.getName();
+								if (aName.equals(value3)) {
+									a.addKeyConnections(connection);
+									found = true;
+								}
+
+							}
+						}
+					}
+					if (giz == 'T') {
+						boolean found = false;
+						while (found != true) {
+							for (int index = 0; index < tris.size(); index++) {
+								TriangleGizmo t = tris.get(index);
+								String tName = t.getName();
+								if (tName.equals(value3)) {
+									t.addKeyConnections(connection);
+									found = true;
+								}
+							}
+						}
+					}
+					if (giz == 'B') {
+						boolean found = false;
+						while (found != true) {
+							for (int index = 0; index < balls.size(); index++) {
+								Ball b = balls.get(index);
+								String tName = b.getName();
+								if (tName.equals(value3)) {
+									b.addKeyConnections(connection);
+									found = true;
+								}
+
+							}
+						}
+					}
+					if (giz == 'S') {
+						boolean found = false;
+						while (found != true) {
+							for (int index = 0; index < squares.size(); index++) {
 								SquareGizmo s = squares.get(index);
 								String sName = s.getName();
-								if(sName.equals(name))
-								{
+								if (sName.equals(value3)) {
+									s.addKeyConnections(connection);
+									found = true;
+								}
+
+							}
+						}
+					}
+					if (giz == 'C') {
+						boolean found = false;
+						while (found != true) {
+							for (int index = 0; index < circs.size(); index++) {
+								CircleGizmo c = circs.get(index);
+								String tName = c.getName();
+								if (tName.equals(value3)) {
+									c.addKeyConnections(connection);
+									found = true;
+								}
+
+							}
+						}
+					}
+				} else if (cGizmo.equals("Delete")) {
+					char giz = name.charAt(0);
+					if (giz == 'S') {
+						boolean found = false;
+						while (found != true) {
+							for (int index = 0; index < squares.size(); index++) {
+								SquareGizmo s = squares.get(index);
+								String sName = s.getName();
+								if (sName.equals(name)) {
 									deleteGizmo(name, "square");
 									found = true;
 								}
 							}
 						}
 					}
-					if(giz == 'A')
-					{
+					if (giz == 'A') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<abs.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < abs.size(); index++) {
 								Absorber a = abs.get(index);
 								String aName = a.getName();
-								if(aName.equals(name))
-								{
+								if (aName.equals(name)) {
 									deleteGizmo(name, "absorber");
 									found = true;
 								}
 							}
 						}
 					}
-					if(giz == 'C')
-					{
+					if (giz == 'C') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<balls.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < balls.size(); index++) {
 								CircleGizmo c = circs.get(index);
 								String cName = c.getName();
-								if(cName.equals(name))
-								{
+								if (cName.equals(name)) {
 									deleteGizmo(name, "circle");
 									found = true;
 								}
 							}
 						}
 					}
-					if(giz == 'L')
-					{
+					if (giz == 'L') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<leftFlippers.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < leftFlippers.size(); index++) {
 								LeftFlipper lf = leftFlippers.get(index);
 								String lfName = lf.getName();
-								if(lfName.equals(name))
-								{
+								if (lfName.equals(name)) {
 									deleteGizmo(name, "leftflipper");
 									found = true;
 								}
 							}
 						}
 					}
-					if(giz == 'R')
-					{
+					if (giz == 'R') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<rightFlippers.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < rightFlippers.size(); index++) {
 								RightFlipper rf = rightFlippers.get(index);
 								String sName = rf.getName();
-								if(sName.equals(name))
-								{
+								if (sName.equals(name)) {
 									deleteGizmo(name, "rightflippers");
 									found = true;
 								}
 							}
 						}
 					}
-					if(giz == 'T')
-					{
+					if (giz == 'T') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<tris.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < tris.size(); index++) {
 								TriangleGizmo t = tris.get(index);
 								String tName = t.getName();
-								if(tName.equals(name))
-								{
+								if (tName.equals(name)) {
 									deleteGizmo(name, "triangle");
 									found = true;
 								}
 							}
 						}
 					}
-				}
-				else if(cGizmo.equals("Move"))
-				{
+				} else if (cGizmo.equals("Move")) {
 					int value1 = Integer.parseInt(st.nextToken());
 					int value2 = Integer.parseInt(st.nextToken());
 					char giz = name.charAt(0);
-					if(giz == 'S')
-					{
+					if (giz == 'S') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<squares.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < squares.size(); index++) {
 								SquareGizmo s = squares.get(index);
 								String sName = s.getName();
-								if(sName.equals(name))
-								{
+								if (sName.equals(name)) {
 									deleteGizmo(name, "square");
 									moveGizmoAdd(value1, value2, "Square");
 									found = true;
@@ -624,17 +522,13 @@ public class Model extends Observable {
 							}
 						}
 					}
-					if(giz == 'T')
-					{
+					if (giz == 'T') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<tris.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < tris.size(); index++) {
 								TriangleGizmo t = tris.get(index);
 								String tName = t.getName();
-								if(tName.equals(name))
-								{
+								if (tName.equals(name)) {
 									deleteGizmo(name, "triangle");
 									moveGizmoAdd(value1, value2, "Triangle");
 									found = true;
@@ -642,17 +536,13 @@ public class Model extends Observable {
 							}
 						}
 					}
-					if(giz == 'C')
-					{
+					if (giz == 'C') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<circs.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < circs.size(); index++) {
 								CircleGizmo c = circs.get(index);
 								String sName = c.getName();
-								if(sName.equals(name))
-								{
+								if (sName.equals(name)) {
 									deleteGizmo(name, "circle");
 									moveGizmoAdd(value1, value2, "Circle");
 									found = true;
@@ -660,17 +550,13 @@ public class Model extends Observable {
 							}
 						}
 					}
-					if(giz == 'B')
-					{
+					if (giz == 'B') {
 						boolean found = false;
-						while(found != true)
-						{
-							for(int index = 0; index<balls.size(); index++)
-							{
+						while (found != true) {
+							for (int index = 0; index < balls.size(); index++) {
 								Ball b = balls.get(index);
 								String sName = b.getName();
-								if(sName.equals(name))
-								{
+								if (sName.equals(name)) {
 									deleteGizmo(name, "ball");
 									moveGizmoAdd(value1, value2, "Ball");
 									found = true;
@@ -683,71 +569,52 @@ public class Model extends Observable {
 		}
 	}
 
-	//For use with loading in deletes
-	public void deleteGizmo(String name, String gizmo)
-	{
-		if(gizmo.equals("square"))
-		{
-			for(int i = 0; i<squares.size(); i++)
-			{
-				if(squares.get(i).getName().equals(name))
-				{
+	// For use with loading in deletes
+	public void deleteGizmo(String name, String gizmo) {
+		if (gizmo.equals("square")) {
+			for (int i = 0; i < squares.size(); i++) {
+				if (squares.get(i).getName().equals(name)) {
 					squares.remove(i);
 				}
 			}
 		}
-		if(gizmo.equals("absorber"))
-		{
-			for(int i = 0; i<abs.size(); i++)
-			{
-				if(abs.get(i).getName().equals(name))
-				{
+		if (gizmo.equals("absorber")) {
+			for (int i = 0; i < abs.size(); i++) {
+				if (abs.get(i).getName().equals(name)) {
 					abs.remove(i);
 				}
 			}
 		}
-		if(gizmo.equals("circle"))
-		{
-			for(int i = 0; i<circs.size(); i++)
-			{
-				if(circs.get(i).getName().equals(name))
-				{
+		if (gizmo.equals("circle")) {
+			for (int i = 0; i < circs.size(); i++) {
+				if (circs.get(i).getName().equals(name)) {
 					circs.remove(i);
 				}
 			}
 		}
-		if(gizmo.equals("leftflipper"))
-		{
-			for(int i = 0; i<leftFlippers.size(); i++)
-			{
-				if(leftFlippers.get(i).getName().equals(name))
-				{
+		if (gizmo.equals("leftflipper")) {
+			for (int i = 0; i < leftFlippers.size(); i++) {
+				if (leftFlippers.get(i).getName().equals(name)) {
 					leftFlippers.remove(i);
 				}
 			}
 		}
-		if(gizmo.equals("rightflippers"))
-		{
-			for(int i = 0; i<rightFlippers.size(); i++)
-			{
-				if(rightFlippers.get(i).getName().equals(name))
-				{
+		if (gizmo.equals("rightflippers")) {
+			for (int i = 0; i < rightFlippers.size(); i++) {
+				if (rightFlippers.get(i).getName().equals(name)) {
 					rightFlippers.remove(i);
 				}
 			}
 		}
-		if(gizmo.equals("triangle"))
-		{
-			for(int i = 0; i<tris.size(); i++)
-			{
-				if(tris.get(i).getName().equals(name))
-				{
+		if (gizmo.equals("triangle")) {
+			for (int i = 0; i < tris.size(); i++) {
+				if (tris.get(i).getName().equals(name)) {
 					tris.remove(i);
 				}
 			}
 		}
 	}
-	
+
 	public void load() {
 		loadBoard();
 		// System.out.println("starting ball");
@@ -851,7 +718,7 @@ public class Model extends Observable {
 
 		return null;
 	}
-	
+
 	public String getGizmo(int x, int y) {
 		for (int i = 0; i < tris.size(); i++) {
 			if (tris.get(i).getXpos1() == x * 20 && tris.get(i).getYpos1() == y * 20) {
@@ -977,71 +844,57 @@ public class Model extends Observable {
 		return false;
 	}
 
-	public void storeGizConnection(String gizmo)
-	{
+	public void storeGizConnection(String gizmo) {
 		currentGizmo = gizmo;
 		System.out.println(currentGizmo);
 	}
-	
-	public String getGizConnection()
-	{
+
+	public String getGizConnection() {
 		return currentGizmo;
 	}
 
-	public void storeKeyConnection(String key)
-	{
+	public void storeKeyConnection(String key) {
 		currentKey = key;
 		System.out.println(currentKey);
 	}
-	
-	public String getKeyConnection()
-	{
+
+	public String getKeyConnection() {
 		return currentKey;
 	}
-	
-	public void addKeyConnection(String gizmo)
-	{
-		if(gizmo.equals("Square"))
-		{
+
+	public void addKeyConnection(String gizmo) {
+		if (gizmo.equals("Square")) {
 			String cgizmo = getGizConnection();
 			String cKey = getKeyConnection();
-			for(int i = 0; i<squares.size(); i++)
-			{
-				if(squares.get(i).getName().equals(cgizmo))
-				{
+			for (int i = 0; i < squares.size(); i++) {
+				if (squares.get(i).getName().equals(cgizmo)) {
 					squares.get(i).addKeyConnections(cKey);
 				}
 				System.out.println(squares.get(i).getKeyConnections());
 			}
 		}
-		if(gizmo.equals("Triangle"))
-		{
+		if (gizmo.equals("Triangle")) {
 			String cgizmo = getGizConnection();
 			String cKey = getKeyConnection();
-			for(int i = 0; i<tris.size(); i++)
-			{
-				if(tris.get(i).getName().equals(cgizmo))
-				{
+			for (int i = 0; i < tris.size(); i++) {
+				if (tris.get(i).getName().equals(cgizmo)) {
 					tris.get(i).addKeyConnections(cKey);
 				}
 				System.out.println(tris.get(i).getKeyConnections());
 			}
 		}
-		if(gizmo.equals("Circle"))
-		{
+		if (gizmo.equals("Circle")) {
 			String cgizmo = getGizConnection();
 			String cKey = getKeyConnection();
-			for(int i = 0; i<circs.size(); i++)
-			{
-				if(circs.get(i).getName().equals(cgizmo))
-				{
+			for (int i = 0; i < circs.size(); i++) {
+				if (circs.get(i).getName().equals(cgizmo)) {
 					circs.get(i).addKeyConnections(cKey);
 				}
 				System.out.println(circs.get(i).getKeyConnections());
 			}
 		}
 	}
-	
+
 	public void clearBoard() {
 		if (!balls.isEmpty()) {
 			balls.clear();
@@ -1147,31 +1000,49 @@ public class Model extends Observable {
 		}
 		return null;
 	}
-	
-	public void rotate(int x, int y){
-		if(checkTriangles(x, y) != null){
+
+	public void rotate(int x, int y) {
+		if (checkTriangles(x, y) != null) {
 			checkTriangles(x, y).rotate();
 		}
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
-	public void flipFlippers(){
-		leftFlippers.get(0).rotateLines();
+
+	public void flipFlippers() {
+		if (!leftFlippers.isEmpty()) {
+			for (int i = 0; i < leftFlippers.size(); i++) {
+				leftFlippers.get(i).rotateLines();
+			}
+		}
+		if(!rightFlippers.isEmpty()){
+			for (int i = 0; i < rightFlippers.size(); i++) {
+				rightFlippers.get(i).rotateLines();
+			}
+		}
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
-	public void unflipFlippers(){
-		leftFlippers.get(0).unrotateLines();
+
+	public void unflipFlippers() {
+		if (!leftFlippers.isEmpty()) {
+			for (int i = 0; i < leftFlippers.size(); i++) {
+				leftFlippers.get(i).unrotateLines();
+			}
+		}
+		if (!rightFlippers.isEmpty()) {
+			for (int i = 0; i < rightFlippers.size(); i++) {
+				rightFlippers.get(i).unrotateLines();
+			}
+		}
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
-	public void setGrav(double g){
+
+	public void setGrav(double g) {
 		physicsLoop.setGrav(g);
 	}
-	
+
 	public void setFriction(double f) {
 		physicsLoop.setFriction(f);
 	}

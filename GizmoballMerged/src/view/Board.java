@@ -84,7 +84,6 @@ public class Board extends JPanel implements Observer {
 		for (int i = 0; i < gm.getTriangles().size(); i++) {
 			TriangleGizmo tri = gm.getTriangles().get(i);
 			if (tri != null) {
-				System.out.println("tri not null");
 					g2.setColor(tri.getColour());
 					int x1 = (int) tri.getXpos1();
 					int x2 = (int) tri.getXpos2();//-20;

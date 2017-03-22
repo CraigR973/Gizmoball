@@ -505,7 +505,7 @@ public class Gui {
 		frame.addKeyListener(ckl);
 
 
-		frame.addKeyListener(new KeyListener() {
+		board.addKeyListener(new KeyListener() {
 
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -515,6 +515,7 @@ public class Gui {
 					model.releaseBall();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+					System.out.println("left pressed");
 					model.flipFlippers();
 					board.repaint();
 				}

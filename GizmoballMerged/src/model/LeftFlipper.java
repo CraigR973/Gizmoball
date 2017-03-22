@@ -28,9 +28,13 @@ public class LeftFlipper {
 	ArrayList<String> connections = new ArrayList<String>();
 	boolean isConnect = false;
 	boolean isKeyConnect = false;
+	private int rotated;
+
+	ArrayList<Vect> corCen = new ArrayList<Vect>();
+	ArrayList<Circle> corners = new ArrayList<Circle>();
 
 	public LeftFlipper(String name, double x, double y) {
-
+		rotated = 0;
 		colour = Color.YELLOW;
 		double a = 1.0;
 		double b = 1.0;
@@ -46,6 +50,9 @@ public class LeftFlipper {
 		ls4 = new LineSegment(xpos + w, ypos + 5, xpos + w, ypos + h - 5);
 		rotation = 0;
 		setInits();
+		setLs();
+		setCorners();
+		setCornerCentres();
 	}
 
 	public void setName(String n) {
@@ -111,50 +118,67 @@ public class LeftFlipper {
 	public LineSegment getLineSegs(int i) {
 		// ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
 
-		lss.add(ls2);
-		lss.add(ls4);
-
 		return lss.get(i);
 	}
 
 	public Circle getCorners(int i) {
-		ArrayList<Circle> corners = new ArrayList<Circle>();
-
-		Circle corner1 = new Circle(xpos + 5, ypos + 5, 5);
-		Circle corner4 = new Circle(xpos + 5, ypos + height - 5, 5);
-
-		corners.add(corner1);
-		corners.add(corner4);
 
 		return corners.get(i);
 	}
 
+	public void setCorners() {
+		Circle corner1 = new Circle(0, 0, 0);
+		Circle corner4 = new Circle(0, 0, 0);
+
+		if (rotated == 0) {
+			corner1 = new Circle(xpos + 5, ypos + 5, 5);
+			corner4 = new Circle(xpos + 5, ypos + height - 5, 5);
+		} else {
+			corner1 = new Circle(xpos + 5, ypos + 5, 5);
+			corner4 = new Circle(xpos + width - 5, ypos + 5, 5);
+		}
+
+		corners.add(corner1);
+		corners.add(corner4);
+	}
+
 	public Vect getCornerCentres(int i) {
-		ArrayList<Vect> corCen = new ArrayList<Vect>();
-
-		Vect cen1 = new Vect(getXPos() + 5, getYPos() + 5);
-		Vect cen4 = new Vect(getXPos() + 5, getYPos() + height - 5);
-
-		corCen.add(cen1);
-		corCen.add(cen4);
 
 		return corCen.get(i);
 	}
 
+	public void setCornerCentres() {
+		Vect cen1 = new Vect(0, 0);
+		Vect cen4 = new Vect(0, 0);
+		if (rotated == 0) {
+			cen1 = new Vect(getXPos() + 5, getYPos() + 5);
+			cen4 = new Vect(getXPos() + 5, getYPos() + height - 5);
+		} else {
+			cen1 = new Vect(getXPos() + 5, getYPos() + 5);
+			cen4 = new Vect(getXPos() + width - 5, getYPos() + 5);
+		}
+		corCen.add(cen1);
+		corCen.add(cen4);
+	}
+
 	public void rotateLines() {
-		System.out.println("rotating lines");
-		System.out.println("rotating");
 		width = initHeight;
 		height = initWidth;
+		rotated++;
 		clear();
 		setLs();
+		setCorners();
+		setCornerCentres();
 	}
 
 	public void unrotateLines() {
 		width = initWidth;
 		height = initHeight;
+		rotated--;
 		clear();
 		setLs();
+		setCorners();
+		setCornerCentres();
 	}
 
 	public void setInits() {
@@ -163,8 +187,13 @@ public class LeftFlipper {
 	}
 
 	public void setLs() {
-		ls2 = new LineSegment(xpos, ypos + 5, xpos, ypos + height - 5);
-		ls4 = new LineSegment(xpos + width, ypos + 5, xpos + width, ypos + height - 5);
+		if (rotated == 0) {
+			ls2 = new LineSegment(xpos, ypos + 5, xpos, ypos + height - 5);
+			ls4 = new LineSegment(xpos + width, ypos + 5, xpos + width, ypos + height - 5);
+		} else {
+			ls2 = new LineSegment(xpos + 5, ypos, xpos + width - 5, ypos);
+			ls4 = new LineSegment(xpos + 5, ypos + height, xpos + width - 5, ypos + height);
+		}
 
 		lss.add(ls2);
 		lss.add(ls4);
@@ -172,6 +201,8 @@ public class LeftFlipper {
 
 	public void clear() {
 		lss.clear();
+		corners.clear();
+		corCen.clear();
 	}
 
 	public void addConnections(String connect) {

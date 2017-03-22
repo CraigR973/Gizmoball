@@ -1,6 +1,4 @@
-/tests/
-/physics/
-/view/
-/main/
 /model/
-/controller/
+/physics/
+/tests/
+/view/
