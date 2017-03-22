@@ -689,7 +689,7 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
 				leftFlippers.remove(i);
 				this.notifyObservers();
 				this.setChanged();
@@ -697,7 +697,7 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
 				rightFlippers.remove(i);
 				this.notifyObservers();
 				this.setChanged();
@@ -741,12 +741,12 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
 				return leftFlippers.get(i).getName();
 			}
 		}
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
 				return rightFlippers.get(i).getName();
 			}
 		}
@@ -827,12 +827,12 @@ public class Model extends Observable {
 			}
 		}
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
 				return true;
 			}
 		}
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
 				return true;
 			}
 		}
@@ -976,7 +976,7 @@ public class Model extends Observable {
 
 	public RightFlipper checkRFs(int x, int y) {
 		for (int i = 0; i < rightFlippers.size(); i++) {
-			if (rightFlippers.get(i).getXPos() == x * 20 && rightFlippers.get(i).getYPos() == y * 20) {
+			if ((rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos() == y * 20) || (rightFlippers.get(i).getXPos()-10 == x * 20 && rightFlippers.get(i).getYPos()+20 == y * 20)) {
 				return rightFlippers.get(i);
 			}
 		}
@@ -985,7 +985,7 @@ public class Model extends Observable {
 
 	public LeftFlipper checkLFs(int x, int y) {
 		for (int i = 0; i < leftFlippers.size(); i++) {
-			if (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) {
+			if ((leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos() == y * 20) || (leftFlippers.get(i).getXPos() == x * 20 && leftFlippers.get(i).getYPos()+20 == y * 20)) {
 				return leftFlippers.get(i);
 			}
 		}
