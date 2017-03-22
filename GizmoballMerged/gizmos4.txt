@@ -72,7 +72,6 @@ Ball B 1.0 11.0 0.0 0.0
 Move S1 14 1
 Move T2 16 15
 Move C54 10 10
-Move B 11 1
 Delete S2
 Delete T
 Delete C43

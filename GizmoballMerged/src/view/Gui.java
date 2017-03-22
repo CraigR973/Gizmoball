@@ -440,12 +440,18 @@ public class Gui {
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					
+					//System.out.println("Space pressed");
 					model.releaseBall();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
 					System.out.println("left pressed");
-					model.flipFlippers();
+					model.flipLeftFlippers();
+					board.repaint();
+				}
+				
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					System.out.println("right pressed");
+					model.flipRightFlippers();
 					board.repaint();
 				}
 			}
@@ -454,19 +460,23 @@ public class Gui {
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					
+					//System.out.println("Space released");
 					model.captureBall();
 				}
 				if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-					model.unflipFlippers();
+					model.unflipLeftFlippers();
+					board.repaint();
+				}
+				if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+					model.unflipRightFlippers();
 					board.repaint();
 				}
 			}
 
 			@Override
-			public void keyTyped(KeyEvent e) {
+			public void keyTyped(KeyEvent arg0) {
 				// TODO Auto-generated method stub
-
+				
 			}
 		});
 

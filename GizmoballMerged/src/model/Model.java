@@ -96,6 +96,10 @@ public class Model extends Observable {
 	public ArrayList<RightFlipper> getRFlipper() {
 		return rightFlippers;
 	}
+	
+	public Walls getWalls() {
+		return gws;
+	}
 
 	public void addSquare(SquareGizmo sq) {
 		squares.add(sq);
@@ -777,7 +781,7 @@ public class Model extends Observable {
 
 
 	public void addAbsorberGizmo(int x, int y, int width, int height) {
-		String name = "A";
+		String name = "A" + x + y;
 		Absorber a = new Absorber(name, x, y, width, height);
 		if (!checkGizmos(0, y)) {
 			abs.add(a);
@@ -1030,12 +1034,17 @@ public class Model extends Observable {
 		this.notifyObservers();
 	}
 
-	public void flipFlippers() {
+	public void flipLeftFlippers() {
 		if (!leftFlippers.isEmpty()) {
 			for (int i = 0; i < leftFlippers.size(); i++) {
 				leftFlippers.get(i).rotateLines();
 			}
 		}
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void flipRightFlippers(){
 		if (!rightFlippers.isEmpty()) {
 			for (int i = 0; i < rightFlippers.size(); i++) {
 				rightFlippers.get(i).rotateLines();
@@ -1045,20 +1054,28 @@ public class Model extends Observable {
 		this.notifyObservers();
 	}
 
-	public void unflipFlippers() {
+	public void unflipLeftFlippers() {
 		if (!leftFlippers.isEmpty()) {
 			for (int i = 0; i < leftFlippers.size(); i++) {
 				leftFlippers.get(i).unrotateLines();
 			}
 		}
+	
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public void unflipRightFlippers(){
 		if (!rightFlippers.isEmpty()) {
 			for (int i = 0; i < rightFlippers.size(); i++) {
 				rightFlippers.get(i).unrotateLines();
 			}
 		}
+		
 		this.setChanged();
 		this.notifyObservers();
 	}
+
 
 	public void setGrav(double g) {
 		physicsLoop.setGrav(g);
