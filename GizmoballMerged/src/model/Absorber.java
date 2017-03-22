@@ -12,6 +12,9 @@ public class Absorber {
 	private double xpos;
 	private double ypos;
 	private LineSegment ls;
+	private LineSegment ls1;
+	private LineSegment ls2;
+	ArrayList<LineSegment> lss = new ArrayList<LineSegment>();
 	private String absName;
 	ArrayList<String> keyConnections = new ArrayList<String>();
 	ArrayList<String> connections = new ArrayList<String>();
@@ -27,6 +30,11 @@ public class Absorber {
 		xpos = x*20;
 		ypos = y*20;
 		ls = new LineSegment(xpos, ypos+height - 1, xpos + width, ypos+height-1);
+		ls1 = new LineSegment(xpos, ypos, xpos, ypos+height);
+		ls2 = new LineSegment(xpos+width, ypos, xpos+width, ypos+height);
+		lss.add(ls);
+		lss.add(ls2);
+		lss.add(ls1);
 		setName(name);
 	}
 	
@@ -110,5 +118,9 @@ public class Absorber {
 	
 	public void captureBall(Ball b){
 		b.stop();
+	}
+	
+	public ArrayList<LineSegment> getLs(){
+		return lss;
 	}
 }

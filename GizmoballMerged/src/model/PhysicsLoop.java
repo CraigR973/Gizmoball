@@ -177,7 +177,8 @@ public class PhysicsLoop {
 		// Time to collide with absorber
 		if (!abs.isEmpty()) {
 			for (int i = 0; i < abs.size(); i++) {
-				LineSegment ls = abs.get(i).getAbsLineSeg();
+				for(int j = 0; j < abs.get(i).getLs().size(); j++){
+				LineSegment ls = abs.get(i).getLs().get(j);
 				time = Geometry.timeUntilWallCollision(ls, ballCircle, ballVelocity);
 				if (time < shortestTime) {
 					shortestTime = time;
@@ -198,7 +199,7 @@ public class PhysicsLoop {
 						newVelo = Geometry.reflectWall(ls, velo, 1.0);
 						ball.get(n).setVelo(velo);
 					}
-
+				}
 				}
 			}
 		}
