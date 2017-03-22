@@ -21,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import controller.AddAbsorberMouseListener;
 import controller.AddBallMouseListener;
 import controller.AddGizmoMouseListener;
 import controller.BuildListener3;
@@ -211,8 +212,10 @@ public class Gui {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber", board);
-				board.addMouseListener(sml);
+//				AddGizmoMouseListener sml = new AddGizmoMouseListener(model, "Absorber", board);
+//				board.addMouseListener(sml);
+				AddAbsorberMouseListener aml = new AddAbsorberMouseListener(model, board);
+				board.addMouseListener(aml);
 			}
 		});
 		addAbsorberButton.setFont(gf);
@@ -641,8 +644,7 @@ public class Gui {
 					buttons1 = runButtons;
 					switchMode = true;
 					board.setBackground(Color.BLACK);
-					
-
+					DeleteGizmoMouseListener.setActive(true);
 					if (build.getComponentCount() != 0) {
 						build.removeAll();
 					}
@@ -653,7 +655,7 @@ public class Gui {
 					buttons1 = buildButtons;
 					board.setBackground(Color.WHITE);
 				    ((RunListener2) listener).getTimer().stop();
-
+				    DeleteGizmoMouseListener.setActive(false);
 					if (build.getComponentCount() != 0) {
 						build.removeAll();
 

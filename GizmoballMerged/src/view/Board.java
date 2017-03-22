@@ -91,7 +91,7 @@ public class Board extends JPanel implements Observer {
 					int y1 = (int) tri.getYpos1();//+20;
 					int y2 = (int) tri.getYpos2();
 					int y3 = (int) tri.getYpos3();//-20;
-					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y2, y1, y3 }, 3);
+					g2.drawPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
 					g2.fillPolygon(new int[] { x1, x2, x3 }, new int[] { y1, y2, y3 }, 3);
 			}
 		}

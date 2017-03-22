@@ -120,14 +120,14 @@ public class GizmosTest {
 	@Test
 	public void addAbsorberSize() {
 		assertEquals(model.getAbs().size(),0);
-		model.addAbsorberGizmo(0);
+		model.addAbsorberGizmo(0, 19, 20, 20);
 		assertEquals(model.getAbs().size(),1);
 	}
 	
 	//Checks to make sure absorber is placed in correct x and y points
 	@Test
 	public void checkAbsorberPlacement() {
-		model.addAbsorberGizmo(0);
+		model.addAbsorberGizmo(0, 19, 20, 20);
 		ArrayList<Absorber> abs = model.getAbs();
 		int x = (int) (abs.get(0).getXPos()/20);
 		assertEquals(x,0);

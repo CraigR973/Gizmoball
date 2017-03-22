@@ -67,7 +67,7 @@ public class AddGizmoMouseListener implements MouseListener {
 					break;
 				case "Absorber":
 					System.out.println("adding abs");
-					model.addAbsorberGizmo(y);
+//					model.addAbsorberGizmo(y);
 					break;
 				}
 			}

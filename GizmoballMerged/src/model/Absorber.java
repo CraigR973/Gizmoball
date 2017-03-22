@@ -18,15 +18,15 @@ public class Absorber {
 	boolean isConnect = false;
 	boolean isKeyConnect = false;
 	
-	public Absorber(String name, double x, double y){
-		double w = 400;
-		double h = 20;
+	public Absorber(String name, double x, double y, double w, double h){
+//		double w = 400;
+//		double h = 20;
 		colour = Color.MAGENTA;
-		width = w;
-		height = h;
-		xpos = x;
+		width = w*20;
+		height = h*20;
+		xpos = x*20;
 		ypos = y*20;
-		ls = new LineSegment(xpos, ypos+h-1, xpos + w, ypos+h-1);
+		ls = new LineSegment(xpos, ypos+height - 1, xpos + width, ypos+height-1);
 		setName(name);
 	}
 	
@@ -97,10 +97,18 @@ public class Absorber {
 	}
 	
 	public double setXPos(){
-		return (xpos + width - 15);
+		return (xpos + width - 10);
 	}
 	
 	public double setYPos(){
-		return (ypos + height - 15);
+		return (ypos + height/2);
+	}
+	
+	public void releaseBall(Ball b){
+		b.start();
+	}
+	
+	public void captureBall(Ball b){
+		b.stop();
 	}
 }

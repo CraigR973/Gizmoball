@@ -24,8 +24,8 @@ public class PhysicsLoop {
 	private double grav;
 
 	public PhysicsLoop(ArrayList<Ball> b, Walls walls, ArrayList<Absorber> absorber, boolean keyPress,
-			ArrayList<SquareGizmo> sqs, ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles, ArrayList<LeftFlipper> leftFlipper,
-			 ArrayList<RightFlipper> rightFlipper) {
+			ArrayList<SquareGizmo> sqs, ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles,
+			ArrayList<LeftFlipper> leftFlipper, ArrayList<RightFlipper> rightFlipper) {
 		ball = b;
 		abs = absorber;
 		keyPressed = keyPress;
@@ -38,82 +38,81 @@ public class PhysicsLoop {
 		friction = 10;
 		grav = 20;
 	}
-	
+
 	public double getGrav() {
 		return grav;
-	} 
-	
+	}
+
 	public void setGrav(double g) {
 		grav = g;
 	}
-	
+
 	public double getFriction() {
 		return friction;
-	} 
-	
+	}
+
 	public void setFriction(double f) {
 		friction = f;
 	}
-	
 
 	public void moveBall() {
 		if (!ball.isEmpty()) {
-			for(int n = 0; n < ball.size(); n++){
-			double moveTime = 0.02; // 0.02 = 50 times per second as per
-									// Gizmoball
-			double xVel = ball.get(n).getVelo().x();
-			double yVel = ball.get(n).getVelo().y();
+			for (int n = 0; n < ball.size(); n++) {
+				double moveTime = 0.02; // 0.02 = 50 times per second as per
+										// Gizmoball
+				double xVel = ball.get(n).getVelo().x();
+				double yVel = ball.get(n).getVelo().y();
 
-			Ball ba = ball.get(n);
+				Ball ba = ball.get(n);
 
-		//	v new = v old + grav * time;
-			
+				// v new = v old + grav * time;
 
-//			if (xVel > 0) {
-//				 friction = ba.getVelo().x() * (1 - 0.025 * 0.02 -
-//				 (ba.getVelo().x() / 20) * Math.abs(ba.getVelo().x()) *
-//				 0.02);
-//				xVel -= friction;
-//			} else if (xVel < 0) {
-//				 friction = ba.getVelo().x() * (1 - 0.025 * 0.02 -
-//				 (ba.getVelo().x() / 20) * Math.abs(ba.getVelo().x()) *
-//				 0.02);
-//				xVel += friction;
-//			}
-//			 friction = ba.getVelo().y() * (1 - 0.025 * 0.02 -
-//			 (ba.getVelo().y() / 20) * Math.abs(ba.getVelo().y()) * 0.02);
-//			yVel += grav + friction;
-//
-//			 if (xVel > 0) {
-//			 xVel -= friction;
-//			 } else if (xVel < 0) {
-//			 xVel += friction;
-//			 }
-//			 grav = 20;
-	//		 friction = 5;
-			 yVel += grav + friction;
+				// if (xVel > 0) {
+				// friction = ba.getVelo().x() * (1 - 0.025 * 0.02 -
+				// (ba.getVelo().x() / 20) * Math.abs(ba.getVelo().x()) *
+				// 0.02);
+				// xVel -= friction;
+				// } else if (xVel < 0) {
+				// friction = ba.getVelo().x() * (1 - 0.025 * 0.02 -
+				// (ba.getVelo().x() / 20) * Math.abs(ba.getVelo().x()) *
+				// 0.02);
+				// xVel += friction;
+				// }
+				// friction = ba.getVelo().y() * (1 - 0.025 * 0.02 -
+				// (ba.getVelo().y() / 20) * Math.abs(ba.getVelo().y()) * 0.02);
+				// yVel += grav + friction;
+				//
+				// if (xVel > 0) {
+				// xVel -= friction;
+				// } else if (xVel < 0) {
+				// xVel += friction;
+				// }
+				// grav = 20;
+				// friction = 5;
+				yVel += grav + friction;
 
-			physics = new Vect(xVel, yVel);
-			ba.setVelo(physics);
+				physics = new Vect(xVel, yVel);
+				ba.setVelo(physics);
 
-			CollisionDetails cd = timeUntilCollision(n);
+				CollisionDetails cd = timeUntilCollision(n);
 
-			double tuc = cd.getTuc();
-			if (tuc > moveTime) {
-				// No collision ...
-				ba = movelBallForTime(ball.get(n), moveTime);
-			} else {
-				// We've got a collision in tuc
-				ba = movelBallForTime(ball.get(n), tuc);
-				// Post collision velocity ...
-				ba.setVelo(cd.getVelo());
+				double tuc = cd.getTuc();
+				if (tuc > moveTime) {
+					// No collision ...
+					ba = movelBallForTime(ball.get(n), moveTime);
+				} else {
+					// We've got a collision in tuc
+					ba = movelBallForTime(ball.get(n), tuc);
+					// Post collision velocity ...
+					ba.setVelo(cd.getVelo());
+				}
+
+				if (ba.getExactX() > 400 || ball.get(n).getExactY() > 400) {
+					ba.setExactX(390);
+					ba.setExactY(385);
+				}
 			}
-
-			if (ba.getExactX() > 400 || ball.get(n).getExactY() > 400) {
-				ba.setExactX(390);
-				ba.setExactY(385);
-			}
-		}}
+		}
 	}
 
 	public CollisionDetails timeUntilCollision(int n) {
@@ -148,16 +147,15 @@ public class PhysicsLoop {
 					shortestTime = time;
 					// newVelo = Geometry.reflectWall(ls, ball.getVelo(), 1.0);
 					if (time < 0.02) {
-//						ball.get(n).setExactX(395);
-//						ball.get(n).setExactY(385);
+						// ball.get(n).setExactX(395);
+						// ball.get(n).setExactY(385);
+						abs.get(i).captureBall(ball.get(n));
 						ball.get(n).setExactX(abs.get(i).setXPos());
-						ball.get(n).setExactY(abs.get(i).setYPos());
+						ball.get(n).setExactY(abs.get(i).setYPos() - ball.get(n).getRadius() * 2);
 						while (keyPressed == false) {
-							if(ball.get(n).getExactY() > (abs.get(i).getYPos()+abs.get(i).getHeight()-15)){
-								ball.get(n).setExactX(abs.get(i).setYPos());
-							}
-							ball.get(n).setVelo(new Vect(0, 0));
-							ball.get(n).stop();
+							// ball.get(n).setVelo(new Vect(0, 0));
+							// ball.get(n).stop();
+							// abs.get(i).captureBall(ball.get(n));
 							break;
 						}
 						Vect velo = new Vect(0, 1000);
@@ -177,7 +175,7 @@ public class PhysicsLoop {
 					if (time < shortestTime) {
 						shortestTime = time;
 						newVelo = Geometry.reflectWall(squares.get(i).getLineSegs(j), ball.get(n).getVelo(), 1.0);
-						if (time < 0.02){
+						if (time < 0.02) {
 							squares.get(i).setColour(randColour());
 						}
 					}
@@ -187,11 +185,11 @@ public class PhysicsLoop {
 						shortestTime = time;
 						newVelo = Geometry.reflectCircle(squares.get(i).getCornerCentres(j),
 								ball.get(n).getCentreOfBall(), ball.get(n).getVelo(), 1.0);
-						if (time < 0.02){
+						if (time < 0.02) {
 							squares.get(i).setColour(randColour());
 						}
 					}
-					
+
 				}
 			}
 		}
@@ -205,11 +203,11 @@ public class PhysicsLoop {
 					if (time < shortestTime) {
 						shortestTime = time;
 						newVelo = Geometry.reflectWall(tris.get(i).getLinSegs(j), ball.get(n).getVelo(), 1.0);
-						
+
 						if (time < 0.02) {
 							tris.get(i).setColour(randColour());
 						}
-						
+
 					}
 
 					// Corner collisions for triangles
@@ -219,7 +217,7 @@ public class PhysicsLoop {
 						newVelo = Geometry.reflectCircle(tris.get(i).getCornerCentres(j), ball.get(n).getCentreOfBall(),
 								ball.get(n).getVelo(), 1.0);
 					}
-					if(time < 0.02){
+					if (time < 0.02) {
 						tris.get(i).setColour(randColour());
 					}
 				}
@@ -235,7 +233,7 @@ public class PhysicsLoop {
 					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.get(n).getCentreOfBall(),
 							ball.get(n).getVelo(), 1.0);
 
-					if(time < 0.02){
+					if (time < 0.02) {
 						circs.get(i).setColour(randColour());
 					}
 				}
@@ -246,23 +244,25 @@ public class PhysicsLoop {
 					newVelo = Geometry.reflectCircle(circs.get(i).getCircleCentre(), ball.get(n).getCentreOfBall(),
 							ball.get(n).getVelo(), 1.0);
 
-					if(time < 0.02){
+					if (time < 0.02) {
 						circs.get(i).setColour(randColour());
 					}
 				}
 			}
 		}
-		//Time to collide to left flippers
+		// Time to collide to left flippers
 		if (!leftFlippers.isEmpty()) {
 			for (int i = 0; i < leftFlippers.size(); i++) {
 				for (int j = 0; j < 2; j++) {
-					time = Geometry.timeUntilWallCollision(leftFlippers.get(i).getLineSegs(j), ballCircle, ballVelocity);
+					time = Geometry.timeUntilWallCollision(leftFlippers.get(i).getLineSegs(j), ballCircle,
+							ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
 						newVelo = Geometry.reflectWall(leftFlippers.get(i).getLineSegs(j), ball.get(n).getVelo(), 1.0);
 					}
 
-					time = Geometry.timeUntilCircleCollision(leftFlippers.get(i).getCorners(j), ballCircle, ballVelocity);
+					time = Geometry.timeUntilCircleCollision(leftFlippers.get(i).getCorners(j), ballCircle,
+							ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
 						newVelo = Geometry.reflectCircle(leftFlippers.get(i).getCornerCentres(j),
@@ -271,18 +271,20 @@ public class PhysicsLoop {
 				}
 			}
 		}
-		
-		//Time to collide with right flippers
+
+		// Time to collide with right flippers
 		if (!rightFlippers.isEmpty()) {
 			for (int i = 0; i < rightFlippers.size(); i++) {
 				for (int j = 0; j < 2; j++) {
-					time = Geometry.timeUntilWallCollision(rightFlippers.get(i).getLineSegs(j), ballCircle, ballVelocity);
+					time = Geometry.timeUntilWallCollision(rightFlippers.get(i).getLineSegs(j), ballCircle,
+							ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
 						newVelo = Geometry.reflectWall(rightFlippers.get(i).getLineSegs(j), ball.get(n).getVelo(), 1.0);
 					}
 
-					time = Geometry.timeUntilCircleCollision(rightFlippers.get(i).getCorners(j), ballCircle, ballVelocity);
+					time = Geometry.timeUntilCircleCollision(rightFlippers.get(i).getCorners(j), ballCircle,
+							ballVelocity);
 					if (time < shortestTime) {
 						shortestTime = time;
 						newVelo = Geometry.reflectCircle(rightFlippers.get(i).getCornerCentres(j),
@@ -306,13 +308,13 @@ public class PhysicsLoop {
 		ball.setExactY(newY);
 		return ball;
 	}
-	
-	private Color randColour(){
+
+	private Color randColour() {
 		Random rnd = new Random();
 		int red = rnd.nextInt();
 		int blue = rnd.nextInt();
 		int green = rnd.nextInt();
-		
+
 		Color randomColour = new Color(rnd.nextInt(0xFFFFFF));
 		return randomColour;
 	}

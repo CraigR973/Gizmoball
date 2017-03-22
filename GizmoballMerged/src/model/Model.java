@@ -179,9 +179,13 @@ public class Model extends Observable {
 				} else if (cGizmo.equals("Absorber")) {
 					String value1 = st.nextToken();
 					String value2 = st.nextToken();
+					String value3 = st.nextToken();
+					String value4 = st.nextToken();
 					double nvalue1 = Double.parseDouble(value1);
 					double nvalue2 = Double.parseDouble(value2);
-					Absorber a = new Absorber(name, nvalue1, nvalue2);
+					double nvalue3 = Double.parseDouble(value3);
+					double nvalue4 = Double.parseDouble(value4);
+					Absorber a = new Absorber(name, nvalue1, nvalue2, nvalue3, nvalue4);
 					abs.add(a);
 				} else if (cGizmo.equals("Ball")) {
 					String value1 = st.nextToken();
@@ -761,9 +765,19 @@ public class Model extends Observable {
 		return null;
 	}
 
-	public void addAbsorberGizmo(int y) {
+//	public void addAbsorberGizmo(int y) {
+//		String name = "A";
+//		Absorber a = new Absorber(name, 0, y);
+//		if (!checkGizmos(0, y)) {
+//			abs.add(a);
+//		}
+//		this.notifyObservers();
+//		this.setChanged();
+//	}
+	
+	public void addAbsorberGizmo(int x, int y, int width, int height) {
 		String name = "A";
-		Absorber a = new Absorber(name, 0, y);
+		Absorber a = new Absorber(name, x, y, width, height);
 		if (!checkGizmos(0, y)) {
 			abs.add(a);
 		}
