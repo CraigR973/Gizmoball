@@ -22,6 +22,8 @@ public class PhysicsLoop {
 	private Vect physics;
 	private double friction;
 	private double grav;
+	private double mu;
+	private double mu2;
 
 	public PhysicsLoop(ArrayList<Ball> b, Walls walls, ArrayList<Absorber> absorber, boolean keyPress,
 			ArrayList<SquareGizmo> sqs, ArrayList<CircleGizmo> cirs, ArrayList<TriangleGizmo> triangles,
@@ -35,8 +37,10 @@ public class PhysicsLoop {
 		leftFlippers = leftFlipper;
 		rightFlippers = rightFlipper;
 		gws = walls;
-		friction = 10;
+		friction = 0.025;
 		grav = 20;
+		mu = 0.025;
+		mu2 = 0.025;
 	}
 
 	public double getGrav() {
@@ -53,6 +57,14 @@ public class PhysicsLoop {
 
 	public void setFriction(double f) {
 		friction = f;
+	}
+
+	public void setMu(double m) {
+		mu = m;
+	}
+
+	public void setMu2(double m) {
+		mu2 = m;
 	}
 
 	public void moveBall() {
@@ -89,7 +101,31 @@ public class PhysicsLoop {
 				// }
 				// grav = 20;
 				// friction = 5;
-				yVel += grav + friction;
+
+
+				double frictionX = Math.abs((xVel * (1 - mu * 0.02 - mu2 * xVel * 0.02))) / 50;
+				double frictionY = Math.abs((yVel * (1 - mu * 0.02 - mu2 * yVel * 0.02))) / 50;
+				
+				// yVel += grav + friction;
+				if (yVel < 0) {
+					yVel +=  frictionY;
+				}
+				if (yVel > 0) {
+					yVel -= frictionY;
+				}
+				yVel+=grav;
+				// if (xVel > 0) {
+				// xVel -= friction;
+				// }
+				// if (xVel < 0) {
+				// xVel += friction;
+				// }
+				if (xVel > 0) {
+					xVel -= frictionX;
+				}
+				if (xVel < 0) {
+					xVel += frictionX;
+				}
 
 				physics = new Vect(xVel, yVel);
 				ba.setVelo(physics);

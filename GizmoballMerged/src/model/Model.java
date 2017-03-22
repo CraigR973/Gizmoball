@@ -1076,4 +1076,9 @@ public class Model extends Observable {
 	public void setFriction(double f) {
 		physicsLoop.setFriction(f);
 	}
+	
+	public void setFrictionalConstants(double mu, double mu2){
+		physicsLoop.setMu(mu);
+		physicsLoop.setMu2(mu2);
+	}
 }

@@ -308,7 +308,10 @@ public class Gui {
 		//		friction = PhysicsLoop.getGrav();
 				
 				
-				friction = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your new friction value"));
+//				friction = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter your new friction value"));
+				double mu = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter a value for mu"));
+				double mu2 = Double.parseDouble(JOptionPane.showInputDialog(frame, "Please enter a value for mu2"));
+				friction = mu + mu2;
 				System.out.println(friction);
 				model.setFriction(friction);
 				
@@ -361,8 +364,6 @@ public class Gui {
 				//gets gizmos user wants to add connection to
 				MouseListener kcml = new KeyConnectMouseListener(model, board);
 				board.addMouseListener(kcml);
-				
-			
 				
 				//gets button user wants to connect to gizmo
 //				frame.addKeyListener(new KeyListener() {
